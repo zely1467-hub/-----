@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="ja" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lexis - Minimal Vocabulary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* スムーズな慣性スクロールと非表示のスクロールバー */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Apple風のスムーズなアニメーション */
+        .card-transition { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
+        /* 意味表示エリアのフェードアニメーション */
+        .meaning-transition { transition: opacity 0.2s ease, transform 0.2s ease; }
+    </style>
+</head>
+<body class="bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100 min-h-screen flex flex-col justify-between font-sans overflow-hidden antialiased transition-colors duration-300">
+
+   <header class="flex justify-between items-center px-6 pt-12 pb-4 z-10 relative h-24">
+        <h1 id="appTitle" class="text-xl font-semibold tracking-tight transition-all duration-300 transform translate-x-0 opacity-100">Lexis</h1>
+        
+        <div id="searchBarContainer" class="absolute left-6 right-6 bottom-4 flex items-center bg-zinc-200/60 dark:bg-zinc-800/60 rounded-full px-4 py-2 transition-all duration-300 pointer-events-none opacity-0 scale-95 origin-right">
+            <i data-lucide="search" class="w-4 h-4 text-zinc-400 mr-2 flex-shrink-0"></i>
+            <input id="searchInput" type="text" placeholder="単語を検索..." class="w-full bg-transparent text-sm focus:outline-none placeholder-zinc-400 dark:placeholder-zinc-500 text-zinc-900 dark:text-zinc-100">
+            <button id="closeSearchBtn" class="p-1 rounded-full hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50 transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-zinc-400"></i>
+            </button>
+        </div>
+
+        <div id="headerActionButtons" class="flex items-center gap-2 transition-all duration-300 transform translate-x-0 opacity-100">
+            <button id="searchBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">
+                <i data-lucide="search" class="w-5 h-5"></i>
+            </button>
+            <button id="historyBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">
+                <i data-lucide="history" class="w-5 h-5"></i>
+            </button>
+            <button id="themeToggle" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">
+                <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col justify-center items-center px-6 relative w-full touch-none select-none">
+        <div id="card" class="w-full max-w-sm aspect-[3/4] bg-white dark:bg-zinc-900 rounded-[28px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] p-8 flex flex-col justify-between card-transition border border-zinc-100/50 dark:border-zinc-800/50">
+            
+            <div class="space-y-2">
+                <div class="flex justify-between items-start">
+                    <span id="wordIndex" class="text-xs font-medium text-zinc-400 tracking-wider">1 / 5</span>
+                    <span id="meaningModeBadge" class="text-[10px] uppercase tracking-widest bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-500 transition-colors">日本語</span>
+                </div>
+                <h2 id="wordTitle" class="text-3xl font-bold tracking-tight pt-2">altruism</h2>
+                <p id="wordPhonetic" class="text-sm font-mono text-zinc-400 tracking-wide">/ˈæltruɪzəm/</p>
+                
+                <div id="meaningContainer" class="cursor-pointer py-2 group">
+                    <p id="wordMeaning" class="text-base text-zinc-600 dark:text-zinc-300 font-medium meaning-transition group-active:scale-[0.98]">利他主義、利他心</p>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col justify-center my-6 overflow-y-auto no-scrollbar space-y-4">
+                <div class="space-y-2">
+                    <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Standard Example</p>
+                    <p id="wordExample" class="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 italic">"Many people question the psychology behind pure altruism."</p>
+                </div>
+                
+                <div id="aiSection" class="space-y-2 hidden border-t border-zinc-100 dark:border-zinc-800 pt-3">
+                    <p class="text-xs font-semibold text-teal-500 dark:text-teal-400 uppercase tracking-wider flex items-center gap-1">
+                        <i data-lucide="sparkles" class="w-3 h-3"></i> AI-Generated Context
+                    </p>
+                    <p id="aiExample" class="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300 font-medium"></p>
+                </div>
+            </div>
+
+            <button id="aiBtn" class="w-full py-3.5 bg-zinc-900 dark:bg-white text-white dark:text-black rounded-xl font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform duration-100 shadow-sm">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span id="aiBtnText">AIに新しい例文を頼む</span>
+            </button>
+        </div>
+
+        <div id="dots" class="flex gap-1.5 mt-6"></div>
+    </main>
+
+    <footer class="text-center pb-8 pt-2">
+        <p class="text-[11px] text-zinc-400 font-medium">左右にスワイプで変更 / 意味をタップで切り替え</p>
+    </footer>
+
+    <div id="historySheet" class="fixed inset-0 bg-black/30 dark:bg-black/60 backdrop-blur-sm z-20 hidden opacity-0 transition-opacity duration-300">
+        <div id="sheetContent" class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white dark:bg-zinc-900 rounded-t-[28px] max-h-[80vh] flex flex-col translate-y-full transition-transform duration-300 cubic-bezier(0.16, 1, 0.3, 1)">
+            <div class="w-full flex justify-center py-3 cursor-pointer" id="closeHistory">
+                <div class="w-9 h-1 bg-zinc-300 dark:bg-zinc-700 rounded-full"></div>
+            </div>
+            <div class="px-6 pb-4 flex justify-between items-center">
+                <h3 class="text-lg font-bold tracking-tight">学習の履歴</h3>
+                <button id="clearHistory" class="text-xs text-zinc-400 hover:text-red-500 transition-colors">すべて消去</button>
+            </div>
+            <div id="historyList" class="flex-1 overflow-y-auto px-6 pb-12 space-y-3 no-scrollbar">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. データ定義 (definitionを追加) ---
+        const wordData = [
+            {
+                word: "altruism",
+                phonetic: "/ˈæltruɪzəm/",
+                meaning: "利他主義、利他心",
+                definition: "The belief in or practice of disinterested and selfless concern for the well-being of others.",
+                example: "Many people question the psychology behind pure altruism.",
+                aiPool: [
+                    "True altruism involves helping others without expecting any reward.",
+                    "The cooperative behavior of bees is a classic example of biological altruism.",
+                    "Acts of altruism can significantly improve overall community well-being."
+                ]
+            },
+            {
+                word: "aesthetic",
+                phonetic: "/ɛsˈθɛtɪk/",
+                meaning: "美的な、美学、美意識",
+                definition: "Concerned with beauty or the appreciation of beauty.",
+                example: "The app's design reflects a clean, minimalist Apple-like aesthetic.",
+                aiPool: [
+                    "The modern café was designed with a strict industrial aesthetic.",
+                    "She created a cohesive visual aesthetic for her frontend portfolio.",
+                    "Minimalism prioritizes functional beauty over superficial aesthetic elements."
+                ]
+            },
+            {
+                word: "convergence",
+                phonetic: "/kənˈvɜːrdʒəns/",
+                meaning: "収束、集中、一体化",
+                definition: "The process of coming together from different directions so as eventually to meet.",
+                example: "The convergence of AI and frontend design opens up endless creative possibilities.",
+                aiPool: [
+                    "Probability theory states that empirical results show convergence to the mean over time.",
+                    "The convergence of different art styles created a unique club dynamic.",
+                    "We are witnessing the technological convergence of mobile phones and advanced computing."
+                ]
+            },
+            {
+                word: "prevention",
+                phonetic: "/prɪˈvɛnʃən/",
+                meaning: "防止、予防、阻止",
+                definition: "The action of stopping something from happening or arising.",
+                example: "In cybersecurity, threat prevention is often more critical than cure.",
+                aiPool: [
+                    "Effective risk prevention requires a thorough understanding of system vulnerabilities.",
+                    "Regular software updates are essential for the prevention of security breaches."
+                ]
+            },
+            {
+                word: "minimalism",
+                phonetic: "/ˈmɪnɪməlɪzəm/",
+                meaning: "ミニマリズム、最小限主義",
+                definition: "A style or technique that is characterized by extreme spareness and simplicity.",
+                example: "The interface embraces minimalism, stripping away unnecessary elements.",
+                aiPool: [
+                    "Digital minimalism helps users focus on software that truly matters to them.",
+                    "Architectural minimalism often highlights the intrinsic beauty of simple materials."
+                ]
+            },
+            {
+                word: "articulate",
+                phonetic: "/ɑːrˈtɪkjuleɪt/",
+                meaning: "（考えなどを）明確に表現する、はっきりと述べる",
+                definition: "To express clearly and effectively.",
+                example: "She was able to articulate her ideas clearly during the presentation, making her argument very convincing.",
+                aiPool: [
+                    "A great designer must be able to articulate the reasoning behind user experience choices.",
+                    "It can be challenging to articulate abstract design concepts to stakeholders without mockups.",
+                    "The new UI guidelines help developers articulate technical concepts more consistently."
+                ]
+            },
+            {
+                word: "assertive",
+                phonetic: "/əˈsɜːrtɪv/",
+                meaning: "自信に満ちた、毅然とした、自己主張の強い",
+                definition: "Having a strong or distinctive flavor or quality, often used in communication to express one's views confidently.",
+                example: "The speaker's assertive tone showed confidence and authority on the subject matter.",
+                aiPool: [
+                    "In collaborative design, being assertive about your creative choices helps build mutual respect.",
+                    "An assertive communication style allows developers to set realistic project deadlines clearly.",
+                    "She learned to be more assertive when presenting user interface solutions to the tech team."
+                ]
+            },
+            {
+                word: "assertive",
+                phonetic: "/əˈsɜːrtɪv/",
+                meaning: "自信に満ちた、毅然とした、自己主張の強い",
+                definition: "Having a strong or distinctive flavor or quality, often used in communication to express one's views confidently.",
+                example: "The speaker's assertive tone showed confidence and authority on the subject matter.",
+                aiPool: [
+                    "In collaborative design, being assertive about your creative choices helps build mutual respect.",
+                    "An assertive communication style allows developers to set realistic project deadlines clearly.",
+                    "She learned to be more assertive when presenting user interface solutions to the tech team."
+                ]
+            },
+            {
+                word: "coherent",
+                phonetic: "/koʊˈhɪrənt/",
+                meaning: "首尾一貫した、論理的な、分かりやすい",
+                definition: "Logical and consistent; easy to understand.",
+                example: "The team’s report was well-organized and coherent, making it easy for the audience to follow.",
+                aiPool: [
+                    "A coherent user interface design ensures that users never get confused while navigating the app.",
+                    "To build a successful product, we need a coherent strategy between developers and designers.",
+                    "The components should follow a coherent design system to maintain visual unity across all screens."
+                ]
+            },
+            {
+                word: "contextualize",
+                phonetic: "/kənˈtɛkstʃuəˌlaɪz/",
+                meaning: "文脈（背景）に即して考える、背景を説明する",
+                definition: "To place in context, providing background or a clearer perspective.",
+                example: "To better understand the historical event, the professor helped contextualize it within the global political climate of the time.",
+                aiPool: [
+                    "Adding visual mockups helps contextualize abstract user data for the frontend development team.",
+                    "To improve user experience, we need to contextualize error messages based on what the user was doing.",
+                    "The dashboard includes tooltips to contextualize the metrics and charts for new users."
+                ]
+            },
+            {
+                word: "convey",
+                phonetic: "/kənˈveɪ/",
+                meaning: "（意味・感情などを）伝える、伝えるようにする",
+                definition: "To communicate or make something known.",
+                example: "The data presented helped convey the importance of sustainable practices in modern businesses.",
+                aiPool: [
+                    "A clean visual hierarchy can convey important product information to users without any text.",
+                    "Choosing the right color palette is essential to convey the core values of a premium brand.",
+                    "The simple onboarding tutorial aims to convey how to use the web application effectively within seconds."
+                ]
+            },
+            {
+                word: "credible",
+                phonetic: "/ˈkrɛdəbəl/",
+                meaning: "信用できる、信頼できる、確かな",
+                definition: "Believable or trustworthy.",
+                example: "The research presented was supported by credible sources, adding weight to the argument.",
+                aiPool: [
+                    "Including real testimonials on the landing page makes the product look more credible to new users.",
+                    "A secure, well-designed payment gateway is crucial for building a credible e-commerce platform.",
+                    "To maintain a credible web design, avoiding broken links and generic layouts is essential."
+                ]
+            },
+            {
+                word: "elucidate",
+                phonetic: "/ɪˈluːsɪdeɪt/",
+                meaning: "（分かりやすく）説明する、明快にする、解明する",
+                definition: "To make something clear; to explain.",
+                example: "Could you elucidate your point on the economic impact of the policy change? I didn’t quite understand the connection.",
+                aiPool: [
+                    "Interactive charts can easily elucidate complex datasets that are otherwise hard to read.",
+                    "The senior developer held a brief session to elucidate the inner workings of the new system framework.",
+                    "A clear user onboarding flow helps elucidate how the application works for first-time visitors."
+                ]
+            },
+            {
+                word: "empirical",
+                phonetic: "/ɛmˈpɪrɪkəl/",
+                meaning: "経験的な、実験に基づいた、実証的な",
+                definition: "Based on observation or experience rather than theory or pure logic.",
+                example: "The conclusions were drawn from empirical evidence, ensuring that the findings were based on real-world data.",
+                aiPool: [
+                    "User testing provides empirical data that helps frontend developers optimize the interface layout.",
+                    "Instead of guessing what users want, a good team relies on empirical research from analytics tools.",
+                    "The improvement in website performance was proven by empirical measurements taken before and after the update."
+                ]
+            },
+            {
+                word: "engage",
+                phonetic: "/ɛnˈɡeɪdʒ/",
+                meaning: "（興味・注意などを）惹きつける、引き込む、関与させる",
+                definition: "To involve or attract attention.",
+                example: "The speaker used humor to engage the audience, making the presentation both informative and enjoyable.",
+                aiPool: [
+                    "Adding subtle micro-interactions is a clever way to engage users as they navigate a landing page.",
+                    "A successful modern web application must quickly engage first-time visitors before they bounce.",
+                    "Gamification features can heavily engage continuous learners and encourage daily practice."
+                ]
+            },
+            {
+                word: "evaluate",
+                phonetic: "/ɪˈvæljueɪt/",
+                meaning: "評価する、査定する、見極める",
+                definition: "To assess or judge the value, significance, or quality of something.",
+                example: "It’s important to evaluate all available data before making a final decision on the project’s direction.",
+                aiPool: [
+                    "Developers use performance tools to evaluate how quickly the web page loads on mobile devices.",
+                    "The team met to evaluate the feedback from early testers and improve the interface.",
+                    "We need to evaluate different javascript libraries to see which one fits our tech stack best."
+                ]
+            },
+            {
+                word: "facilitate",
+                phonetic: "/fəˈsɪlɪteɪt/",
+                meaning: "（プロセスなどを）促進する、容易にする、円滑に進める",
+                definition: "To make a process or action easier.",
+                example: "The moderator’s role is to facilitate the discussion and ensure that all viewpoints are heard.",
+                aiPool: [
+                    "A clear navigation bar is crucial to facilitate a smooth user journey throughout the website.",
+                    "Using modern component libraries can significantly facilitate the product development process.",
+                    "The newly designed checkout flow aims to facilitate quicker transactions for mobile users."
+                ]
+            },
+            {
+                word: "fluctuate",
+                phonetic: "/ˈflʌktʃuˌeɪt/",
+                meaning: "（数値や状態が）不規則に変動する、上下する",
+                definition: "To change or vary irregularly.",
+                example: "The temperature in the region can fluctuate drastically between seasons, affecting the local agriculture.",
+                aiPool: [
+                    "Server traffic tends to fluctuate throughout the day, peaking during evening hours.",
+                    "The application needs a flexible cloud infrastructure because user demand can fluctuate heavily.",
+                    "Product prices on e-commerce platforms often fluctuate based on seasonal demand and supply."
+                ]
+            },
+            {
+                word: "impactful",
+                phonetic: "/ɪmˈpæktfəl/",
+                meaning: "影響力の大きい、効果的な、印象的な",
+                definition: "Having a strong effect or influence.",
+                example: "Her research on climate change provided impactful insights that sparked a larger conversation among policymakers.",
+                aiPool: [
+                    "Even small micro-interactions can create an impactful user experience when done right.",
+                    "The creative team focused on delivering an impactful landing page to increase sign-ups.",
+                    "Sharing user success stories is a highly impactful way to demonstrate the value of our software."
+                ]
+            },
+            {
+                word: "nuance",
+                phonetic: "/ˈnuːɑːns/",
+                meaning: "（意味・色彩などの）微妙な違い、ニュアンス、陰影",
+                definition: "A subtle difference or distinction.",
+                example: "There are many nuances to this debate, and we need to consider all sides before drawing conclusions.",
+                aiPool: [
+                    "A senior designer always pays attention to the nuance of shadow and spacing in UI elements.",
+                    "Understanding cultural nuance is critical when localizing an app for users around the world.",
+                    "The tone of voice in microcopy requires subtle nuance to sound friendly without being annoying."
+                ]
+            },
+            {
+                word: "paradigm",
+                phonetic: "/ˈpærədaɪm/",
+                meaning: "理論的枠組み、典型的な例、パラダイム",
+                definition: "A typical example or pattern of something.",
+                example: "The development of renewable energy technologies represents a paradigm shift in how we think about global energy consumption.",
+                aiPool: [
+                    "Switching from object-oriented to functional programming requires adopting a completely new paradigm.",
+                    "The rise of mobile-first design triggered a major paradigm shift in modern web development.",
+                    "Cloud computing has changed the paradigm of how tech companies manage their server infrastructure."
+                ]
+            },
+            {
+                word: "analyze",
+                phonetic: "/ˈænəlaɪz/",
+                meaning: "分析する、詳細に調べる、分解検証する",
+                definition: "To examine in detail, typically for purposes of explanation or interpretation.",
+                example: "The researcher will analyze the data to identify trends and correlations.",
+                aiPool: [
+                    "Product managers carefully analyze user feedback to prioritize the next feature updates.",
+                    "We need to analyze the crash logs to find out why the mobile app closed unexpectedly.",
+                    "The team will analyze the conversion rates after launching the new checkout interface."
+                ]
+            },
+            {
+                word: "cohesive",
+                phonetic: "/koʊˈhiːsɪv/",
+                meaning: "結合力のある、結束した、まとまりのある",
+                definition: "Forming a united whole.",
+                example: "The team presented a cohesive argument that tied all the points together effectively.",
+                aiPool: [
+                    "A cohesive design system allows developers to build consistent pages across the entire site.",
+                    "To build a cohesive user experience, the text, layout, and colors must work seamlessly together.",
+                    "The project succeeded because the remote team remained cohesive and focused on the same goal."
+                ]
+            },
+            {
+                word: "consequently",
+                phonetic: "/ˈkɒnsɪkwəntli/",
+                meaning: "その結果として、結果的に、したがって",
+                definition: "As a result or effect of something.",
+                example: "The new policy was implemented; consequently, the company saw an increase in employee satisfaction.",
+                aiPool: [
+                    "The server experienced an unexpected outage; consequently, many users were temporarily unable to log in.",
+                    "We optimized the website images and scripts; consequently, the page load time dropped by half.",
+                    "The developer missed the team meeting and consequently wasn't aware of the latest updates to the API."
+                ]
+            },
+            {
+                word: "divergent",
+                phonetic: "/daɪˈvɜːrdʒənt/",
+                meaning: "分岐する、異なる、互いに異なる方向に発展する",
+                definition: "Tending to be different or develop in different directions.",
+                example: "The team had divergent opinions on the project, but they eventually found common ground.",
+                aiPool: [
+                    "In the design thinking process, divergent thinking helps the team generate a wide variety of creative solutions.",
+                    "The software split into two divergent versions after the development team disagreed on the feature roadmap.",
+                    "Gathering feedback from divergent user groups ensures that the web application becomes accessible to everyone."
+                ]
+            },
+            {
+                word: "elicit",
+                phonetic: "/ɪˈlɪsɪt/",
+                meaning: "（反応・感情・情報を）引き出す、誘い出す",
+                definition: "To draw out a response, reaction, or information from someone.",
+                example: "The teacher's question elicited a thoughtful response from the student.",
+                aiPool: [
+                    "The UX researcher designed the survey carefully to elicit honest and detailed feedback from beta testers.",
+                    "Using vibrant colors and smooth animations can elicit a positive emotional response from first-time users.",
+                    "The support team asked open-ended questions to elicit more specific details about the software bug."
+                ]
+            },
+            {
+                word: "examine",
+                phonetic: "/ɪɡˈzæmɪn/",
+                meaning: "調査する、詳しく調べる、検証する",
+                definition: "To inspect or look at closely in order to understand or evaluate something.",
+                example: "The report will examine the long-term effects of the policy on the economy.",
+                aiPool: [
+                    "Before merging the new code, the senior developer will examine it for any potential security flaws.",
+                    "We need to examine the web analytics data to see where users are dropping off during checkout.",
+                    "The QA team will thoroughly examine the interface to ensure it displays correctly on all screen sizes."
+                ]
+            },
+            {
+                word: "implicit",
+                phonetic: "/ɪmˈplɪsɪt/",
+                meaning: "暗黙の、言外の、明確に示されない",
+                definition: "Implied though not plainly expressed.",
+                example: "The speaker’s implicit message was that change was necessary for success.",
+                aiPool: [
+                    "Good UX design provides implicit feedback, like a subtle color change, to show a button is active.",
+                    "In JavaScript, implicit type conversion can sometimes cause unexpected bugs if you aren't careful.",
+                    "There was an implicit agreement among the team that all code should be reviewed before deployment."
+                ]
+            },
+            {
+                word: "quantitative",
+                phonetic: "/ˈkwɑːntəteɪtɪv/",
+                meaning: "量的な、定量的な、数量に関する",
+                definition: "Relating to the measurement of quantity or amount.",
+                example: "The study uses quantitative data to assess the effectiveness of the new program.",
+                aiPool: [
+                    "Google Analytics provides quantitative metrics like page views and bounce rates to track user behavior.",
+                    "We ran an A/B test to gather quantitative evidence before deciding which layout was more effective.",
+                    "While qualitative feedback tells us *why* users struggle, quantitative data shows us *where* they drop off."
+                ]
+            },
+            {
+                word: "refine",
+                phonetic: "/rɪˈfaɪn/",
+                meaning: "洗練させる、磨きをかける、微調整して改善する",
+                definition: "To improve by making small changes, often for better precision or clarity.",
+                example: "The author decided to refine the argument in her paper to make it more compelling.",
+                aiPool: [
+                    "The design team will refine the mobile interface based on the latest usability test results.",
+                    "We need to refine our AI prompts to get more accurate and relevant responses from the model.",
+                    "Engineers continuously refine the backend algorithms to reduce server response times."
+                ]
+            },
+            {
+                word: "reiterate",
+                phonetic: "/riˈɪtəreɪt/",
+                meaning: "（強調や明確化のために）何度も繰り返す、熱を込めて言う",
+                definition: "To repeat for emphasis or clarity.",
+                example: "Let me reiterate the importance of time management as we approach the final phase of the project.",
+                aiPool: [
+                    "During the sprint review, the manager wanted to reiterate the project goals for the upcoming quarter.",
+                    "I need to reiterate that this database migration must be done during low-traffic hours to prevent downtime.",
+                    "The documentation should reiterate that users must enable two-factor authentication for higher security."
+                ]
+            },
+            {
+                word: "significant",
+                phonetic: "/sɪɡˈnɪfɪkənt/",
+                meaning: "重要な、かなりの、著しい、（統計学で）有意な",
+                definition: "Sufficiently great or important to be worthy of attention.",
+                example: "The study revealed a significant correlation between exercise and mental health improvement.",
+                aiPool: [
+                    "The latest update resulted in a significant improvement in the app's overall loading speed.",
+                    "After shifting our marketing strategy, we noticed a significant increase in daily active users.",
+                    "The security audit identified a significant vulnerability in the authentication system that required an immediate patch."
+                ]
+            },
+            {
+                word: "signify",
+                phonetic: "/ˈsɪɡnɪfaɪ/",
+                meaning: "意味する、表す、示す、前兆となる",
+                definition: "To be an indication of something; to mean.",
+                example: "The handshake at the end of the meeting signified an agreement between the parties.",
+                aiPool: [
+                    "In HTTP protocols, a 200 status code is used to signify that the request was successful.",
+                    "We added a small badge next to the profile icon to signify that the user has a premium subscription.",
+                    "A sudden drop in session duration might signify that users are confused by the new layout changes."
+                ]
+            },
+            {
+                word: "substantiate",
+                phonetic: "/səbˈstænʃieɪt/",
+                meaning: "実証する、具体化する、証拠を挙げて証明する",
+                definition: "To provide evidence to support or prove the truth of something.",
+                example: "The scientist was able to substantiate her hypothesis with data collected from multiple experiments.",
+                aiPool: [
+                    "We need to gather user test metrics to substantiate our claim that the new design improves conversion.",
+                    "Without clear logs or screenshots, it is difficult for the engineering team to substantiate and fix the reported issue.",
+                    "The product manager used market research data to substantiate the need for a new features roadmap."
+                ]
+            },
+            {
+                word: "synthesizing",
+                phonetic: "/ˈsɪnθəsaɪzɪŋ/",
+                meaning: "統合（すること）、合成（すること）、（情報を）総合的にまとめること",
+                definition: "To combine different ideas or information to create a cohesive understanding.",
+                example: "By synthesizing the research from various disciplines, the team was able to develop a comprehensive solution to the problem.",
+                aiPool: [
+                    "Synthesizing qualitative feedback and quantitative data gives us a complete picture of user behavior.",
+                    "The AI tool excels at synthesizing long discussion threads into a brief, actionable summary for the team.",
+                    "After synthesizing the requirements from different stakeholders, the product manager drafted the final spec."
+                ]
+            },
+            {
+                word: "viable",
+                phonetic: "/ˈvaɪəbl/",
+                meaning: "実行可能な、生存可能な、実用的な、見込みのある",
+                definition: "Capable of working successfully; feasible.",
+                example: "The proposed strategy seems viable, but further research is needed to confirm its long-term effectiveness.",
+                aiPool: [
+                    "We need to build a Minimum Viable Product (MVP) to test our core features with real users as soon as possible.",
+                    "After evaluating the technical constraints, the engineering team decided that the initial plan was not viable.",
+                    "The startup is looking for a viable business model that can generate steady revenue over the next three years."
+                ]
+            },
+            {
+                word: "amortize",
+                phonetic: "/ˈæmərtaɪz/",
+                meaning: "（負債を）定期分割償還する、国債などを順次償還する、（無形資産を）減価償却する",
+                definition: "To gradually reduce or pay off a debt over a period of time through regular payments.",
+                example: "The company plans to amortize its $1 million loan over the next ten years.",
+                aiPool: [
+                    "By spreading the initial infrastructure costs, we can amortize the development expenses over a three-year period.",
+                    "Using an amortization schedule helps businesses understand how much interest they will pay over the life of the loan.",
+                    "The software company decided to amortize the acquisition costs of the new technology rather than expensing it all at once."
+                ]
+            },
+            {
+                word: "depreciation",
+                phonetic: "/dɪˌpriːʃiˈeɪʃn/",
+                meaning: "減価償却、価値の低下、目減り",
+                definition: "A reduction in the value of an asset over time, especially due to wear and tear.",
+                example: "The company recorded a significant depreciation of its machinery this quarter.",
+                aiPool: [
+                    "We need to calculate the annual depreciation of our office hardware, including laptops and servers.",
+                    "The financial report detailed how the depreciation of the local currency affected our overseas cloud hosting costs.",
+                    "Unlike software assets, physical server infrastructure is subject to constant depreciation due to wear and tear."
+                ]
+            },
+            {
+                word: "dividend",
+                phonetic: "/ˈdɪvɪdend/",
+                meaning: "配当、配当金、利益配当、（努力などの）報い",
+                definition: "A payment made to shareholders from a company’s profits.",
+                example: "Shareholders were pleased when the company announced higher dividends this year.",
+                aiPool: [
+                    "Tech startups often reinvest their earnings into product development rather than paying out a dividend to investors.",
+                    "Investors often look at a company's dividend yield to evaluate whether the stock fits into their long-term portfolio.",
+                    "Our early investment in clean code and solid architecture is now paying dividends in the form of faster feature delivery."
+                ]
+            },
+            {
+                word: "equity",
+                phonetic: "/ˈekwəti/",
+                meaning: "（負債を差し引いた）純資産、自己資本、株式、持分",
+                definition: "The value of an owner’s interest in a company or property, after deducting liabilities.",
+                example: "After paying off the mortgage, she had over $200,000 in equity in her home.",
+                aiPool: [
+                    "Many startups offer equity to early employees to attract top talent and align their interests with the company's growth.",
+                    "The founders decided to raise a new round of funding by selling a 15% equity stake to venture capitalists.",
+                    "As the company's valuation increased, the value of the stock options and overall equity held by the team grew significantly."
+                ]
+            },
+            {
+                word: "expenditure",
+                phonetic: "/ɪkˈspendɪtʃər/",
+                meaning: "支出、消費、経費、支出額",
+                definition: "An amount of money spent on something, especially as part of a budget.",
+                example: "The marketing expenditure increased significantly in the last quarter.",
+                aiPool: [
+                    "To maximize efficiency, the company is looking to reduce its monthly cloud infrastructure expenditure.",
+                    "The board approved a higher expenditure for research and development to accelerate the creation of new tools.",
+                    "Our team must carefully track every operational expenditure to ensure the project stays within the allocated budget."
+                ]
+            },
+            {
+                word: "fiduciary",
+                phonetic: "/fɪˈduːʃieri/",
+                meaning: "信託の、受託者の、信託上の責任がある / 受託者、被信託者",
+                definition: "Relating to the trust involved in managing someone else’s money or assets. / A person or entity entrusted to manage assets in the best interest of another.",
+                example: "The company has a fiduciary duty to protect its clients’ investments. / The lawyer acted as a fiduciary for the estate.",
+                aiPool: [
+                    "Financial advisors who have a fiduciary duty must always put their clients' financial interests ahead of their own.",
+                    "As a fiduciary of the foundation's funds, she is legally required to manage the investments with extreme care.",
+                    "The board members were accused of breaching their fiduciary responsibility when they approved the high-risk acquisition."
+                ]
+            },
+            {
+                word: "ledger",
+                phonetic: "/ˈledʒər/",
+                meaning: "（会計の）元帳、総勘定元帳、台帳、ブロックチェーンの分散帳簿",
+                definition: "A book or digital record used for maintaining a company's financial accounts.",
+                example: "Every transaction must be recorded in the general ledger for proper bookkeeping.",
+                aiPool: [
+                    "Modern ERP software automatically updates the digital ledger as soon as a sales invoice is processed.",
+                    "Blockchain technology is essentially a decentralized ledger that records cryptographically secure transactions.",
+                    "Our finance team is currently auditing the general ledger to prepare the balance sheet for the annual report."
+                ]
+            },
+            {
+                word: "liability",
+                phonetic: "/ˌlaɪəˈbɪləti/",
+                meaning: "（法的な）負債、債務、義務、責任、お荷物（ハンデ）",
+                definition: "A legal debt or obligation that a business or individual is required to pay.",
+                example: "The company’s liabilities exceeded its assets, signaling financial trouble.",
+                aiPool: [
+                    "When preparing the quarterly balance sheet, we must categorize short-term loans under current liabilities.",
+                    "The terms of service agreement clearly states that our platform limits its liability for unexpected server outages.",
+                    "Without proper security updates, legacy code can quickly become a major technical and financial liability for the team."
+                ]
+            },
+            {
+                word: "liaison",
+                phonetic: "/liˈeɪzɑːn/",
+                meaning: "（組織・部署間の）連絡係、橋渡し役、密接な連絡・連携",
+                definition: "Communication or cooperation that facilitates a close working relationship between people or organizations.",
+                example: "She acts as a liaison between the marketing team and the product developers.",
+                aiPool: [
+                    "As the technical liaison, his job is to translate complex customer requirements into actionable tasks for the engineering team.",
+                    "We need to appoint a dedicated liaison to ensure smooth communication with our external design vendor.",
+                    "The project manager established a direct liaison with the security compliance office to expedite the audit process."
+                ]
+            },
+            {
+                word: "outsource",
+                phonetic: "/ˈaʊtsɔːrs/",
+                meaning: "外注する、外部委託する、アウトソーシングする",
+                definition: "To delegate or contract out a job or service to an external company.",
+                example: "Many companies outsource their customer service operations to reduce costs.",
+                aiPool: [
+                    "Instead of building a team from scratch, the startup decided to outsource its initial mobile app development to a specialized agency.",
+                    "Outsource models allow businesses to focus on core product design while delegating routine maintenance to third-party vendors.",
+                    "Before we outsource our data processing tasks, we must ensure the vendor fully complies with our security policies."
+                ]
+            },
+            {
+                word: "redundant",
+                phonetic: "/rɪˈdʌndənt/",
+                meaning: "余分な、不要な、重複する、解雇された、（システムが）冗長な",
+                definition: "No longer needed or useful; superfluous. Often refers to job positions eliminated due to downsizing.",
+                example: "Several employees were made redundant after the company restructured.",
+                aiPool: [
+                    "We need to clean up the codebase and remove redundant functions to improve overall system performance.",
+                    "The dev team configured redundant cloud servers to ensure the platform remains online even during a hardware failure.",
+                    "Due to the automation of routine data entry tasks, certain manual administrative roles have become redundant."
+                ]
+            },
+            {
+                word: "requisition",
+                phonetic: "/ˌrekwɪˈzɪʃn/",
+                meaning: "（公式な）要求、要請、請求、請求書、調達依頼",
+                definition: "A formal written request for something, especially supplies or services.",
+                example: "The IT department submitted a requisition for 20 new laptops.",
+                aiPool: [
+                    "All purchase requisitions must be approved by the department head before being forwarded to procurement.",
+                    "The project manager submitted a personnel requisition to hire two additional backend developers.",
+                    "We need to fill out a software requisition form to get access to the new design and prototyping tools."
+                ]
+            },
+            {
+                word: "solvency",
+                phonetic: "/ˈsɑːlvənsi/",
+                meaning: "（長期的な）支払能力、ソルベンシー、財務健全性",
+                definition: "The ability of a company or individual to meet long-term financial obligations.",
+                example: "The auditors expressed concerns about the firm’s solvency after reviewing its debt load.",
+                aiPool: [
+                    "While liquidity focuses on short-term cash flow, solvency measures a company's ability to survive in the long run.",
+                    "The board reviewed the solvency ratio to ensure the business could withstand potential economic downturns.",
+                    "A strong balance sheet with minimal debt guarantees the long-term solvency of the enterprise."
+                ]
+            },
+            {
+                word: "streamline",
+                phonetic: "/ˈstriːmlaɪn/",
+                meaning: "（仕事・プロセスなどを）合理化する、簡素化する、効率化する",
+                definition: "To improve the efficiency of a process by simplifying or eliminating unnecessary steps.",
+                example: "We need to streamline our approval workflow to reduce delays.",
+                aiPool: [
+                    "Introducing automated testing will significantly streamline our development and deployment pipeline.",
+                    "The operations team is working to streamline the user onboarding process to improve customer retention.",
+                    "By migrating our infrastructure to the cloud, we managed to streamline resource management and cut costs."
+                ]
+            },
+            {
+                word: "underwriting",
+                phonetic: "/ˈʌndərraɪtɪŋ/",
+                meaning: "（証券の）引受、（保険の）契約審査・引き受け、融資審査",
+                definition: "The act of guaranteeing financial support or backing for a transaction, investment, or insurance policy.",
+                example: "The bank is responsible for the underwriting of the new bond issue.",
+                aiPool: [
+                    "Fintech platforms are now using AI to automate the underwriting process for small business loans.",
+                    "The investment bank managed the underwriting of the startup's IPO, guaranteeing the sale of its shares.",
+                    "Strict underwriting guidelines help insurance companies assess risks accurately and set appropriate premiums."
+                ]
+            },
+            {
+                word: "comply",
+                phonetic: "/kəmˈplaɪ/",
+                meaning: "（規則・法律などに）従う、準拠する、応じる",
+                definition: "To act in accordance with rules, laws, or regulations.",
+                example: "All staff must comply with the new data protection policies.",
+                aiPool: [
+                    "Our cloud architecture must fully comply with global privacy regulations like GDPR and CCPA.",
+                    "The software update was rolled out to ensure the application complies with the latest security standards.",
+                    "Failure to comply with the industry regulations could result in severe financial penalties for the company."
+                ]
+            },
+            {
+                word: "concur",
+                phonetic: "/kənˈkɜːr/",
+                meaning: "（意見や結論に）同意する、賛成する、意見が一致する",
+                definition: "To agree with a statement or opinion.",
+                example: "I concur with your suggestion to postpone the project deadline.",
+                aiPool: [
+                    "After reviewing the Q1 financial report, all board members concurred that we need to adjust our growth targets.",
+                    "The senior engineers concurred with the security audit's findings and recommended an immediate patch.",
+                    "I concur entirely with your assessment that the user interface needs to be streamlined for better engagement."
+                ]
+            },
+            {
+                word: "consensus",
+                phonetic: "/kənˈsensəs/",
+                meaning: "（意見の）一致、総意、コンセンサス、合意",
+                definition: "A general agreement among a group of people.",
+                example: "After a long discussion, the team reached a consensus on the marketing strategy.",
+                aiPool: [
+                    "It is crucial to build a consensus among all key stakeholders before initiating the system migration.",
+                    "The management failed to reach a consensus on whether to expand the team or outsource the development.",
+                    "In blockchain networks, nodes use proof-of-stake or other mechanism to achieve consensus on the ledger's state."
+                ]
+            },
+            {
+                word: "delegate",
+                phonetic: "/ˈdelɪɡeɪt/",
+                meaning: "（権限やタスクを）委任する、委譲する、任せる",
+                definition: "To assign tasks or responsibilities to someone else, often a subordinate.",
+                example: "A good manager knows when to delegate tasks to their team.",
+                aiPool: [
+                    "Effective leaders learn to delegate routine operational tasks so they can focus on long-term strategy.",
+                    "Instead of trying to micro-manage the launch, he decided to delegate the entire project to the product team.",
+                    "The scrum master will delegate the core frontend development to the senior engineering members."
+                ]
+            },
+            {
+                word: "discrepancy",
+                phonetic: "/dɪˈskrepənsi/",
+                meaning: "（計算やデータなどの）不一致、食い違い、ズレ、矛盾",
+                definition: "A lack of consistency or agreement between two or more facts or figures.",
+                example: "There’s a discrepancy between the invoice and the payment received.",
+                aiPool: [
+                    "The QA team discovered a major data discrepancy between the staging database and the production environment.",
+                    "We need to investigate the discrepancy between our physical warehouse inventory and the digital system records.",
+                    "A routine audit revealed a slight discrepancy in the Q4 financial reports, which has now been corrected."
+                ]
+            },
+            {
+                word: "disseminate",
+                phonetic: "/dɪˈsemɪneɪt/",
+                meaning: "（情報・知識などを）普及させる、広く散布する、周知する",
+                definition: "To spread or distribute information widely.",
+                example: "The company uses email newsletters to disseminate policy updates to all employees.",
+                aiPool: [
+                    "The primary goal of the press release is to disseminate information about our new eco-friendly product line.",
+                    "We need to establish a central knowledge base to effectively disseminate development best practices across teams.",
+                    "Social media platforms allow startups to disseminate their brand messaging to a global audience instantly."
+                ]
+            },
+            {
+                word: "eloquent",
+                phonetic: "/ˈeləkwənt/",
+                meaning: "雄弁な、説得力のある、表現豊かな、（デザインやコードが）明快で洗練された",
+                definition: "Fluent or persuasive in speaking or writing; able to express ideas clearly and effectively.",
+                example: "The manager gave an eloquent presentation that impressed both clients and executives.",
+                aiPool: [
+                    "Her eloquent argument during the board meeting successfully convinced the investors to double our budget.",
+                    "The brand's landing page features eloquent copywriting that perfectly captures the company's core values.",
+                    "In software engineering, we strive to write eloquent code that is not only functional but also clean and easy to read."
+                ]
+            },
+            {
+                word: "emphasize",
+                phonetic: "/ˈemfəsaɪz/",
+                meaning: "強調する、重視する、重きを置く",
+                definition: "To give special importance or attention to something in speech or writing.",
+                example: "The CEO emphasized the importance of innovation in his keynote speech.",
+                aiPool: [
+                    "During the sprint planning, the product owner emphasized that we must focus on fixing critical performance bugs first.",
+                    "The new UI design uses bold typography and high-contrast colors to emphasize the primary call-to-action button.",
+                    "We cannot emphasize enough how important it is to back up all system databases before running the migration script."
+                ]
+            },
+            {
+                word: "expedite",
+                phonetic: "/ˈekspədaɪt/",
+                meaning: "（手続きや進行を）迅速に処理する、捗らせる、早める、促進する",
+                definition: "To speed up the progress of a process or task.",
+                example: "We hired additional staff to expedite the shipping process during the holiday season.",
+                aiPool: [
+                    "To expedite the approval process, we should bypass the physical paperwork and use digital signatures.",
+                    "The development team worked overtime to expedite the release of the hotfix for the payment gateway bug.",
+                    "We need to streamline our onboarding training to expedite the integration of new engineers into the core project."
+                ]
+            },
+            {
+                word: "implement",
+                phonetic: "/ˈɪmplɪment/",
+                meaning: "（計画・政策などを）実行する、実施する、（システムや機能を）実装する、導入する",
+                definition: "To put a plan, decision, or strategy into effect.",
+                example: "The manager will implement the new scheduling system next month.",
+                aiPool: [
+                    "The marketing team is ready to implement the new user-acquisition strategy starting next quarter.",
+                    "We need to implement stricter multi-factor authentication to protect sensitive customer data.",
+                    "The software architecture requires us to implement this specific interface across all payment modules."
+                ]
+            },
+            {
+                word: "intermittent",
+                phonetic: "/ˌɪntərˈmɪtənt/",
+                meaning: "断続的な、間欠的な、時々途切れる",
+                definition: "Occurring at irregular intervals; not continuous or steady.",
+                example: "The service disruption was due to intermittent internet issues.",
+                aiPool: [
+                    "The dev team is investigating an intermittent bug that only causes the app to crash during high-traffic periods.",
+                    "Users reported intermittent connectivity issues with the API gateway during the scheduled maintenance window.",
+                    "Due to an intermittent hardware fault in the data center, some background jobs failed to execute properly."
+                ]
+            },
+            {
+                word: "mitigate",
+                phonetic: "/ˈmɪtɪɡeɪt/",
+                meaning: "（リスク・被害などを）軽減する、緩和する、和らげる",
+                definition: "To reduce the severity, seriousness, or painfulness of something.",
+                example: "The safety measures were taken to mitigate potential risks on the construction site.",
+                aiPool: [
+                    "Implementing a multi-cloud strategy helps to mitigate the risk of a single point of failure.",
+                    "We need to deploy a quick hotfix to mitigate the severe security vulnerability discovered in the authentication module.",
+                    "To mitigate project delays, the team decided to scale up the engineering resources for the sprint."
+                ]
+            },
+            {
+                word: "procurement",
+                phonetic: "/prəˈkjʊərmənt/",
+                meaning: "（企業の）調達、購買、獲得",
+                definition: "The act of obtaining goods or services, especially for business or government use.",
+                example: "The procurement department is responsible for sourcing quality suppliers.",
+                aiPool: [
+                    "To optimize costs, the company revised its software procurement policy for cloud licenses.",
+                    "The procurement process for the new hardware infrastructure took longer than initially budgeted.",
+                    "Establishing strong vendor relationships is a key goal for our strategic procurement team."
+                ]
+            },
+            {
+                word: "solicit",
+                phonetic: "/səˈlɪsɪt/",
+                meaning: "（意見・支援・金銭などを）求める、要請する、募る",
+                definition: "To ask for something, such as information, money, or feedback.",
+                example: "The company sent out surveys to solicit customer feedback.",
+                aiPool: [
+                    "The project manager will solicit input from the engineering team before finalizing the roadmap.",
+                    "We plan to launch a crowdfunding campaign to solicit donations for our open-source tools.",
+                    "The procurement team issued an RFP to solicit competitive bids from several cloud vendors."
+                ]
+            },
+            {
+                word: "subsidiary",
+                phonetic: "/səbˈsɪdiəri/",
+                meaning: "子会社、系列会社",
+                definition: "A company that is owned or controlled by another (usually larger) company.",
+                example: "The tech giant acquired a small subsidiary to expand into the mobile market.",
+                aiPool: [
+                    "The parent company handles the overall strategic vision, while each subsidiary manages its own daily operations.",
+                    "To break into the European market, we established a new subsidiary based in Berlin.",
+                    "The IT team is tasked with migrating the communication tools used by our newly acquired subsidiary to the core network."
+                ]
+            },
+            {
+                word: "adhere",
+                phonetic: "/ədˈhɪər/",
+                meaning: "（規則・方針・法律などを）遵守する、忠実に守る、固執する",
+                definition: "To stick firmly to a rule, agreement, or belief.",
+                example: "All employees must adhere to the company’s confidentiality policy.",
+                aiPool: [
+                    "The project team must strictly adhere to the established coding standards to ensure code maintainability.",
+                    "Failure to adhere to GDPR regulations could result in severe financial penalties for the organization.",
+                    "To pass the upcoming security audit, we need to ensure all microservices adhere to our encryption protocols."
+                ]
+            },
+            {
+                word: "coerce",
+                phonetic: "/koʊˈɜːrs/",
+                meaning: "強要する、強制する、無理に〜させる",
+                definition: "To persuade someone to do something by using force or threats.",
+                example: "The contract was signed under pressure and might be considered coerced.",
+                aiPool: [
+                    "The legal department confirmed that any agreement obtained by trying to coerce the vendor is completely invalid.",
+                    "In ransomware attacks, hackers encrypt corporate files to coerce companies into paying a hefty ransom.",
+                    "Managers should never use their authority to coerce team members into working unrecorded overtime."
+                ]
+            },
+            {
+                word: "contingent",
+                phonetic: "/kənˈtɪndʒənt/",
+                meaning: "（〜を）条件とする、〜次第である、不測の、依存する",
+                definition: "Dependent on certain conditions.",
+                example: "The bonus is contingent on meeting quarterly sales targets.",
+                aiPool: [
+                    "The final approval of the merger is contingent on the regulatory clearance from the antitrust commission.",
+                    "Our deployment schedule remains contingent on whether the QA team completes the security testing by Friday.",
+                    "The venture capital funding is contingent upon the startup reaching its target number of active users."
+                ]
+            },
+            {
+                word: "credence",
+                phonetic: "/ˈkriːdns/",
+                meaning: "（情報の）信用性、信憑性、信頼、確信",
+                definition: "Belief in or acceptance of something as true.",
+                example: "His research lends credence to the theory of market fluctuation.",
+                aiPool: [
+                    "The recent surge in user engagement data gives credence to our hypothesis about the new feature's design.",
+                    "We cannot give any credence to these anonymous online rumors until a formal internal audit is completed.",
+                    "The expert's endorsement during the tech conference lent significant credence to our custom security protocol."
+                ]
+            },
+            {
+                word: "deficit",
+                phonetic: "/ˈdefəsɪt/",
+                meaning: "赤字、不足額、欠損、不足",
+                definition: "The amount by which something, especially money, is too small.",
+                example: "The country is facing a growing trade deficit.",
+                aiPool: [
+                    "The accounting team reported a significant budget deficit at the end of the fiscal year due to unexpected legal fees.",
+                    "To fix the current talent deficit in our engineering division, we need to launch an aggressive recruitment campaign.",
+                    "The project is currently running at a time deficit, meaning we must streamline our QA process to meet the launch deadline."
+                ]
+            },
+            {
+                word: "feasible",
+                phonetic: "/ˈfiːzəbl/",
+                meaning: "実現可能な、実行可能な、現実的な、もっともらしい",
+                definition: "Possible and practical to do easily or conveniently.",
+                example: "The proposal was deemed feasible after a cost analysis.",
+                aiPool: [
+                    "Before we commit to the new feature roadmap, the engineering lead needs to assess whether it is technically feasible.",
+                    "With our current team size, launching the application by the end of this month is simply not a feasible goal.",
+                    "The consultant provided a highly feasible alternative plan that reduces marketing costs by thirty percent."
+                ]
+            },
+            {
+                word: "incentivize",
+                phonetic: "/ɪnˈsentɪvaɪz/",
+                meaning: "インセンティブ（動機・刺激）を与える、やる気を起こさせる、奨励する",
+                definition: "To provide someone with a reason or motivation to do something.",
+                example: "The company incentivizes good performance with quarterly bonuses.",
+                aiPool: [
+                    "We can incentivize early-bird registrations by offering a twenty percent discount on the premium subscription.",
+                    "The HR department introduced a referral program to incentivize current engineers to recommend top talent.",
+                    "To maximize data collection, the product team wants to incentivize users to complete their profiles using gamification."
+                ]
+            },
+            {
+                word: "mandate",
+                phonetic: "/ˈmændeɪt/",
+                meaning: "（公式な）命令、受託権限、統治委任、義務付けること",
+                definition: "An official order or authorization to act.",
+                example: "The agency received a mandate to regulate digital advertising.",
+                aiPool: [
+                    "Under the new corporate mandate, all software development teams must migrate their legacy services to the cloud by Q4.",
+                    "The compliance committee was given a strict mandate to eliminate all potential data privacy vulnerabilities.",
+                    "The board issued a clear mandate to focus on organic growth rather than pursuing aggressive corporate acquisitions."
+                ]
+            },
+            {
+                word: "negligible",
+                phonetic: "/ˈneɡlɪdʒəbl/",
+                meaning: "無視できるほどの、ごくわずかな、取るに足らない",
+                definition: "So small or unimportant as to be not worth considering.",
+                example: "The error had a negligible effect on the final report.",
+                aiPool: [
+                    "The new code optimization reduced memory usage, so the impact on server latency is now completely negligible.",
+                    "Although there was a minor data sync delay, the financial discrepancy it caused was negligible.",
+                    "We can safely ignore this minor edge case since its occurrence rate among active users is negligible."
+                ]
+            },
+            {
+                word: "oversee",
+                phonetic: "/ˌoʊvərˈsiː/",
+                meaning: "監督する、統括する、管理する",
+                definition: "To supervise or manage a process or group.",
+                example: "She was hired to oversee the implementation of new HR policies.",
+                aiPool: [
+                    "The engineering director will oversee the entire migration process to ensure minimal downtime for users.",
+                    "As a senior project manager, your primary responsibility is to oversee cross-functional team collaborations.",
+                    "An independent auditor was appointed to oversee the company's compliance with new data protection laws."
+                ]
+            },
+            {
+                word: "preliminary",
+                phonetic: "/prɪˈlɪmɪneri/",
+                meaning: "予備の、準備段階の、暫定的な、初期の",
+                definition: "Coming before the main event or action.",
+                example: "These are just preliminary results; more analysis is needed.",
+                aiPool: [
+                    "Before the development phase begins, we must conduct a preliminary investigation into the existing system architecture.",
+                    "The procurement committee has released a preliminary list of qualified vendors for the upcoming infrastructure project.",
+                    "According to our preliminary cost estimate, building the custom CRM will require more budget than utilizing an off-the-shelf solution."
+                ]
+            },
+            {
+                word: "reimburse",
+                phonetic: "/ˌriːɪmˈbɜːrs/",
+                meaning: "（経費などを）払い戻す、返済する、精算する",
+                definition: "To pay back money that has been spent or lost.",
+                example: "Employees will be reimbursed for approved travel expenses.",
+                aiPool: [
+                    "Please submit all your original receipts by Friday so the finance team can reimburse your client dinner expenses.",
+                    "The company policy states that we will not reimburse any software license fees purchased without prior managerial approval.",
+                    "If the business trip is canceled due to client scheduling conflicts, the airline ticket costs will be fully reimbursed."
+                ]
+            },
+            {
+                word: "remedy",
+                phonetic: "/ˈremədi/",
+                meaning: "【名】改善策、救済措置、解決策 ／ 【動】修正する、是正する、治療する",
+                definition: "Noun: A means of solving a problem or correcting a fault. / Verb: To do something to correct or improve something that is wrong.",
+                example: "Management proposed a remedy for the budget shortfall. / This mistake must be remedied immediately.",
+                aiPool: [
+                    "The security patch provides an effective remedy for the critical vulnerability found in our authentication flow.",
+                    "If the vendor fails to meet the service level agreement, we have the right to seek a legal remedy.",
+                    "We need to identify the root cause of these database timeouts so we can remedy the situation permanently."
+                ]
+            },
+            {
+                word: "tentative",
+                phonetic: "/ˈtentətɪv/",
+                meaning: "暫定的な、仮の、不確定な、確実でない",
+                definition: "Not certain or fixed; provisional.",
+                example: "The schedule is tentative and may be revised later.",
+                aiPool: [
+                    "We have set a tentative release date for the new feature, but it will depend entirely on the final testing results.",
+                    "Let's pencil in a tentative meeting for next Tuesday at 3 PM to review the initial feedback from the client.",
+                    "The project scope remains tentative until the budget allocation is officially approved by the board."
+                ]
+            },
+            {
+                word: "undermine",
+                phonetic: "/ˌʌndərˈmaɪn/",
+                meaning: "（自信・体制・計画などを）徐々に蝕む、密かに弱体化させる、損なう",
+                definition: "To weaken or damage something gradually or secretly.",
+                example: "Rumors about layoffs may undermine employee morale.",
+                aiPool: [
+                    "Using outdated encryption algorithms will inevitably undermine the overall security of our cloud infrastructure.",
+                    "A lack of transparent communication during the merger can easily undermine the trust between teams.",
+                    "Frequent and uncoordinated changes to the product roadmap will undermine the engineers' productivity and focus."
+                ]
+            },
+            {
+                word: "allocate",
+                phonetic: "/ˈæləkeɪt/",
+                meaning: "（資金・時間・リソースなどを）割り当てる、配分する、計上する",
+                definition: "To distribute resources or duties for a specific purpose.",
+                example: "The budget committee will allocate additional funds to the marketing team.",
+                aiPool: [
+                    "To improve database performance, we need to allocate more cloud memory to the indexing service.",
+                    "The project manager decided to allocate two more senior engineers to the backend development team.",
+                    "We must carefully allocate our limited marketing budget across the most high-converting channels."
+                ]
+            },
+            {
+                word: "arbitrary",
+                phonetic: "/ˈɑːrbɪtreri/",
+                meaning: "任意の、独断的な、恣意的な、根拠のない",
+                definition: "Based on random choice or personal whim, rather than any reason or system.",
+                example: "The decision to cancel the meeting seemed arbitrary to most staff.",
+                aiPool: [
+                    "Choosing a thirty-day trial period wasn't arbitrary; it was based on extensive user conversion analytics.",
+                    "We should avoid making arbitrary changes to the UI components without consulting the design system guidelines.",
+                    "The server timeout value was set to an arbitrary five seconds, which is causing frequent connection dropped errors."
+                ]
+            },
+            {
+                word: "benchmark",
+                phonetic: "/ˈbentʃmɑːrk/",
+                meaning: "指標、基準、比較対象、ベンチマーク",
+                definition: "A standard or point of reference for comparison.",
+                example: "The company uses industry benchmarks to evaluate performance.",
+                aiPool: [
+                    "We need to run a series of tests to establish a performance benchmark for the new database cluster.",
+                    "Our customer satisfaction rate has finally surpassed the competitive benchmark set by the top three market leaders.",
+                    "The project team established the Q2 milestones as a benchmark to measure the efficiency of the new agile workflow."
+                ]
+            },
+            {
+                word: "compensate",
+                phonetic: "/ˈkɑːmpenseɪt/",
+                meaning: "補償する、賠償する、埋め合わせる、相殺する",
+                definition: "To make up for something, often by providing money or services.",
+                example: "The company will compensate employees for overtime work.",
+                aiPool: [
+                    "To compensate for the server downtime yesterday, we decided to extend the promotional period by two days.",
+                    "Our high conversion rate helped to compensate for the lower-than-expected traffic on the new landing page.",
+                    "The automated caching system is designed to compensate for temporary spikes in database network latency."
+                ]
+            },
+            {
+                word: "compliance",
+                phonetic: "/kəmˈplaɪəns/",
+                meaning: "（法令・規則などの）遵守、準拠、コンプライアンス",
+                definition: "The act of following rules, laws, or standards.",
+                example: "The company hired a legal advisor to ensure full compliance with international trade regulations.",
+                aiPool: [
+                    "Before deploying the fintech app to production, we must verify its full compliance with regional financial data regulations.",
+                    "The security team conducts quarterly internal audits to maintain strict compliance with global industry standards.",
+                    "Failure to adhere to the updated user privacy laws could put the organization at serious risk of compliance violations."
+                ]
+            },
+            {
+                word: "discretion",
+                phonetic: "/dɪˈskreʃn/",
+                meaning: "裁量（権）、自己の判断、慎重さ、思慮分別",
+                definition: "The freedom or authority to decide what should be done in a particular situation.",
+                example: "Students can be expelled at the discretion of the principal.",
+                aiPool: [
+                    "Project managers have the discretion to reallocate up to ten percent of the budget without seeking board approval.",
+                    "The system allows admins to adjust data access permissions at their own discretion based on team requirements.",
+                    "When handling sensitive user metrics, our team must exercise extreme discretion to prevent any privacy leaks."
+                ]
+            },
+            {
+                word: "endorse",
+                phonetic: "/ɪnˈdɔːrs/",
+                meaning: "（公式に）支持する、承認する、推奨する",
+                definition: "To publicly or officially support something or someone.",
+                example: "The board will endorse the new sustainability policy.",
+                aiPool: [
+                    "The CTO decided to endorse the migration to the new cloud framework after reviewing the performance benchmark report.",
+                    "We cannot officially endorse this third-party tool until it undergoes a thorough compliance and security review.",
+                    "Senior leadership is expected to endorse the remote-work extension during the upcoming quarterly meeting."
+                ]
+            },
+            {
+                word: "indispensable",
+                phonetic: "/ˌɪndɪˈspensəbl/",
+                meaning: "必要不可欠な、絶対に欠かせない",
+                definition: "Absolutely necessary or essential.",
+                example: "She is an indispensable member of the design team.",
+                aiPool: [
+                    "Automated deployment pipelines have become indispensable for maintaining a fast and reliable release cycle.",
+                    "Continuous feedback from active users is indispensable if we want to improve the product's retention rate.",
+                    "Her extensive experience with legacy system migrations makes her indispensable to the engineering department."
+                ]
+            },
+            {
+                word: "liable",
+                phonetic: "/ˈlaɪəbl/",
+                meaning: "（法的に）責任がある、義務がある、〜しがちである",
+                definition: "Legally responsible for something.",
+                example: "The manufacturer is liable for any defects in the product.",
+                aiPool: [
+                    "According to the signed service level agreement, the vendor is not liable for data losses caused by user error.",
+                    "If our company fails to implement proper security patches, we may be held legally liable for any resulting data breaches.",
+                    "Under the terms of the contract, both parties are equally liable for any third-party intellectual property claims."
+                ]
+            },
+            {
+                word: "offset",
+                phonetic: "/ˈɔːfset/",
+                meaning: "相殺する、帳消しにする、埋め合わせる",
+                definition: "To balance or compensate for something.",
+                example: "The carbon credits help offset the company’s emissions.",
+                aiPool: [
+                    "The significant increase in international subscription revenue helped to offset the slight decline in our domestic market.",
+                    "By migrating our infrastructure to a serverless architecture, we can offset the rising costs of database maintenance.",
+                    "The project team plans to implement automated testing tools to offset the development delays caused by initial scope changes."
+                ]
+            },
+            {
+                word: "pertinent",
+                phonetic: "/ˈpɜːrtnənt/",
+                meaning: "（議論・問題に）適切に当てはまる、的を射た、密接に関連する",
+                definition: "Relevant or applicable to a particular matter.",
+                example: "Please bring only the most pertinent documents to the meeting.",
+                aiPool: [
+                    "To diagnose the API error quickly, please filter the server logs and share only the most pertinent data points.",
+                    "The project manager asked the team to stay focused on the pertinent issues rather than bringing up unrelated technical debt.",
+                    "We need to gather all pertinent user feedback before finalizing the architecture for the premium feature tier."
+                ]
+            },
+            {
+                word: "rescind",
+                phonetic: "/rɪˈsɪnd/",
+                meaning: "（法律・契約・決定などを）撤回する、無効にする、取り消す",
+                definition: "To revoke, cancel, or repeal a law, order, or agreement.",
+                example: "The company decided to rescind the job offer due to budget cuts.",
+                aiPool: [
+                    "The security team had to rescind the vendor's production server access immediately after detecting suspicious activity.",
+                    "Management reserves the right to rescind the remote-work policy if team performance benchmarks are not met.",
+                    "Following a material breach of contract, our legal counsel advised us to rescind the partnership agreement."
+                ]
+            },
+            {
+                word: "subordinate",
+                phonetic: "/səˈbɔːrdɪnət/",
+                meaning: "部下、下位の人、従属する人",
+                definition: "A person under the authority of another; lower in rank or position.",
+                example: "Supervisors should treat subordinates with fairness and respect.",
+                aiPool: [
+                    "A great engineering manager not only assigns tasks but also actively mentors their subordinates to help them grow professionally.",
+                    "To scale the operations efficiently, the director must learn to delegate critical responsibilities to their trusted subordinates.",
+                    "The annual 360-degree review allows managers to receive constructive, anonymous feedback from both peers and subordinates."
+                ]
+            },
+            {
+                word: "surplus",
+                phonetic: "/ˈsɜːrplʌs/",
+                meaning: "剰余、余剰、黒字、残額",
+                definition: "An amount of something left over when requirements have been met.",
+                example: "The company reinvested its budget surplus in staff training.",
+                aiPool: [
+                    "During low-traffic hours, the server farm has a computation surplus that can be utilized for heavy data processing.",
+                    "The board recommended using the Q1 cash surplus to accelerate the development of our upcoming AI features.",
+                    "We need to optimize our inventory management system to prevent a permanent surplus of obsolete hardware components."
+                ]
+            },
+            {
+                word: "viability",
+                phonetic: "/ˌvaɪəˈbɪləti/",
+                meaning: "実現可能性、生存能力、生存可能性、事業継続性",
+                definition: "The ability to work successfully or be effective.",
+                example: "They conducted a study to assess the viability of the new product.",
+                aiPool: [
+                    "Before writing any code, the engineering team built a quick prototype to test the technical viability of the blockchain integration.",
+                    "Rising cloud infrastructure costs are forcing us to question the long-term economic viability of our free-tier subscription model.",
+                    "The primary goal of a Minimum Viable Product (MVP) is to validate market viability with the least amount of effort and resources."
+                ]
+            }
+        ];
+
+        // --- 2. 状態管理 (State) ---
+        let currentIndex = 0;
+        let history = JSON.parse(localStorage.getItem('vocab_history')) || [];
+        let isAiLoadedForCurrentWord = false;
+        
+        // 表示モード管理: 'ja' (日本語) -> 'en' (英語) -> 'hide' (非表示)
+        let meaningMode = 'ja'; 
+
+        // --- 3. DOM要素の取得 ---
+        const card = document.getElementById('card');
+        const wordTitle = document.getElementById('wordTitle');
+        const wordPhonetic = document.getElementById('wordPhonetic');
+        const wordMeaning = document.getElementById('wordMeaning');
+        const meaningContainer = document.getElementById('meaningContainer');
+        const meaningModeBadge = document.getElementById('meaningModeBadge');
+        const wordExample = document.getElementById('wordExample');
+        const wordIndex = document.getElementById('wordIndex');
+        const aiSection = document.getElementById('aiSection');
+        const aiExample = document.getElementById('aiExample');
+        const aiBtn = document.getElementById('aiBtn');
+        const aiBtnText = document.getElementById('aiBtnText');
+        const dotsContainer = document.getElementById('dots');
+        const historySheet = document.getElementById('historySheet');
+        const sheetContent = document.getElementById('sheetContent');
+        const historyList = document.getElementById('historyList');
+        const appTitle = document.getElementById('appTitle');
+        const searchBarContainer = document.getElementById('searchBarContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const headerActionButtons = document.getElementById('headerActionButtons');
+        // --- 4. 描画・UI更新関数 (Render) ---
+        
+        // 💡 意味表示部分だけのテキストを切り替える関数
+        function renderMeaningText() {
+            const current = wordData[currentIndex];
+            wordMeaning.style.opacity = 0;
+            
+            setTimeout(() => {
+                if (meaningMode === 'ja') {
+                    wordMeaning.textContent = current.meaning;
+                    wordMeaning.className = "text-base text-zinc-600 dark:text-zinc-300 font-medium meaning-transition";
+                    meaningModeBadge.textContent = "日本語";
+                    meaningModeBadge.className = "text-[10px] uppercase tracking-widest bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-full text-zinc-500 font-medium";
+                } else if (meaningMode === 'en') {
+                    wordMeaning.textContent = current.definition;
+                    wordMeaning.className = "text-xs text-zinc-500 dark:text-zinc-400 font-normal leading-relaxed italic meaning-transition";
+                    meaningModeBadge.textContent = "ENGLISH";
+                    meaningModeBadge.className = "text-[10px] uppercase tracking-widest bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded-full text-blue-500 font-semibold";
+                } else {
+                    wordMeaning.textContent = "タップして表示";
+                    wordMeaning.className = "text-sm text-zinc-300 dark:text-zinc-700 font-medium select-none tracking-wide meaning-transition";
+                    meaningModeBadge.textContent = "非表示";
+                    meaningModeBadge.className = "text-[10px] uppercase tracking-widest bg-zinc-100/50 dark:bg-zinc-900 px-2 py-0.5 rounded-full text-zinc-400";
+                }
+                wordMeaning.style.opacity = 1;
+            }, 150);
+        }
+
+        function updateCard() {
+            const current = wordData[currentIndex];
+            
+            card.style.opacity = 0;
+            card.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                wordTitle.textContent = current.word;
+                wordPhonetic.textContent = current.phonetic;
+                wordExample.textContent = `"${current.example}"`;
+                wordIndex.textContent = `${currentIndex + 1} / ${wordData.length}`;
+                
+                // モードに応じたテキストを描画
+                renderMeaningText();
+                
+                isAiLoadedForCurrentWord = false;
+                aiSection.classList.add('hidden');
+                aiBtnText.textContent = "AIに新しい例文を頼む";
+                aiBtn.disabled = false;
+                aiBtn.style.opacity = "1";
+
+                updateDots();
+                addToHistory(current.word);
+
+                card.style.opacity = 1;
+                card.style.transform = 'scale(1) translateX(0)';
+            }, 200);
+        }
+
+        function updateDots() {
+            dotsContainer.innerHTML = '';
+            wordData.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-6 bg-zinc-800 dark:bg-white' : 'w-1.5 bg-zinc-300 dark:bg-zinc-700'}`;
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        // --- 5. インタラクション・機能 (Actions) ---
+        
+        // 💡 意味エリアをクリックしたときの切り替えイベント
+        meaningContainer.addEventListener('click', () => {
+            if (meaningMode === 'ja') {
+                meaningMode = 'en';
+            } else if (meaningMode === 'en') {
+                meaningMode = 'hide';
+            } else {
+                meaningMode = 'ja';
+            }
+            renderMeaningText();
+        });
+
+        // --- スワイプ・ドラッグ操作 (PC / スマホ両対応) ---
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+
+        // 初期状態でカードに「掴める」カーソルを設定
+        card.style.cursor = 'grab';
+
+        // 共通：操作開始
+        function startSwipe(x) {
+            isDragging = true;
+            startX = x;
+            currentX = x; // 初期値を合わせておく
+            card.style.transition = 'none';
+            card.style.cursor = 'grabbing';
+            
+            // PCでのドラッグ中にテキスト選択されてしまうのを防ぐ
+            document.body.style.userSelect = 'none';
+            document.body.style.webkitUserSelect = 'none';
+        }
+
+        // 共通：操作中
+        function moveSwipe(x) {
+            if (!isDragging) return;
+            currentX = x;
+            const diffX = currentX - startX;
+            
+            // 最大50pxまで追従
+            const dragOffset = Math.max(-50, Math.min(50, diffX));
+            card.style.transform = `translateX(${dragOffset}px)`;
+        }
+
+        // 共通：操作終了
+        function endSwipe() {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // 元のアニメーションを戻す
+            card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease';
+            card.style.cursor = 'grab';
+            
+            // テキスト選択制限を解除
+            document.body.style.userSelect = '';
+            document.body.style.webkitUserSelect = '';
+
+            const swipeThreshold = 50;
+            const diffX = currentX - startX;
+
+            // クリックしただけ（ほとんど動いていない）なら位置を戻して終了
+            if (Math.abs(diffX) < 5) {
+                card.style.transform = 'translateX(0)';
+                return;
+            }
+
+            if (diffX < -swipeThreshold) {
+                // 左スワイプ（次へ）
+                if (currentIndex < wordData.length - 1) {
+                    currentIndex++;
+                    updateCard();
+                } else {
+                    bounceCard('left');
+                }
+            } else if (diffX > swipeThreshold) {
+                // 右スワイプ（前へ）
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCard();
+                } else {
+                    bounceCard('right');
+                }
+            } else {
+                card.style.transform = 'translateX(0)';
+            }
+
+            // 値をリセット
+            startX = 0;
+            currentX = 0;
+        }
+
+        // 端に達したときのはね返り
+        function bounceCard(direction) {
+            const offset = direction === 'left' ? -20 : 20;
+            card.style.transform = `translateX(${offset}px)`;
+            setTimeout(() => card.style.transform = 'translateX(0)', 200);
+        }
+
+        // 👉 タッチイベント（スマホ用）
+        card.addEventListener('touchstart', e => startSwipe(e.touches[0].clientX), { passive: true });
+        card.addEventListener('touchmove', e => moveSwipe(e.touches[0].clientX), { passive: true });
+        card.addEventListener('touchend', endSwipe, { passive: true });
+
+        // 👉 マウスイベント（PC用）
+        card.addEventListener('mousedown', e => {
+            if (e.button !== 0) return; // 左クリックのみ
+            startSwipe(e.clientX);
+        });
+
+        // 💡 マウスを動かす・離すイベントは、カードの外に出ても拾えるように window に登録
+        window.addEventListener('mousemove', e => {
+            if (!isDragging) return;
+            moveSwipe(e.clientX);
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            endSwipe();
+        });
+
+        // ブラウザ標準の画像・テキストドラッグを完全に無効化
+        card.addEventListener('dragstart', e => e.preventDefault());
+
+        // AI連携模擬機能
+        aiBtn.addEventListener('click', () => {
+            if (isAiLoadedForCurrentWord) return;
+            
+            aiBtnText.textContent = "AIが思考中...";
+            aiBtn.disabled = true;
+            aiBtn.style.opacity = "0.6";
+
+            setTimeout(() => {
+                const current = wordData[currentIndex];
+                const randomAiExample = current.aiPool[Math.floor(Math.random() * current.aiPool.length)];
+                
+                aiExample.textContent = `"${randomAiExample}"`;
+                aiSection.classList.remove('hidden');
+                aiBtnText.textContent = "新しい例文を生成しました";
+                isAiLoadedForCurrentWord = true;
+                lucide.createIcons();
+            }, 800);
+        });
+
+        // 履歴管理
+        function addToHistory(word) {
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            history = history.filter(item => item.word !== word);
+            history.unshift({ word, time: timestamp });
+            if (history.length > 20) history.pop();
+            localStorage.setItem('vocab_history', JSON.stringify(history));
+        }
+
+        function renderHistoryList() {
+            historyList.innerHTML = '';
+            if (history.length === 0) {
+                historyList.innerHTML = `<p class="text-sm text-zinc-400 text-center py-8">履歴がありません</p>`;
+                return;
+            }
+            history.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-xl";
+                div.innerHTML = `
+                    <span class="font-medium text-sm tracking-tight">${item.word}</span>
+                    <span class="text-xs text-zinc-400 font-mono">${item.time}</span>
+                `;
+                historyList.appendChild(div);
+            });
+        }
+
+        const historyBtn = document.getElementById('historyBtn');
+        const closeHistory = document.getElementById('closeHistory');
+        const clearHistory = document.getElementById('clearHistory');
+
+        function toggleHistorySheet(show) {
+            if (show) {
+                renderHistoryList();
+                historySheet.classList.remove('hidden');
+                setTimeout(() => {
+                    historySheet.classList.add('opacity-100');
+                    sheetContent.classList.remove('translate-y-full');
+                }, 10);
+            } else {
+                historySheet.classList.remove('opacity-100');
+                sheetContent.classList.add('translate-y-full');
+                setTimeout(() => historySheet.classList.add('hidden'), 300);
+            }
+        }
+
+        historyBtn.addEventListener('click', () => toggleHistorySheet(true));
+        closeHistory.addEventListener('click', () => toggleHistorySheet(false));
+        historySheet.addEventListener('click', (e) => {
+            if (e.target === historySheet) toggleHistorySheet(false);
+        });
+
+        clearHistory.addEventListener('click', () => {
+            history = [];
+            localStorage.removeItem('vocab_history');
+            renderHistoryList();
+        });
+
+        // --- 6. テーマ切り替え (Dark Mode) ---
+        const themeToggle = document.getElementById('themeToggle');
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+        // 👉 ホイール・スクロールイベント（PC用）
+        let wheelCooldown = false; // 連続でめくれすぎるのを防ぐフラグ
+
+        card.addEventListener('wheel', e => {
+            // スワイプ（ドラッグ）中はホイール処理をスキップ
+            if (isDragging) return;
+
+            // トラックパッドなどの微小なスクロールを無視するしきい値
+            if (Math.abs(e.deltaX) < 10 && Math.abs(e.deltaY) < 10) return;
+
+            // クールダウン（連打防止）中なら何もしない
+            if (wheelCooldown) return;
+
+            // 左右のスクロール（deltaX）、または上下のスクロール（deltaY）のどちらでも反応させる
+            // 通常のマウスホイール（上下）でも直感的に動くように e.deltaY も判定に入れています
+            const isNext = e.deltaX > 0 || e.deltaY > 0;
+            const isPrev = e.deltaX < 0 || e.deltaY < 0;
+
+            if (isNext) {
+                // 次の単語へ
+                if (currentIndex < wordData.length - 1) {
+                    currentIndex++;
+                    updateCard();
+                    triggerWheelCooldown();
+                } else {
+                    bounceCard('left');
+                }
+            } else if (isPrev) {
+                // 前の単語へ
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCard();
+                    triggerWheelCooldown();
+                } else {
+                    bounceCard('right');
+                }
+            }
+        });
+
+        // 連続発火を制御する関数（400msの間、次のスクロールを無視）
+        function triggerWheelCooldown() {
+            wheelCooldown = true;
+            setTimeout(() => {
+                wheelCooldown = false;
+            }, 400); // カードのTransitionアニメーション（0.4s）と同期
+        }
+        // --- 検索機能のインタラクションとロジック ---
+        
+        // 検索バーを開く
+        searchBtn.addEventListener('click', () => {
+            // タイトルと通常ボタンをフェードアウト＆左にスライド
+            appTitle.classList.remove('opacity-100', 'translate-x-0');
+            appTitle.classList.add('opacity-0', '-translate-x-4', 'pointer-events-none');
+            headerActionButtons.classList.remove('opacity-100', 'translate-x-0');
+            headerActionButtons.classList.add('opacity-0', 'translate-x-4', 'pointer-events-none');
+
+            // 検索バーをフワッと表示
+            searchBarContainer.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+            searchBarContainer.classList.add('opacity-100', 'scale-100');
+            
+            // 自動で入力欄にフォーカスを合わせる
+            setTimeout(() => searchInput.focus(), 150);
+        });
+
+        // 検索バーを閉じる関数
+        function closeSearchBar() {
+            searchInput.value = ''; // 入力をクリア
+            
+            // UIを元に戻す
+            appTitle.classList.remove('opacity-0', '-translate-x-4', 'pointer-events-none');
+            appTitle.classList.add('opacity-100', 'translate-x-0');
+            headerActionButtons.classList.remove('opacity-0', 'translate-x-4', 'pointer-events-none');
+            headerActionButtons.classList.add('opacity-100', 'translate-x-0');
+
+            searchBarContainer.classList.remove('opacity-100', 'scale-100');
+            searchBarContainer.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+            
+            // 検索がクリアされたので、現在のカードの表示を維持（または必要ならupdateCardでリセット）
+        }
+
+        closeSearchBtn.addEventListener('click', closeSearchBar);
+
+        // 💡 リアルタイム検索処理（インクリメンタルサーチ）
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (query === '') return;
+
+            // wordData の中から、単語名が前方一致（または部分一致）するものを検索
+            const foundIndex = wordData.findIndex(item => 
+                item.word.toLowerCase().startsWith(query)
+            );
+
+            // 見つかったらそのカードへジャンプ
+            if (foundIndex !== -1 && foundIndex !== currentIndex) {
+                currentIndex = foundIndex;
+                updateCard();
+            }
+        });
+
+        // 検索中に入力欄でEnterを押したら自動でキーボードを閉じる
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                searchInput.blur();
+            }
+        });
+        // --- 7. 初期化 ---
+        lucide.createIcons();
+        updateCard();
+    </script>
+</body>
+</html>
