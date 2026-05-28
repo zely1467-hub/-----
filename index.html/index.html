@@ -19,6 +19,23 @@
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @keyframes blob-bounce {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+        body, header, div, p, h1, h2, h3, button, span, i {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        .animate-blob {
+            animation: blob-bounce 12s infinite alternate ease-in-out;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
         /* スムーズな慣性スクロールと非表示のスクロールバー */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -29,7 +46,11 @@
     </style>
 </head>
 <body class="bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100 min-h-screen flex flex-col justify-between font-sans overflow-hidden antialiased transition-colors duration-300">
-
+<div id="auroraBg" class="fixed inset-0 overflow-hidden pointer-events-none opacity-0 transition-opacity duration-700 z-[-1]">
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-pink-400/30 dark:bg-pink-500/15 rounded-full filter blur-[60px] animate-blob"></div>
+    <div class="absolute top-1/3 right-1/4 w-80 h-80 bg-purple-400/30 dark:bg-purple-500/15 rounded-full filter blur-[60px] animate-blob animation-delay-2000"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-500/10 rounded-full filter blur-[60px] animate-blob animation-delay-4000"></div>
+</div>
    <header class="flex justify-between items-center px-6 pt-12 pb-4 z-10 relative h-24">
         <h1 id="appTitle" class="text-xl font-semibold tracking-tight transition-all duration-300 transform translate-x-0 opacity-100">Lexis</h1>
         
@@ -41,14 +62,22 @@
             </button>
         </div>
 
-        <div id="headerActionButtons" class="flex items-center gap-2 transition-all duration-300 transform translate-x-0 opacity-100">
-            <button id="searchBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">
+        <div id="headerActionButtons" class="flex items-center gap-1 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border border-white/20 dark:border-zinc-800/30 px-3 py-1.5 rounded-full shadow-sm ...">
+            
+            <button id="glassToggleBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors text-zinc-600 dark:text-zinc-400active:scale-90 transform transition-transform duration-100">
+                <i data-lucide="glass-water" class="w-5 h-5"></i>
+            </button>
+
+            <button id="shuffleBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colorsactive:scale-90 transform transition-transform duration-100">
+                <i data-lucide="shuffle" class="w-5 h-5"></i>
+            </button>
+            <button id="searchBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colorsactive:scale-90 transform transition-transform duration-100">
                 <i data-lucide="search" class="w-5 h-5"></i>
             </button>
-            <button id="historyBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">
+            <button id="historyBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colorsactive:scale-90 transform transition-transform duration-100">
                 <i data-lucide="history" class="w-5 h-5"></i>
             </button>
-            <button id="themeToggle" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">
+            <button id="themeToggle" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colorsactive:scale-90 transform transition-transform duration-100">
                 <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
                 <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
             </button>
@@ -183,18 +212,6 @@
                     "A great designer must be able to articulate the reasoning behind user experience choices.",
                     "It can be challenging to articulate abstract design concepts to stakeholders without mockups.",
                     "The new UI guidelines help developers articulate technical concepts more consistently."
-                ]
-            },
-            {
-                word: "assertive",
-                phonetic: "/əˈsɜːrtɪv/",
-                meaning: "自信に満ちた、毅然とした、自己主張の強い",
-                definition: "Having a strong or distinctive flavor or quality, often used in communication to express one's views confidently.",
-                example: "The speaker's assertive tone showed confidence and authority on the subject matter.",
-                aiPool: [
-                    "In collaborative design, being assertive about your creative choices helps build mutual respect.",
-                    "An assertive communication style allows developers to set realistic project deadlines clearly.",
-                    "She learned to be more assertive when presenting user interface solutions to the tech team."
                 ]
             },
             {
@@ -1271,7 +1288,7 @@
         let currentIndex = 0;
         let history = JSON.parse(localStorage.getItem('vocab_history')) || [];
         let isAiLoadedForCurrentWord = false;
-        
+        let isGlassMode = false;
         // 表示モード管理: 'ja' (日本語) -> 'en' (英語) -> 'hide' (非表示)
         let meaningMode = 'ja'; 
 
@@ -1298,9 +1315,9 @@
         const searchBtn = document.getElementById('searchBtn');
         const closeSearchBtn = document.getElementById('closeSearchBtn');
         const headerActionButtons = document.getElementById('headerActionButtons');
+        const glassToggleBtn = document.getElementById('glassToggleBtn');
         // --- 4. 描画・UI更新関数 (Render) ---
         
-        // 💡 意味表示部分だけのテキストを切り替える関数
         function renderMeaningText() {
             const current = wordData[currentIndex];
             wordMeaning.style.opacity = 0;
@@ -1332,6 +1349,10 @@
             card.style.opacity = 0;
             card.style.transform = 'scale(0.98)';
             
+                const utterance = new SpeechSynthesisUtterance(current.word);
+                utterance.lang = 'en-US'; // アメリカ英語に設定（イギリス英語なら 'en-GB'）
+                utterance.rate = 0.9;     // 読み上げ速度（1.0が標準。少し聞き取りやすく0.9に）
+                speechSynthesis.speak(utterance);
             setTimeout(() => {
                 wordTitle.textContent = current.word;
                 wordPhonetic.textContent = current.phonetic;
@@ -1449,19 +1470,25 @@
                     bounceCard('right');
                 }
             } else {
-                card.style.transform = 'translateX(0)';
-            }
+            card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            card.style.transform = 'translateX(0)';
+        }
 
             // 値をリセット
             startX = 0;
             currentX = 0;
         }
 
-        // 端に達したときのはね返り
         function bounceCard(direction) {
             const offset = direction === 'left' ? -20 : 20;
+            
+            card.style.transition = 'transform 0.1s ease-out';
             card.style.transform = `translateX(${offset}px)`;
-            setTimeout(() => card.style.transform = 'translateX(0)', 200);
+            
+            setTimeout(() => {
+                card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                card.style.transform = 'translateX(0)';
+            }, 100);
         }
 
         // 👉 タッチイベント（スマホ用）
@@ -1687,6 +1714,87 @@
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 searchInput.blur();
+            }
+        });
+        function shuffleWords() {
+            for (let i = wordData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [wordData[i], wordData[j]] = [wordData[j], wordData[i]];
+            }
+            currentIndex = 0; // 1枚目のカードに戻す
+            updateCard();     // 画面を更新
+        }
+        
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        if (shuffleBtn) {
+            shuffleBtn.addEventListener('click', () => {
+                shuffleWords();
+            });
+        }
+        if (glassToggleBtn) {
+            glassToggleBtn.addEventListener('click', () => {
+                isGlassMode = !isGlassMode;
+                const auroraBg = document.getElementById('auroraBg');
+
+                if (isGlassMode) {
+                    if (auroraBg) auroraBg.classList.remove('opacity-0');
+                    glassToggleBtn.classList.add('text-purple-600', 'dark:text-purple-400');
+                } else {
+                    if (auroraBg) auroraBg.classList.add('opacity-0');
+                    glassToggleBtn.classList.remove('text-purple-600', 'dark:text-purple-400');
+                }
+
+                if (isGlassMode) {
+                    card.classList.remove('bg-white', 'dark:bg-zinc-900', 'shadow-xl');
+                    card.classList.add('bg-white/70', 'dark:bg-zinc-900/60', 'backdrop-blur-xl', 'border', 'border-white/20', 'dark:border-zinc-700/30', 'shadow-2xl', 'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)]');
+                } else {
+                    card.classList.remove('bg-white/70', 'dark:bg-zinc-900/60', 'backdrop-blur-xl', 'border', 'border-white/20', 'dark:border-zinc-700/30', 'shadow-2xl', 'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)]');
+                    card.classList.add('bg-white', 'dark:bg-zinc-900', 'shadow-xl');
+                }
+            });
+        }
+            window.addEventListener('keydown', (e) => {
+            // 検索バーの入力欄に文字を打っている時は、ショートカットを無効化する
+            if (document.activeElement === document.getElementById('searchInput')) {
+                return;
+            }
+
+            switch (e.key) {
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    // 👉 右矢印キー または 'D' で「次へ」
+                    if (currentIndex < wordData.length - 1) {
+                        currentIndex++;
+                        updateCard();
+                    } else {
+                        bounceCard('left');
+                    }
+                    break;
+
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    // 👈 左矢印キー または 'A' で「前へ」
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCard();
+                    } else {
+                        bounceCard('right');
+                    }
+                    break;
+
+                case ' ': // スペースキー
+                    // 🔄 スペースキーで「カードをタップ（日本語/英語の切り替え）」
+                    e.preventDefault(); // スペースキーによる画面のスクロールを防止
+                    card.click();       // カードをクリックしたのと同じ処理を強制発火
+                    break;
+                    
+                case 's':
+                case 'S':
+                    // 🔀 'S' キーを押すと、その場で単語をシャッフル！
+                    shuffleWords();
+                    break;
             }
         });
         // --- 7. 初期化 ---
