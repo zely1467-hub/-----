@@ -67,7 +67,9 @@
             <button id="glassToggleBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors text-zinc-600 dark:text-zinc-400active:scale-90 transform transition-transform duration-100">
                 <i data-lucide="glass-water" class="w-5 h-5"></i>
             </button>
-
+            <button id="maskBtn" class="p-2 rounded-full hover:bg-zinc-200/50 transition-colors">
+    <i data-lucide="eye-off" class="w-5 h-5"></i>
+</button>
             <button id="shuffleBtn" class="p-2 rounded-full hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colorsactive:scale-90 transform transition-transform duration-100">
                 <i data-lucide="shuffle" class="w-5 h-5"></i>
             </button>
@@ -1471,6 +1473,7 @@
         let isGlassMode = false;
         // 表示モード管理: 'ja' (日本語) -> 'en' (英語) -> 'hide' (非表示)
         let meaningMode = 'ja'; 
+        let isMasked = false; // 隠しモードかどうかを管理するフラグ
 
         // --- 3. DOM要素の取得 ---
         const card = document.getElementById('card');
@@ -1497,7 +1500,38 @@
         const headerActionButtons = document.getElementById('headerActionButtons');
         const glassToggleBtn = document.getElementById('glassToggleBtn');
         // --- 4. 描画・UI更新関数 (Render) ---
+        function updateMasking() {
+    const current = wordData[currentIndex];
+    
+    if (isMasked) {
+        wordTitle.textContent = "••••••••";
+        wordTitle.classList.add('blur-sm');
+        wordPhonetic.classList.add('blur-sm');
         
+        // --- 汎用的な正規表現 ---
+        // 1. word の最後の文字が y なら取ってから y, ies, ied を許可
+        // 2. それ以外なら (s|es|ed|ing) を後ろに付けてもマッチさせる
+        let base = current.word;
+        let pattern;
+        
+        if (base.endsWith('y') && base.length > 2) {
+            const root = base.slice(0, -1);
+            pattern = `${root}(y|ies|ied|ying)?`;
+        } else {
+            pattern = `${base}(s|es|ed|ing)?`;
+        }
+        
+        const regex = new RegExp(`\\b${pattern}\\b`, 'gi');
+        
+        wordExample.textContent = `"${current.example.replace(regex, "（   ）")}"`;
+    } else {
+        // 元に戻す処理
+        wordTitle.textContent = current.word;
+        wordTitle.classList.remove('blur-sm');
+        wordPhonetic.classList.remove('blur-sm');
+        wordExample.textContent = `"${current.example}"`;
+    }
+}
         function renderMeaningText() {
             const current = wordData[currentIndex];
             wordMeaning.style.opacity = 0;
@@ -1541,7 +1575,7 @@
                 
                 // モードに応じたテキストを描画
                 renderMeaningText();
-                
+                updateMasking();
                 isAiLoadedForCurrentWord = false;
                 aiSection.classList.add('hidden');
                 aiBtnText.textContent = "AIに新しい例文を頼む";
@@ -1773,7 +1807,12 @@
             renderHistoryList();
         });
 
-        // --- 6. テーマ切り替え (Dark Mode) ---
+        const maskBtn = document.getElementById('maskBtn');
+maskBtn.addEventListener('click', () => {
+    isMasked = !isMasked; // ON/OFF切り替え
+    updateMasking();      // 即時反映
+    lucide.createIcons(); // アイコン再レンダリング
+});
         const themeToggle = document.getElementById('themeToggle');
         
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
