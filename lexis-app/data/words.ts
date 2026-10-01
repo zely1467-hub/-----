@@ -1,0 +1,2403 @@
+import { Word } from '@/types';
+
+export const initialWords: Word[] = [
+  {
+    word: "altruism",
+    phonetic: "/ˈæltruɪzəm/",
+    meaning: "利他主義、利他心",
+    definition:
+      "The belief in or practice of disinterested and selfless concern for the well-being of others.",
+    example: "Many people question the psychology behind pure altruism.",
+    aiPool: [
+      "True altruism involves helping others without expecting any reward.",
+      "The cooperative behavior of bees is a classic example of biological altruism.",
+      "Acts of altruism can significantly improve overall community well-being.",
+    ],
+  },
+  {
+                word: "aesthetic",
+                phonetic: "/ɛsˈθɛtɪk/",
+                meaning: "美的な、美学、美意識",
+                definition: "Concerned with beauty or the appreciation of beauty.",
+                example: "The app's design reflects a clean, minimalist Apple-like aesthetic.",
+                aiPool: [
+                    "The modern café was designed with a strict industrial aesthetic.",
+                    "She created a cohesive visual aesthetic for her frontend portfolio.",
+                    "Minimalism prioritizes functional beauty over superficial aesthetic elements."
+                ]
+            },
+            {
+                word: "convergence",
+                phonetic: "/kənˈvɜːrdʒəns/",
+                meaning: "収束、集中、一体化",
+                definition: "The process of coming together from different directions so as eventually to meet.",
+                example: "The convergence of AI and frontend design opens up endless creative possibilities.",
+                aiPool: [
+                    "Probability theory states that empirical results show convergence to the mean over time.",
+                    "The convergence of different art styles created a unique club dynamic.",
+                    "We are witnessing the technological convergence of mobile phones and advanced computing."
+                ]
+            },
+            {
+                word: "prevention",
+                phonetic: "/prɪˈvɛnʃən/",
+                meaning: "防止、予防、阻止",
+                definition: "The action of stopping something from happening or arising.",
+                example: "In cybersecurity, threat prevention is often more critical than cure.",
+                aiPool: [
+                    "Effective risk prevention requires a thorough understanding of system vulnerabilities.",
+                    "Regular software updates are essential for the prevention of security breaches."
+                ]
+            },
+            {
+                word: "minimalism",
+                phonetic: "/ˈmɪnɪməlɪzəm/",
+                meaning: "ミニマリズム、最小限主義",
+                definition: "A style or technique that is characterized by extreme spareness and simplicity.",
+                example: "The interface embraces minimalism, stripping away unnecessary elements.",
+                aiPool: [
+                    "Digital minimalism helps users focus on software that truly matters to them.",
+                    "Architectural minimalism often highlights the intrinsic beauty of simple materials."
+                ]
+            },
+            {
+                word: "articulate",
+                phonetic: "/ɑːrˈtɪkjuleɪt/",
+                meaning: "明確に表現する、はっきりと述べる",
+                definition: "To express clearly and effectively.",
+                example: "She was able to articulate her ideas clearly during the presentation, making her argument very convincing.",
+                aiPool: [
+                    "A great designer must be able to articulate the reasoning behind user experience choices.",
+                    "It can be challenging to articulate abstract design concepts to stakeholders without mockups.",
+                    "The new UI guidelines help developers articulate technical concepts more consistently."
+                ]
+            },
+            {
+                word: "assertive",
+                phonetic: "/əˈsɜːrtɪv/",
+                meaning: "自信に満ちた、毅然とした、自己主張の強い",
+                definition: "Having a strong or distinctive flavor or quality, often used in communication to express one's views confidently.",
+                example: "The speaker's assertive tone showed confidence and authority on the subject matter.",
+                aiPool: [
+                    "In collaborative design, being assertive about your creative choices helps build mutual respect.",
+                    "An assertive communication style allows developers to set realistic project deadlines clearly.",
+                    "She learned to be more assertive when presenting user interface solutions to the tech team."
+                ]
+            },
+            {
+                word: "coherent",
+                phonetic: "/koʊˈhɪrənt/",
+                meaning: "首尾一貫した、論理的な、分かりやすい",
+                definition: "Logical and consistent; easy to understand.",
+                example: "The team’s report was well-organized and coherent, making it easy for the audience to follow.",
+                aiPool: [
+                    "A coherent user interface design ensures that users never get confused while navigating the app.",
+                    "To build a successful product, we need a coherent strategy between developers and designers.",
+                    "The components should follow a coherent design system to maintain visual unity across all screens."
+                ]
+            },
+            {
+                word: "contextualize",
+                phonetic: "/kənˈtɛkstʃuəˌlaɪz/",
+                meaning: "文脈に即して考える、背景を説明する",
+                definition: "To place in context, providing background or a clearer perspective.",
+                example: "To better understand the historical event, the professor helped contextualize it within the global political climate of the time.",
+                aiPool: [
+                    "Adding visual mockups helps contextualize abstract user data for the frontend development team.",
+                    "To improve user experience, we need to contextualize error messages based on what the user was doing.",
+                    "The dashboard includes tooltips to contextualize the metrics and charts for new users."
+                ]
+            },
+            {
+                word: "convey",
+                phonetic: "/kənˈveɪ/",
+                meaning: "伝える、伝えるようにする",
+                definition: "To communicate or make something known.",
+                example: "The data presented helped convey the importance of sustainable practices in modern businesses.",
+                aiPool: [
+                    "A clean visual hierarchy can convey important product information to users without any text.",
+                    "Choosing the right color palette is essential to convey the core values of a premium brand.",
+                    "The simple onboarding tutorial aims to convey how to use the web application effectively within seconds."
+                ]
+            },
+            {
+                word: "credible",
+                phonetic: "/ˈkrɛdəbəl/",
+                meaning: "信用できる、信頼できる、確かな",
+                definition: "Believable or trustworthy.",
+                example: "The research presented was supported by credible sources, adding weight to the argument.",
+                aiPool: [
+                    "Including real testimonials on the landing page makes the product look more credible to new users.",
+                    "A secure, well-designed payment gateway is crucial for building a credible e-commerce platform.",
+                    "To maintain a credible web design, avoiding broken links and generic layouts is essential."
+                ]
+            },
+            {
+                word: "elucidate",
+                phonetic: "/ɪˈluːsɪdeɪt/",
+                meaning: "説明する、明快にする、解明する",
+                definition: "To make something clear; to explain.",
+                example: "Could you elucidate your point on the economic impact of the policy change? I didn’t quite understand the connection.",
+                aiPool: [
+                    "Interactive charts can easily elucidate complex datasets that are otherwise hard to read.",
+                    "The senior developer held a brief session to elucidate the inner workings of the new system framework.",
+                    "A clear user onboarding flow helps elucidate how the application works for first-time visitors."
+                ]
+            },
+            {
+                word: "empirical",
+                phonetic: "/ɛmˈpɪrɪkəl/",
+                meaning: "経験的な、実験に基づいた、実証的な",
+                definition: "Based on observation or experience rather than theory or pure logic.",
+                example: "The conclusions were drawn from empirical evidence, ensuring that the findings were based on real-world data.",
+                aiPool: [
+                    "User testing provides empirical data that helps frontend developers optimize the interface layout.",
+                    "Instead of guessing what users want, a good team relies on empirical research from analytics tools.",
+                    "The improvement in website performance was proven by empirical measurements taken before and after the update."
+                ]
+            },
+            {
+                word: "engage",
+                phonetic: "/ɛnˈɡeɪdʒ/",
+                meaning: "惹きつける、引き込む、関与させる",
+                definition: "To involve or attract attention.",
+                example: "The speaker used humor to engage the audience, making the presentation both informative and enjoyable.",
+                aiPool: [
+                    "Adding subtle micro-interactions is a clever way to engage users as they navigate a landing page.",
+                    "A successful modern web application must quickly engage first-time visitors before they bounce.",
+                    "Gamification features can heavily engage continuous learners and encourage daily practice."
+                ]
+            },
+            {
+                word: "evaluate",
+                phonetic: "/ɪˈvæljueɪt/",
+                meaning: "評価する、査定する、見極める",
+                definition: "To assess or judge the value, significance, or quality of something.",
+                example: "It’s important to evaluate all available data before making a final decision on the project’s direction.",
+                aiPool: [
+                    "Developers use performance tools to evaluate how quickly the web page loads on mobile devices.",
+                    "The team met to evaluate the feedback from early testers and improve the interface.",
+                    "We need to evaluate different javascript libraries to see which one fits our tech stack best."
+                ]
+            },
+            {
+                word: "facilitate",
+                phonetic: "/fəˈsɪlɪteɪt/",
+                meaning: "促進する、容易にする、円滑に進める",
+                definition: "To make a process or action easier.",
+                example: "The moderator’s role is to facilitate the discussion and ensure that all viewpoints are heard.",
+                aiPool: [
+                    "A clear navigation bar is crucial to facilitate a smooth user journey throughout the website.",
+                    "Using modern component libraries can significantly facilitate the product development process.",
+                    "The newly designed checkout flow aims to facilitate quicker transactions for mobile users."
+                ]
+            },
+            {
+                word: "fluctuate",
+                phonetic: "/ˈflʌktʃuˌeɪt/",
+                meaning: "不規則に変動する、上下する",
+                definition: "To change or vary irregularly.",
+                example: "The temperature in the region can fluctuate drastically between seasons, affecting the local agriculture.",
+                aiPool: [
+                    "Server traffic tends to fluctuate throughout the day, peaking during evening hours.",
+                    "The application needs a flexible cloud infrastructure because user demand can fluctuate heavily.",
+                    "Product prices on e-commerce platforms often fluctuate based on seasonal demand and supply."
+                ]
+            },
+            {
+                word: "impactful",
+                phonetic: "/ɪmˈpæktfəl/",
+                meaning: "影響力の大きい、効果的な、印象的な",
+                definition: "Having a strong effect or influence.",
+                example: "Her research on climate change provided impactful insights that sparked a larger conversation among policymakers.",
+                aiPool: [
+                    "Even small micro-interactions can create an impactful user experience when done right.",
+                    "The creative team focused on delivering an impactful landing page to increase sign-ups.",
+                    "Sharing user success stories is a highly impactful way to demonstrate the value of our software."
+                ]
+            },
+            {
+                word: "nuance",
+                phonetic: "/ˈnuːɑːns/",
+                meaning: "微妙な違い、ニュアンス、陰影",
+                definition: "A subtle difference or distinction.",
+                example: "There are many nuances to this debate, and we need to consider all sides before drawing conclusions.",
+                aiPool: [
+                    "A senior designer always pays attention to the nuance of shadow and spacing in UI elements.",
+                    "Understanding cultural nuance is critical when localizing an app for users around the world.",
+                    "The tone of voice in microcopy requires subtle nuance to sound friendly without being annoying."
+                ]
+            },
+            {
+                word: "paradigm",
+                phonetic: "/ˈpærədaɪm/",
+                meaning: "理論的枠組み、典型的な例、パラダイム",
+                definition: "A typical example or pattern of something.",
+                example: "The development of renewable energy technologies represents a paradigm shift in how we think about global energy consumption.",
+                aiPool: [
+                    "Switching from object-oriented to functional programming requires adopting a completely new paradigm.",
+                    "The rise of mobile-first design triggered a major paradigm shift in modern web development.",
+                    "Cloud computing has changed the paradigm of how tech companies manage their server infrastructure."
+                ]
+            },
+            {
+                word: "analyze",
+                phonetic: "/ˈænəlaɪz/",
+                meaning: "分析する、詳細に調べる、分解検証する",
+                definition: "To examine in detail, typically for purposes of explanation or interpretation.",
+                example: "The researcher will analyze the data to identify trends and correlations.",
+                aiPool: [
+                    "Product managers carefully analyze user feedback to prioritize the next feature updates.",
+                    "We need to analyze the crash logs to find out why the mobile app closed unexpectedly.",
+                    "The team will analyze the conversion rates after launching the new checkout interface."
+                ]
+            },
+            {
+                word: "cohesive",
+                phonetic: "/koʊˈhiːsɪv/",
+                meaning: "結合力のある、結束した、まとまりのある",
+                definition: "Forming a united whole.",
+                example: "The team presented a cohesive argument that tied all the points together effectively.",
+                aiPool: [
+                    "A cohesive design system allows developers to build consistent pages across the entire site.",
+                    "To build a cohesive user experience, the text, layout, and colors must work seamlessly together.",
+                    "The project succeeded because the remote team remained cohesive and focused on the same goal."
+                ]
+            },
+            {
+                word: "consequently",
+                phonetic: "/ˈkɒnsɪkwəntli/",
+                meaning: "その結果として、結果的に、したがって",
+                definition: "As a result or effect of something.",
+                example: "The new policy was implemented; consequently, the company saw an increase in employee satisfaction.",
+                aiPool: [
+                    "The server experienced an unexpected outage; consequently, many users were temporarily unable to log in.",
+                    "We optimized the website images and scripts; consequently, the page load time dropped by half.",
+                    "The developer missed the team meeting and consequently wasn't aware of the latest updates to the API."
+                ]
+            },
+            {
+                word: "divergent",
+                phonetic: "/daɪˈvɜːrdʒənt/",
+                meaning: "分岐する、異なる、互いに異なる方向に発展する",
+                definition: "Tending to be different or develop in different directions.",
+                example: "The team had divergent opinions on the project, but they eventually found common ground.",
+                aiPool: [
+                    "In the design thinking process, divergent thinking helps the team generate a wide variety of creative solutions.",
+                    "The software split into two divergent versions after the development team disagreed on the feature roadmap.",
+                    "Gathering feedback from divergent user groups ensures that the web application becomes accessible to everyone."
+                ]
+            },
+            {
+                word: "elicit",
+                phonetic: "/ɪˈlɪsɪt/",
+                meaning: "引き出す、誘い出す",
+                definition: "To draw out a response, reaction, or information from someone.",
+                example: "The teacher's question elicited a thoughtful response from the student.",
+                aiPool: [
+                    "The UX researcher designed the survey carefully to elicit honest and detailed feedback from beta testers.",
+                    "Using vibrant colors and smooth animations can elicit a positive emotional response from first-time users.",
+                    "The support team asked open-ended questions to elicit more specific details about the software bug."
+                ]
+            },
+            {
+                word: "examine",
+                phonetic: "/ɪɡˈzæmɪn/",
+                meaning: "調査する、詳しく調べる、検証する",
+                definition: "To inspect or look at closely in order to understand or evaluate something.",
+                example: "The report will examine the long-term effects of the policy on the economy.",
+                aiPool: [
+                    "Before merging the new code, the senior developer will examine it for any potential security flaws.",
+                    "We need to examine the web analytics data to see where users are dropping off during checkout.",
+                    "The QA team will thoroughly examine the interface to ensure it displays correctly on all screen sizes."
+                ]
+            },
+            {
+                word: "implicit",
+                phonetic: "/ɪmˈplɪsɪt/",
+                meaning: "暗黙の、言外の、明確に示されない",
+                definition: "Implied though not plainly expressed.",
+                example: "The speaker’s implicit message was that change was necessary for success.",
+                aiPool: [
+                    "Good UX design provides implicit feedback, like a subtle color change, to show a button is active.",
+                    "In JavaScript, implicit type conversion can sometimes cause unexpected bugs if you aren't careful.",
+                    "There was an implicit agreement among the team that all code should be reviewed before deployment."
+                ]
+            },
+            {
+                word: "quantitative",
+                phonetic: "/ˈkwɑːntəteɪtɪv/",
+                meaning: "量的な、定量的な、数量に関する",
+                definition: "Relating to the measurement of quantity or amount.",
+                example: "The study uses quantitative data to assess the effectiveness of the new program.",
+                aiPool: [
+                    "Google Analytics provides quantitative metrics like page views and bounce rates to track user behavior.",
+                    "We ran an A/B test to gather quantitative evidence before deciding which layout was more effective.",
+                    "While qualitative feedback tells us *why* users struggle, quantitative data shows us *where* they drop off."
+                ]
+            },
+            {
+                word: "refine",
+                phonetic: "/rɪˈfaɪn/",
+                meaning: "洗練させる、磨きをかける、微調整して改善する",
+                definition: "To improve by making small changes, often for better precision or clarity.",
+                example: "The author decided to refine the argument in her paper to make it more compelling.",
+                aiPool: [
+                    "The design team will refine the mobile interface based on the latest usability test results.",
+                    "We need to refine our AI prompts to get more accurate and relevant responses from the model.",
+                    "Engineers continuously refine the backend algorithms to reduce server response times."
+                ]
+            },
+            {
+                word: "reiterate",
+                phonetic: "/riˈɪtəreɪt/",
+                meaning: "何度も繰り返す、熱を込めて言う",
+                definition: "To repeat for emphasis or clarity.",
+                example: "Let me reiterate the importance of time management as we approach the final phase of the project.",
+                aiPool: [
+                    "During the sprint review, the manager wanted to reiterate the project goals for the upcoming quarter.",
+                    "I need to reiterate that this database migration must be done during low-traffic hours to prevent downtime.",
+                    "The documentation should reiterate that users must enable two-factor authentication for higher security."
+                ]
+            },
+            {
+                word: "significant",
+                phonetic: "/sɪɡˈnɪfɪkənt/",
+                meaning: "重要な、かなりの、著しい、有意な",
+                definition: "Sufficiently great or important to be worthy of attention.",
+                example: "The study revealed a significant correlation between exercise and mental health improvement.",
+                aiPool: [
+                    "The latest update resulted in a significant improvement in the app's overall loading speed.",
+                    "After shifting our marketing strategy, we noticed a significant increase in daily active users.",
+                    "The security audit identified a significant vulnerability in the authentication system that required an immediate patch."
+                ]
+            },
+            {
+                word: "signify",
+                phonetic: "/ˈsɪɡnɪfaɪ/",
+                meaning: "意味する、表す、示す、前兆となる",
+                definition: "To be an indication of something; to mean.",
+                example: "The handshake at the end of the meeting signified an agreement between the parties.",
+                aiPool: [
+                    "In HTTP protocols, a 200 status code is used to signify that the request was successful.",
+                    "We added a small badge next to the profile icon to signify that the user has a premium subscription.",
+                    "A sudden drop in session duration might signify that users are confused by the new layout changes."
+                ]
+            },
+            {
+                word: "substantiate",
+                phonetic: "/səbˈstænʃieɪt/",
+                meaning: "実証する、具体化する、証拠を挙げて証明する",
+                definition: "To provide evidence to support or prove the truth of something.",
+                example: "The scientist was able to substantiate her hypothesis with data collected from multiple experiments.",
+                aiPool: [
+                    "We need to gather user test metrics to substantiate our claim that the new design improves conversion.",
+                    "Without clear logs or screenshots, it is difficult for the engineering team to substantiate and fix the reported issue.",
+                    "The product manager used market research data to substantiate the need for a new features roadmap."
+                ]
+            },
+            {
+                word: "synthesizing",
+                phonetic: "/ˈsɪnθəsaɪzɪŋ/",
+                meaning: "統合、合成、総合的にまとめること",
+                definition: "To combine different ideas or information to create a cohesive understanding.",
+                example: "By synthesizing the research from various disciplines, the team was able to develop a comprehensive solution to the problem.",
+                aiPool: [
+                    "Synthesizing qualitative feedback and quantitative data gives us a complete picture of user behavior.",
+                    "The AI tool excels at synthesizing long discussion threads into a brief, actionable summary for the team.",
+                    "After synthesizing the requirements from different stakeholders, the product manager drafted the final spec."
+                ]
+            },
+            {
+                word: "viable",
+                phonetic: "/ˈvaɪəbl/",
+                meaning: "実行可能な、生存可能な、実用的な、見込みのある",
+                definition: "Capable of working successfully; feasible.",
+                example: "The proposed strategy seems viable, but further research is needed to confirm its long-term effectiveness.",
+                aiPool: [
+                    "We need to build a Minimum Viable Product (MVP) to test our core features with real users as soon as possible.",
+                    "After evaluating the technical constraints, the engineering team decided that the initial plan was not viable.",
+                    "The startup is looking for a viable business model that can generate steady revenue over the next three years."
+                ]
+            },
+            {
+                word: "amortize",
+                phonetic: "/ˈæmərtaɪz/",
+                meaning: "定期分割償還する、国債などを順次償還する、減価償却する",
+                definition: "To gradually reduce or pay off a debt over a period of time through regular payments.",
+                example: "The company plans to amortize its $1 million loan over the next ten years.",
+                aiPool: [
+                    "By spreading the initial infrastructure costs, we can amortize the development expenses over a three-year period.",
+                    "Using an amortization schedule helps businesses understand how much interest they will pay over the life of the loan.",
+                    "The software company decided to amortize the acquisition costs of the new technology rather than expensing it all at once."
+                ]
+            },
+            {
+                word: "depreciation",
+                phonetic: "/dɪˌpriːʃiˈeɪʃn/",
+                meaning: "減価償却、価値の低下、目減り",
+                definition: "A reduction in the value of an asset over time, especially due to wear and tear.",
+                example: "The company recorded a significant depreciation of its machinery this quarter.",
+                aiPool: [
+                    "We need to calculate the annual depreciation of our office hardware, including laptops and servers.",
+                    "The financial report detailed how the depreciation of the local currency affected our overseas cloud hosting costs.",
+                    "Unlike software assets, physical server infrastructure is subject to constant depreciation due to wear and tear."
+                ]
+            },
+            {
+                word: "dividend",
+                phonetic: "/ˈdɪvɪdend/",
+                meaning: "配当、配当金、利益配当、報い",
+                definition: "A payment made to shareholders from a company’s profits.",
+                example: "Shareholders were pleased when the company announced higher dividends this year.",
+                aiPool: [
+                    "Tech startups often reinvest their earnings into product development rather than paying out a dividend to investors.",
+                    "Investors often look at a company's dividend yield to evaluate whether the stock fits into their long-term portfolio.",
+                    "Our early investment in clean code and solid architecture is now paying dividends in the form of faster feature delivery."
+                ]
+            },
+            {
+                word: "equity",
+                phonetic: "/ˈekwəti/",
+                meaning: "純資産、自己資本、株式、持分",
+                definition: "The value of an owner’s interest in a company or property, after deducting liabilities.",
+                example: "After paying off the mortgage, she had over $200,000 in equity in her home.",
+                aiPool: [
+                    "Many startups offer equity to early employees to attract top talent and align their interests with the company's growth.",
+                    "The founders decided to raise a new round of funding by selling a 15% equity stake to venture capitalists.",
+                    "As the company's valuation increased, the value of the stock options and overall equity held by the team grew significantly."
+                ]
+            },
+            {
+                word: "expenditure",
+                phonetic: "/ɪkˈspendɪtʃər/",
+                meaning: "支出、消費、経費、支出額",
+                definition: "An amount of money spent on something, especially as part of a budget.",
+                example: "The marketing expenditure increased significantly in the last quarter.",
+                aiPool: [
+                    "To maximize efficiency, the company is looking to reduce its monthly cloud infrastructure expenditure.",
+                    "The board approved a higher expenditure for research and development to accelerate the creation of new tools.",
+                    "Our team must carefully track every operational expenditure to ensure the project stays within the allocated budget."
+                ]
+            },
+            {
+                word: "fiduciary",
+                phonetic: "/fɪˈduːʃieri/",
+                meaning: "信託の、受託者の、信託上の責任がある / 受託者、被信託者",
+                definition: "Relating to the trust involved in managing someone else’s money or assets. / A person or entity entrusted to manage assets in the best interest of another.",
+                example: "The company has a fiduciary duty to protect its clients’ investments. / The lawyer acted as a fiduciary for the estate.",
+                aiPool: [
+                    "Financial advisors who have a fiduciary duty must always put their clients' financial interests ahead of their own.",
+                    "As a fiduciary of the foundation's funds, she is legally required to manage the investments with extreme care.",
+                    "The board members were accused of breaching their fiduciary responsibility when they approved the high-risk acquisition."
+                ]
+            },
+            {
+                word: "ledger",
+                phonetic: "/ˈledʒər/",
+                meaning: "元帳、総勘定元帳、台帳、ブロックチェーンの分散帳簿",
+                definition: "A book or digital record used for maintaining a company's financial accounts.",
+                example: "Every transaction must be recorded in the general ledger for proper bookkeeping.",
+                aiPool: [
+                    "Modern ERP software automatically updates the digital ledger as soon as a sales invoice is processed.",
+                    "Blockchain technology is essentially a decentralized ledger that records cryptographically secure transactions.",
+                    "Our finance team is currently auditing the general ledger to prepare the balance sheet for the annual report."
+                ]
+            },
+            {
+                word: "liability",
+                phonetic: "/ˌlaɪəˈbɪləti/",
+                meaning: "負債、債務、義務、責任、お荷物",
+                definition: "A legal debt or obligation that a business or individual is required to pay.",
+                example: "The company’s liabilities exceeded its assets, signaling financial trouble.",
+                aiPool: [
+                    "When preparing the quarterly balance sheet, we must categorize short-term loans under current liabilities.",
+                    "The terms of service agreement clearly states that our platform limits its liability for unexpected server outages.",
+                    "Without proper security updates, legacy code can quickly become a major technical and financial liability for the team."
+                ]
+            },
+            {
+                word: "liaison",
+                phonetic: "/liˈeɪzɑːn/",
+                meaning: "連絡係、橋渡し役、密接な連絡・連携",
+                definition: "Communication or cooperation that facilitates a close working relationship between people or organizations.",
+                example: "She acts as a liaison between the marketing team and the product developers.",
+                aiPool: [
+                    "As the technical liaison, his job is to translate complex customer requirements into actionable tasks for the engineering team.",
+                    "We need to appoint a dedicated liaison to ensure smooth communication with our external design vendor.",
+                    "The project manager established a direct liaison with the security compliance office to expedite the audit process."
+                ]
+            },
+            {
+                word: "outsource", 
+                phonetic: "/ˈaʊtsɔːrs/",
+                meaning: "外注する、外部委託する、アウトソーシングする",
+                definition: "To delegate or contract out a job or service to an external company.",
+                example: "Many companies outsource their customer service operations to reduce costs.",
+                aiPool: [
+                    "Instead of building a team from scratch, the startup decided to outsource its initial mobile app development to a specialized agency.",
+                    "Outsource models allow businesses to focus on core product design while delegating routine maintenance to third-party vendors.",
+                    "Before we outsource our data processing tasks, we must ensure the vendor fully complies with our security policies."
+                ]
+            },
+            {
+                word: "redundant",
+                phonetic: "/rɪˈdʌndənt/",
+                meaning: "余分な、不要な、重複する、解雇された、冗長な",
+                definition: "No longer needed or useful; superfluous. Often refers to job positions eliminated due to downsizing.",
+                example: "Several employees were made redundant after the company restructured.",
+                aiPool: [
+                    "We need to clean up the codebase and remove redundant functions to improve overall system performance.",
+                    "The dev team configured redundant cloud servers to ensure the platform remains online even during a hardware failure.",
+                    "Due to the automation of routine data entry tasks, certain manual administrative roles have become redundant."
+                ]
+            },
+            {
+                word: "requisition",
+                phonetic: "/ˌrekwɪˈzɪʃn/",
+                meaning: "要求、要請、請求、請求書、調達依頼",
+                definition: "A formal written request for something, especially supplies or services.",
+                example: "The IT department submitted a requisition for 20 new laptops.",
+                aiPool: [
+                    "All purchase requisitions must be approved by the department head before being forwarded to procurement.",
+                    "The project manager submitted a personnel requisition to hire two additional backend developers.",
+                    "We need to fill out a software requisition form to get access to the new design and prototyping tools."
+                ]
+            },
+            {
+                word: "solvency",
+                phonetic: "/ˈsɑːlvənsi/",
+                meaning: "支払能力、ソルベンシー、財務健全性",
+                definition: "The ability of a company or individual to meet long-term financial obligations.",
+                example: "The auditors expressed concerns about the firm’s solvency after reviewing its debt load.",
+                aiPool: [
+                    "While liquidity focuses on short-term cash flow, solvency measures a company's ability to survive in the long run.",
+                    "The board reviewed the solvency ratio to ensure the business could withstand potential economic downturns.",
+                    "A strong balance sheet with minimal debt guarantees the long-term solvency of the enterprise."
+                ]
+            },
+            {
+                word: "streamline",
+                phonetic: "/ˈstriːmlaɪn/",
+                meaning: "合理化する、簡素化する、効率化する",
+                definition: "To improve the efficiency of a process by simplifying or eliminating unnecessary steps.",
+                example: "We need to streamline our approval workflow to reduce delays.",
+                aiPool: [
+                    "Introducing automated testing will significantly streamline our development and deployment pipeline.",
+                    "The operations team is working to streamline the user onboarding process to improve customer retention.",
+                    "By migrating our infrastructure to the cloud, we managed to streamline resource management and cut costs."
+                ]
+            },
+            {
+                word: "underwriting",
+                phonetic: "/ˈʌndərraɪtɪŋ/",
+                meaning: "引受、契約審査・引き受け、融資審査",
+                definition: "The act of guaranteeing financial support or backing for a transaction, investment, or insurance policy.",
+                example: "The bank is responsible for the underwriting of the new bond issue.",
+                aiPool: [
+                    "Fintech platforms are now using AI to automate the underwriting process for small business loans.",
+                    "The investment bank managed the underwriting of the startup's IPO, guaranteeing the sale of its shares.",
+                    "Strict underwriting guidelines help insurance companies assess risks accurately and set appropriate premiums."
+                ]
+            },
+            {
+                word: "comply",
+                phonetic: "/kəmˈplaɪ/",
+                meaning: "従う、準拠する、応じる",
+                definition: "To act in accordance with rules, laws, or regulations.",
+                example: "All staff must comply with the new data protection policies.",
+                aiPool: [
+                    "Our cloud architecture must fully comply with global privacy regulations like GDPR and CCPA.",
+                    "The software update was rolled out to ensure the application complies with the latest security standards.",
+                    "Failure to comply with the industry regulations could result in severe financial penalties for the company."
+                ]
+            },
+            {
+                word: "concur",
+                phonetic: "/kənˈkɜːr/",
+                meaning: "同意する、賛成する、意見が一致する",
+                definition: "To agree with a statement or opinion.",
+                example: "I concur with your suggestion to postpone the project deadline.",
+                aiPool: [
+                    "After reviewing the Q1 financial report, all board members concurred that we need to adjust our growth targets.",
+                    "The senior engineers concurred with the security audit's findings and recommended an immediate patch.",
+                    "I concur entirely with your assessment that the user interface needs to be streamlined for better engagement."
+                ]
+            },
+            {
+                word: "consensus",
+                phonetic: "/kənˈsensəs/",
+                meaning: "一致、総意、コンセンサス、合意",
+                definition: "A general agreement among a group of people.",
+                example: "After a long discussion, the team reached a consensus on the marketing strategy.",
+                aiPool: [
+                    "It is crucial to build a consensus among all key stakeholders before initiating the system migration.",
+                    "The management failed to reach a consensus on whether to expand the team or outsource the development.",
+                    "In blockchain networks, nodes use proof-of-stake or other mechanism to achieve consensus on the ledger's state."
+                ]
+            },
+            {
+                word: "delegate",
+                phonetic: "/ˈdelɪɡeɪt/",
+                meaning: "委任する、委譲する、任せる",
+                definition: "To assign tasks or responsibilities to someone else, often a subordinate.",
+                example: "A good manager knows when to delegate tasks to their team.",
+                aiPool: [
+                    "Effective leaders learn to delegate routine operational tasks so they can focus on long-term strategy.",
+                    "Instead of trying to micro-manage the launch, he decided to delegate the entire project to the product team.",
+                    "The scrum master will delegate the core frontend development to the senior engineering members."
+                ]
+            },
+            {
+                word: "discrepancy",
+                phonetic: "/dɪˈskrepənsi/",
+                meaning: "不一致、食い違い、ズレ、矛盾",
+                definition: "A lack of consistency or agreement between two or more facts or figures.",
+                example: "There’s a discrepancy between the invoice and the payment received.",
+                aiPool: [
+                    "The QA team discovered a major data discrepancy between the staging database and the production environment.",
+                    "We need to investigate the discrepancy between our physical warehouse inventory and the digital system records.",
+                    "A routine audit revealed a slight discrepancy in the Q4 financial reports, which has now been corrected."
+                ]
+            },
+            {
+                word: "disseminate",
+                phonetic: "/dɪˈsemɪneɪt/",
+                meaning: "普及させる、広く散布する、周知する",
+                definition: "To spread or distribute information widely.",
+                example: "The company uses email newsletters to disseminate policy updates to all employees.",
+                aiPool: [
+                    "The primary goal of the press release is to disseminate information about our new eco-friendly product line.",
+                    "We need to establish a central knowledge base to effectively disseminate development best practices across teams.",
+                    "Social media platforms allow startups to disseminate their brand messaging to a global audience instantly."
+                ]
+            },
+            {
+                word: "eloquent",
+                phonetic: "/ˈeləkwənt/",
+                meaning: "雄弁な、説得力のある、表現豊かな、明快で洗練された",
+                definition: "Fluent or persuasive in speaking or writing; able to express ideas clearly and effectively.",
+                example: "The manager gave an eloquent presentation that impressed both clients and executives.",
+                aiPool: [
+                    "Her eloquent argument during the board meeting successfully convinced the investors to double our budget.",
+                    "The brand's landing page features eloquent copywriting that perfectly captures the company's core values.",
+                    "In software engineering, we strive to write eloquent code that is not only functional but also clean and easy to read."
+                ]
+            },
+            {
+                word: "emphasize",
+                phonetic: "/ˈemfəsaɪz/",
+                meaning: "強調する、重視する、重きを置く",
+                definition: "To give special importance or attention to something in speech or writing.",
+                example: "The CEO emphasized the importance of innovation in his keynote speech.",
+                aiPool: [
+                    "During the sprint planning, the product owner emphasized that we must focus on fixing critical performance bugs first.",
+                    "The new UI design uses bold typography and high-contrast colors to emphasize the primary call-to-action button.",
+                    "We cannot emphasize enough how important it is to back up all system databases before running the migration script."
+                ]
+            },
+            {
+                word: "expedite",
+                phonetic: "/ˈekspədaɪt/",
+                meaning: "迅速に処理する、捗らせる、早める、促進する",
+                definition: "To speed up the progress of a process or task.",
+                example: "We hired additional staff to expedite the shipping process during the holiday season.",
+                aiPool: [
+                    "To expedite the approval process, we should bypass the physical paperwork and use digital signatures.",
+                    "The development team worked overtime to expedite the release of the hotfix for the payment gateway bug.",
+                    "We need to streamline our onboarding training to expedite the integration of new engineers into the core project."
+                ]
+            },
+            {
+                word: "implement",
+                phonetic: "/ˈɪmplɪment/",
+                meaning: "実行する、実施する、実装する、導入する",
+                definition: "To put a plan, decision, or strategy into effect.",
+                example: "The manager will implement the new scheduling system next month.",
+                aiPool: [
+                    "The marketing team is ready to implement the new user-acquisition strategy starting next quarter.",
+                    "We need to implement stricter multi-factor authentication to protect sensitive customer data.",
+                    "The software architecture requires us to implement this specific interface across all payment modules."
+                ]
+            },
+            {
+                word: "intermittent",
+                phonetic: "/ˌɪntərˈmɪtənt/",
+                meaning: "断続的な、間欠的な、時々途切れる",
+                definition: "Occurring at irregular intervals; not continuous or steady.",
+                example: "The service disruption was due to intermittent internet issues.",
+                aiPool: [
+                    "The dev team is investigating an intermittent bug that only causes the app to crash during high-traffic periods.",
+                    "Users reported intermittent connectivity issues with the API gateway during the scheduled maintenance window.",
+                    "Due to an intermittent hardware fault in the data center, some background jobs failed to execute properly."
+                ]
+            },
+            {
+                word: "mitigate",
+                phonetic: "/ˈmɪtɪɡeɪt/",
+                meaning: "軽減する、緩和する、和らげる",
+                definition: "To reduce the severity, seriousness, or painfulness of something.",
+                example: "The safety measures were taken to mitigate potential risks on the construction site.",
+                aiPool: [
+                    "Implementing a multi-cloud strategy helps to mitigate the risk of a single point of failure.",
+                    "We need to deploy a quick hotfix to mitigate the severe security vulnerability discovered in the authentication module.",
+                    "To mitigate project delays, the team decided to scale up the engineering resources for the sprint."
+                ]
+            },
+            {
+                word: "procurement",
+                phonetic: "/prəˈkjʊərmənt/",
+                meaning: "調達、購買、獲得",
+                definition: "The act of obtaining goods or services, especially for business or government use.",
+                example: "The procurement department is responsible for sourcing quality suppliers.",
+                aiPool: [
+                    "To optimize costs, the company revised its software procurement policy for cloud licenses.",
+                    "The procurement process for the new hardware infrastructure took longer than initially budgeted.",
+                    "Establishing strong vendor relationships is a key goal for our strategic procurement team."
+                ]
+            },
+            {
+                word: "solicit",
+                phonetic: "/səˈlɪsɪt/",
+                meaning: "求める、要請する、募る",
+                definition: "To ask for something, such as information, money, or feedback.",
+                example: "The company sent out surveys to solicit customer feedback.",
+                aiPool: [
+                    "The project manager will solicit input from the engineering team before finalizing the roadmap.",
+                    "We plan to launch a crowdfunding campaign to solicit donations for our open-source tools.",
+                    "The procurement team issued an RFP to solicit competitive bids from several cloud vendors."
+                ]
+            },
+            {
+                word: "subsidiary",
+                phonetic: "/səbˈsɪdiəri/",
+                meaning: "子会社、系列会社",
+                definition: "A company that is owned or controlled by another (usually larger) company.",
+                example: "The tech giant acquired a small subsidiary to expand into the mobile market.",
+                aiPool: [
+                    "The parent company handles the overall strategic vision, while each subsidiary manages its own daily operations.",
+                    "To break into the European market, we established a new subsidiary based in Berlin.",
+                    "The IT team is tasked with migrating the communication tools used by our newly acquired subsidiary to the core network."
+                ]
+            },
+            {
+                word: "adhere",
+                phonetic: "/ədˈhɪər/",
+                meaning: "遵守する、忠実に守る、固執する",
+                definition: "To stick firmly to a rule, agreement, or belief.",
+                example: "All employees must adhere to the company’s confidentiality policy.",
+                aiPool: [
+                    "The project team must strictly adhere to the established coding standards to ensure code maintainability.",
+                    "Failure to adhere to GDPR regulations could result in severe financial penalties for the organization.",
+                    "To pass the upcoming security audit, we need to ensure all microservices adhere to our encryption protocols."
+                ]
+            },
+            {
+                word: "coerce",
+                phonetic: "/koʊˈɜːrs/",
+                meaning: "強要する、強制する、無理に〜させる",
+                definition: "To persuade someone to do something by using force or threats.",
+                example: "The contract was signed under pressure and might be considered coerced.",
+                aiPool: [
+                    "The legal department confirmed that any agreement obtained by trying to coerce the vendor is completely invalid.",
+                    "In ransomware attacks, hackers encrypt corporate files to coerce companies into paying a hefty ransom.",
+                    "Managers should never use their authority to coerce team members into working unrecorded overtime."
+                ]
+            },
+            {
+                word: "contingent",
+                phonetic: "/kənˈtɪndʒənt/",
+                meaning: "（〜を）条件とする、〜次第である、不測の、依存する",
+                definition: "Dependent on certain conditions.",
+                example: "The bonus is contingent on meeting quarterly sales targets.",
+                aiPool: [
+                    "The final approval of the merger is contingent on the regulatory clearance from the antitrust commission.",
+                    "Our deployment schedule remains contingent on whether the QA team completes the security testing by Friday.",
+                    "The venture capital funding is contingent upon the startup reaching its target number of active users."
+                ]
+            },
+            {
+                word: "credence",
+                phonetic: "/ˈkriːdns/",
+                meaning: "信用性、信憑性、信頼、確信",
+                definition: "Belief in or acceptance of something as true.",
+                example: "His research lends credence to the theory of market fluctuation.",
+                aiPool: [
+                    "The recent surge in user engagement data gives credence to our hypothesis about the new feature's design.",
+                    "We cannot give any credence to these anonymous online rumors until a formal internal audit is completed.",
+                    "The expert's endorsement during the tech conference lent significant credence to our custom security protocol."
+                ]
+            },
+            {
+                word: "deficit",
+                phonetic: "/ˈdefəsɪt/",
+                meaning: "赤字、不足額、欠損、不足",
+                definition: "The amount by which something, especially money, is too small.",
+                example: "The country is facing a growing trade deficit.",
+                aiPool: [
+                    "The accounting team reported a significant budget deficit at the end of the fiscal year due to unexpected legal fees.",
+                    "To fix the current talent deficit in our engineering division, we need to launch an aggressive recruitment campaign.",
+                    "The project is currently running at a time deficit, meaning we must streamline our QA process to meet the launch deadline."
+                ]
+            },
+            {
+                word: "feasible",
+                phonetic: "/ˈfiːzəbl/",
+                meaning: "実現可能な、実行可能な、現実的な、もっともらしい",
+                definition: "Possible and practical to do easily or conveniently.",
+                example: "The proposal was deemed feasible after a cost analysis.",
+                aiPool: [
+                    "Before we commit to the new feature roadmap, the engineering lead needs to assess whether it is technically feasible.",
+                    "With our current team size, launching the application by the end of this month is simply not a feasible goal.",
+                    "The consultant provided a highly feasible alternative plan that reduces marketing costs by thirty percent."
+                ]
+            },
+            {
+                word: "incentivize",
+                phonetic: "/ɪnˈsentɪvaɪz/",
+                meaning: "動機・刺激を与える、やる気を起こさせる、奨励する",
+                definition: "To provide someone with a reason or motivation to do something.",
+                example: "The company incentivizes good performance with quarterly bonuses.",
+                aiPool: [
+                    "We can incentivize early-bird registrations by offering a twenty percent discount on the premium subscription.",
+                    "The HR department introduced a referral program to incentivize current engineers to recommend top talent.",
+                    "To maximize data collection, the product team wants to incentivize users to complete their profiles using gamification."
+                ]
+            },
+            {
+                word: "mandate",
+                phonetic: "/ˈmændeɪt/",
+                meaning: "命令、受託権限、統治委任、義務付けること",
+                definition: "An official order or authorization to act.",
+                example: "The agency received a mandate to regulate digital advertising.",
+                aiPool: [
+                    "Under the new corporate mandate, all software development teams must migrate their legacy services to the cloud by Q4.",
+                    "The compliance committee was given a strict mandate to eliminate all potential data privacy vulnerabilities.",
+                    "The board issued a clear mandate to focus on organic growth rather than pursuing aggressive corporate acquisitions."
+                ]
+            },
+            {
+                word: "negligible",
+                phonetic: "/ˈneɡlɪdʒəbl/",
+                meaning: "無視できるほどの、ごくわずかな、取るに足らない",
+                definition: "So small or unimportant as to be not worth considering.",
+                example: "The error had a negligible effect on the final report.",
+                aiPool: [
+                    "The new code optimization reduced memory usage, so the impact on server latency is now completely negligible.",
+                    "Although there was a minor data sync delay, the financial discrepancy it caused was negligible.",
+                    "We can safely ignore this minor edge case since its occurrence rate among active users is negligible."
+                ]
+            },
+            {
+                word: "oversee",
+                phonetic: "/ˌoʊvərˈsiː/",
+                meaning: "監督する、統括する、管理する",
+                definition: "To supervise or manage a process or group.",
+                example: "She was hired to oversee the implementation of new HR policies.",
+                aiPool: [
+                    "The engineering director will oversee the entire migration process to ensure minimal downtime for users.",
+                    "As a senior project manager, your primary responsibility is to oversee cross-functional team collaborations.",
+                    "An independent auditor was appointed to oversee the company's compliance with new data protection laws."
+                ]
+            },
+            {
+                word: "preliminary",
+                phonetic: "/prɪˈlɪmɪneri/",
+                meaning: "予備の、準備段階の、暫定的な、初期の",
+                definition: "Coming before the main event or action.",
+                example: "These are just preliminary results; more analysis is needed.",
+                aiPool: [
+                    "Before the development phase begins, we must conduct a preliminary investigation into the existing system architecture.",
+                    "The procurement committee has released a preliminary list of qualified vendors for the upcoming infrastructure project.",
+                    "According to our preliminary cost estimate, building the custom CRM will require more budget than utilizing an off-the-shelf solution."
+                ]
+            },
+            {
+                word: "reimburse",
+                phonetic: "/ˌriːɪmˈbɜːrs/",
+                meaning: "払い戻す、返済する、精算する",
+                definition: "To pay back money that has been spent or lost.",
+                example: "Employees will be reimbursed for approved travel expenses.",
+                aiPool: [
+                    "Please submit all your original receipts by Friday so the finance team can reimburse your client dinner expenses.",
+                    "The company policy states that we will not reimburse any software license fees purchased without prior managerial approval.",
+                    "If the business trip is canceled due to client scheduling conflicts, the airline ticket costs will be fully reimbursed."
+                ]
+            },
+            {
+                word: "remedy",
+                phonetic: "/ˈremədi/",
+                meaning: "【名】改善策、救済措置、解決策 ／ 【動】修正する、是正する、治療する",
+                definition: "Noun: A means of solving a problem or correcting a fault. / Verb: To do something to correct or improve something that is wrong.",
+                example: "Management proposed a remedy for the budget shortfall. / This mistake must be remedied immediately.",
+                aiPool: [
+                    "The security patch provides an effective remedy for the critical vulnerability found in our authentication flow.",
+                    "If the vendor fails to meet the service level agreement, we have the right to seek a legal remedy.",
+                    "We need to identify the root cause of these database timeouts so we can remedy the situation permanently."
+                ]
+            },
+            {
+                word: "tentative",
+                phonetic: "/ˈtentətɪv/",
+                meaning: "暫定的な、仮の、不確定な、確実でない",
+                definition: "Not certain or fixed; provisional.",
+                example: "The schedule is tentative and may be revised later.",
+                aiPool: [
+                    "We have set a tentative release date for the new feature, but it will depend entirely on the final testing results.",
+                    "Let's pencil in a tentative meeting for next Tuesday at 3 PM to review the initial feedback from the client.",
+                    "The project scope remains tentative until the budget allocation is officially approved by the board."
+                ]
+            },
+            {
+                word: "undermine",
+                phonetic: "/ˌʌndərˈmaɪn/",
+                meaning: "徐々に蝕む、密かに弱体化させる、損なう",
+                definition: "To weaken or damage something gradually or secretly.",
+                example: "Rumors about layoffs may undermine employee morale.",
+                aiPool: [
+                    "Using outdated encryption algorithms will inevitably undermine the overall security of our cloud infrastructure.",
+                    "A lack of transparent communication during the merger can easily undermine the trust between teams.",
+                    "Frequent and uncoordinated changes to the product roadmap will undermine the engineers' productivity and focus."
+                ]
+            },
+            {
+                word: "allocate",
+                phonetic: "/ˈæləkeɪt/",
+                meaning: "割り当てる、配分する、計上する",
+                definition: "To distribute resources or duties for a specific purpose.",
+                example: "The budget committee will allocate additional funds to the marketing team.",
+                aiPool: [
+                    "To improve database performance, we need to allocate more cloud memory to the indexing service.",
+                    "The project manager decided to allocate two more senior engineers to the backend development team.",
+                    "We must carefully allocate our limited marketing budget across the most high-converting channels."
+                ]
+            },
+            {
+                word: "arbitrary",
+                phonetic: "/ˈɑːrbɪtreri/",
+                meaning: "任意の、独断的な、恣意的な、根拠のない",
+                definition: "Based on random choice or personal whim, rather than any reason or system.",
+                example: "The decision to cancel the meeting seemed arbitrary to most staff.",
+                aiPool: [
+                    "Choosing a thirty-day trial period wasn't arbitrary; it was based on extensive user conversion analytics.",
+                    "We should avoid making arbitrary changes to the UI components without consulting the design system guidelines.",
+                    "The server timeout value was set to an arbitrary five seconds, which is causing frequent connection dropped errors."
+                ]
+            },
+            {
+                word: "benchmark",
+                phonetic: "/ˈbentʃmɑːrk/",
+                meaning: "指標、基準、比較対象、ベンチマーク",
+                definition: "A standard or point of reference for comparison.",
+                example: "The company uses industry benchmarks to evaluate performance.",
+                aiPool: [
+                    "We need to run a series of tests to establish a performance benchmark for the new database cluster.",
+                    "Our customer satisfaction rate has finally surpassed the competitive benchmark set by the top three market leaders.",
+                    "The project team established the Q2 milestones as a benchmark to measure the efficiency of the new agile workflow."
+                ]
+            },
+            {
+                word: "compensate",
+                phonetic: "/ˈkɑːmpenseɪt/",
+                meaning: "補償する、賠償する、埋め合わせる、相殺する",
+                definition: "To make up for something, often by providing money or services.",
+                example: "The company will compensate employees for overtime work.",
+                aiPool: [
+                    "To compensate for the server downtime yesterday, we decided to extend the promotional period by two days.",
+                    "Our high conversion rate helped to compensate for the lower-than-expected traffic on the new landing page.",
+                    "The automated caching system is designed to compensate for temporary spikes in database network latency."
+                ]
+            },
+            {
+                word: "compliance",
+                phonetic: "/kəmˈplaɪəns/",
+                meaning: "遵守、準拠、コンプライアンス",
+                definition: "The act of following rules, laws, or standards.",
+                example: "The company hired a legal advisor to ensure full compliance with international trade regulations.",
+                aiPool: [
+                    "Before deploying the fintech app to production, we must verify its full compliance with regional financial data regulations.",
+                    "The security team conducts quarterly internal audits to maintain strict compliance with global industry standards.",
+                    "Failure to adhere to the updated user privacy laws could put the organization at serious risk of compliance violations."
+                ]
+            },
+            {
+                word: "discretion",
+                phonetic: "/dɪˈskreʃn/",
+                meaning: "裁量（権）、自己の判断、慎重さ、思慮分別",
+                definition: "The freedom or authority to decide what should be done in a particular situation.",
+                example: "Students can be expelled at the discretion of the principal.",
+                aiPool: [
+                    "Project managers have the discretion to reallocate up to ten percent of the budget without seeking board approval.",
+                    "The system allows admins to adjust data access permissions at their own discretion based on team requirements.",
+                    "When handling sensitive user metrics, our team must exercise extreme discretion to prevent any privacy leaks."
+                ]
+            },
+            {
+                word: "endorse",
+                phonetic: "/ɪnˈdɔːrs/",
+                meaning: "支持する、承認する、推奨する",
+                definition: "To publicly or officially support something or someone.",
+                example: "The board will endorse the new sustainability policy.",
+                aiPool: [
+                    "The CTO decided to endorse the migration to the new cloud framework after reviewing the performance benchmark report.",
+                    "We cannot officially endorse this third-party tool until it undergoes a thorough compliance and security review.",
+                    "Senior leadership is expected to endorse the remote-work extension during the upcoming quarterly meeting."
+                ]
+            },
+            {
+                word: "indispensable",
+                phonetic: "/ˌɪndɪˈspensəbl/",
+                meaning: "必要不可欠な、絶対に欠かせない",
+                definition: "Absolutely necessary or essential.",
+                example: "She is an indispensable member of the design team.",
+                aiPool: [
+                    "Automated deployment pipelines have become indispensable for maintaining a fast and reliable release cycle.",
+                    "Continuous feedback from active users is indispensable if we want to improve the product's retention rate.",
+                    "Her extensive experience with legacy system migrations makes her indispensable to the engineering department."
+                ]
+            },
+            {
+                word: "liable",
+                phonetic: "/ˈlaɪəbl/",
+                meaning: "責任がある、義務がある、〜しがちである",
+                definition: "Legally responsible for something.",
+                example: "The manufacturer is liable for any defects in the product.",
+                aiPool: [
+                    "According to the signed service level agreement, the vendor is not liable for data losses caused by user error.",
+                    "If our company fails to implement proper security patches, we may be held legally liable for any resulting data breaches.",
+                    "Under the terms of the contract, both parties are equally liable for any third-party intellectual property claims."
+                ]
+            },
+            {
+                word: "offset",
+                phonetic: "/ˈɔːfset/",
+                meaning: "相殺する、帳消しにする、埋め合わせる",
+                definition: "To balance or compensate for something.",
+                example: "The carbon credits help offset the company’s emissions.",
+                aiPool: [
+                    "The significant increase in international subscription revenue helped to offset the slight decline in our domestic market.",
+                    "By migrating our infrastructure to a serverless architecture, we can offset the rising costs of database maintenance.",
+                    "The project team plans to implement automated testing tools to offset the development delays caused by initial scope changes."
+                ]
+            },
+            {
+                word: "pertinent",
+                phonetic: "/ˈpɜːrtnənt/",
+                meaning: "適切に当てはまる、的を射た、密接に関連する",
+                definition: "Relevant or applicable to a particular matter.",
+                example: "Please bring only the most pertinent documents to the meeting.",
+                aiPool: [
+                    "To diagnose the API error quickly, please filter the server logs and share only the most pertinent data points.",
+                    "The project manager asked the team to stay focused on the pertinent issues rather than bringing up unrelated technical debt.",
+                    "We need to gather all pertinent user feedback before finalizing the architecture for the premium feature tier."
+                ]
+            },
+            {
+                word: "rescind",
+                phonetic: "/rɪˈsɪnd/",
+                meaning: "撤回する、無効にする、取り消す",
+                definition: "To revoke, cancel, or repeal a law, order, or agreement.",
+                example: "The company decided to rescind the job offer due to budget cuts.",
+                aiPool: [
+                    "The security team had to rescind the vendor's production server access immediately after detecting suspicious activity.",
+                    "Management reserves the right to rescind the remote-work policy if team performance benchmarks are not met.",
+                    "Following a material breach of contract, our legal counsel advised us to rescind the partnership agreement."
+                ]
+            },
+            {
+                word: "subordinate",
+                phonetic: "/səˈbɔːrdɪnət/",
+                meaning: "部下、下位の人、従属する人",
+                definition: "A person under the authority of another; lower in rank or position.",
+                example: "Supervisors should treat subordinates with fairness and respect.",
+                aiPool: [
+                    "A great engineering manager not only assigns tasks but also actively mentors their subordinates to help them grow professionally.",
+                    "To scale the operations efficiently, the director must learn to delegate critical responsibilities to their trusted subordinates.",
+                    "The annual 360-degree review allows managers to receive constructive, anonymous feedback from both peers and subordinates."
+                ]
+            },
+            {
+                word: "surplus",
+                phonetic: "/ˈsɜːrplʌs/",
+                meaning: "剰余、余剰、黒字、残額",
+                definition: "An amount of something left over when requirements have been met.",
+                example: "The company reinvested its budget surplus in staff training.",
+                aiPool: [
+                    "During low-traffic hours, the server farm has a computation surplus that can be utilized for heavy data processing.",
+                    "The board recommended using the Q1 cash surplus to accelerate the development of our upcoming AI features.",
+                    "We need to optimize our inventory management system to prevent a permanent surplus of obsolete hardware components."
+                ]
+            },
+            {
+                word: "viability",
+                phonetic: "/ˌvaɪəˈbɪləti/",
+                meaning: "実現可能性、生存能力、生存可能性、事業継続性",
+                definition: "The ability to work successfully or be effective.",
+                example: "They conducted a study to assess the viability of the new product.",
+                aiPool: [
+                    "Before writing any code, the engineering team built a quick prototype to test the technical viability of the blockchain integration.",
+                    "Rising cloud infrastructure costs are forcing us to question the long-term economic viability of our free-tier subscription model.",
+                    "The primary goal of a Minimum Viable Product (MVP) is to validate market viability with the least amount of effort and resources."
+                ]
+            },
+            {
+                word: "acquisition",
+                phonetic: "/ˌækwɪˈzɪʃn/",
+                meaning: "買収、獲得、収集、取得",
+                definition: "The act of gaining possession, especially in business (e.g., a company buying another).",
+                example: "The acquisition of the startup helped the company expand its digital services.",
+                aiPool: [
+                    "Following the successful acquisition of our main competitor, we are working to integrate their engineering team into our workflow.",
+                    "The marketing team's primary KPI for this quarter is to lower the user acquisition cost while maintaining a high retention rate.",
+                    "The data platform was specifically designed to streamline the acquisition and real-time processing of complex IoT sensor streams."
+                ]
+            },
+            {
+                word: "augment",
+                phonetic: "/ɔːɡˈment/",
+                meaning: "増加させる、拡張する、強化する",
+                definition: "To make something greater by adding to it; to increase.",
+                example: "The new product line will augment the company's overall revenue.",
+                aiPool: [
+                    "The startup aims to develop AI software tools that augment human capabilities rather than replacing them entirely.",
+                    "We decided to implement multi-factor authentication to augment our existing system architecture against data breaches.",
+                    "The engineering department plans to hire three junior frontend developers to augment the current mobile application team."
+                ]
+            },
+            {
+                word: "backlog",
+                phonetic: "/ˈbæklɔːɡ/",
+                meaning: "未処理の山、残務、バックログ、タスク一覧",
+                definition: "An accumulation of tasks or work that needs to be dealt with.",
+                example: "We’re working overtime to clear the backlog of customer service requests.",
+                aiPool: [
+                    "The product owner spent the afternoon refining the sprint backlog to ensure the development team focuses on high-priority features.",
+                    "Due to the unexpected server outage, the system now has a massive backlog of un-processed background data jobs.",
+                    "We need to dedicate the entire next iteration to resolving technical debt and clearing our bug backlog."
+                ]
+            },
+            {
+                word: "circulation",
+                phonetic: "/ˌsɜːrkjəˈleɪʃn/",
+                meaning: "回覧、流通、配布、発行部数",
+                definition: "The movement or spreading of information, documents, or materials to a wider audience.",
+                example: "The circulation of internal reports is limited to senior management only.",
+                aiPool: [
+                    "To prevent potential intellectual property leaks, we must restrict the circulation of this draft specification file.",
+                    "The security operations center ensured the rapid circulation of the threat prevention report across all engineering departments.",
+                    "Before the official release, a limited circulation of the beta version was granted to trusted user groups for feedback."
+                ]
+            },
+            {
+                word: "consensus-building",
+                phonetic: "/kənˈsensəs ˈbɪldɪŋ/",
+                meaning: "合意形成、意見の一致を図るプロセス、根回し",
+                definition: "The process of working toward agreement within a group.",
+                example: "Effective leaders focus on consensus-building to ensure team unity.",
+                aiPool: [
+                    "In cross-functional product development, consensus-building among engineers, designers, and marketers is vital for success.",
+                    "The project manager initiated a series of workshops to accelerate the consensus-building process regarding the system architecture.",
+                    "To minimize friction during deployment, we need to focus on consensus-building with the security operations team early on."
+                ]
+            },
+            {
+                word: "entail",
+                phonetic: "/ɪnˈteɪl/",
+                meaning: "伴う、必要とする、生じさせる",
+                definition: "To involve something as a necessary part or consequence.",
+                example: "The role entails frequent travel and weekend work.",
+                aiPool: [
+                    "Upgrading the core database architecture will inevitably entail a short period of scheduled system downtime.",
+                    "Before approving the feature request, we need to understand exactly what kind of technical debt it might entail.",
+                    "Transitioning to a fully microservices-based model entails a significant shift in how our engineering teams collaborate."
+                ]
+            },
+            {
+                word: "equitable",
+                phonetic: "/ˈekwɪtəbl/",
+                meaning: "公平な、公正な、偏りのない",
+                definition: "Fair and impartial.",
+                example: "The company introduced an equitable pay structure to address wage gaps.",
+                aiPool: [
+                    "To foster a collaborative environment, managers must ensure an equitable distribution of workload among team members.",
+                    "Our load balancing algorithm is designed to guarantee equitable resource allocation for all active API clients.",
+                    "The committee's goal is to establish an equitable framework for evaluating performance benchmarks across different departments."
+                ]
+            },
+            {
+                word: "gauge",
+                phonetic: "/ɡeɪdʒ/",
+                meaning: "測定する、評価する、判断する",
+                definition: "To measure or estimate something, especially level or amount.",
+                example: "We use surveys to gauge customer satisfaction.",
+                aiPool: [
+                    "The dev team relies on real-time monitoring tools to gauge system performance under high traffic conditions.",
+                    "We are conducting A/B testing on the new interface to gauge user engagement before the full deployment.",
+                    "Regular 1-on-1 meetings help the project manager gauge the team's morale and identify potential burn-out early."
+                ]
+            },
+            {
+                word: "incur",
+                phonetic: "/ɪnˈkɜːr/",
+                meaning: "被る、負う、発生させる",
+                definition: "To become subject to something unwelcome, such as costs or penalties.",
+                example: "The company incurred heavy losses during the economic downturn.",
+                aiPool: [
+                    "If we do not optimize our cloud resource allocation, we will incur substantial unnecessary costs next month.",
+                    "Deploying the temporary patch allowed us to fix the bug quickly, but it caused us to incur additional technical debt.",
+                    "The vendor agreement states that any project delays caused by their team will incur a financial penalty."
+                ]
+            },
+            {
+                word: "liaise",
+                phonetic: "/liˈeɪz/",
+                meaning: "連絡を取り合う、密に連携する、橋渡しをする",
+                definition: "To communicate or cooperate with someone for a working relationship.",
+                example: "She will liaise with the suppliers to ensure timely delivery.",
+                aiPool: [
+                    "The product manager will liaise between the engineering team and the clients to ensure all technical requirements are met.",
+                    "Our security operations center needs to liaise closely with the infrastructure team during the system migration.",
+                    "As a UX designer, you will regularly liaise with frontend developers to ensure the final UI matches the approved mockups."
+                ]
+            },
+            {
+                word: "merger",
+                phonetic: "/ˈmɜːrdʒər/",
+                meaning: "合併、合同、統合",
+                definition: "The combination of two or more companies into one.",
+                example: "The merger between the two airlines created the largest carrier in the region.",
+                aiPool: [
+                    "Following the corporate merger, the IT department faced the massive challenge of consolidating two distinct cloud architectures.",
+                    "The merger of the two development teams allowed us to pool our resources and accelerate the AI product roadmap.",
+                    "Security protocols must be thoroughly audited before the completion of the merger to prevent data compliance issues."
+                ]  
+            },
+            {
+                word: "prospective",
+                phonetic: "/prəˈspektɪv/",
+                meaning: "見込みのある、将来の、予想される",
+                definition: "Likely or expected to happen in the future.",
+                example: "The HR department interviewed several prospective candidates for the role.",
+                aiPool: [
+                    "We are organizing a private demo session to showcase our new enterprise security platform to prospective clients.",
+                    "Before launching the update, we gathered feedback from a select group of prospective users to refine the UI layout.",
+                    "The merger will require a rigorous technical audit of the prospective partner's existing software infrastructure."
+                ]
+            },
+            {
+                word: "repercussion",
+                phonetic: "/ˌriːpərˈkʌʃn/",
+                meaning: "影響、反響、跳ね返り、波及効果",
+                definition: "An unintended consequence of an action, especially a negative one.",
+                example: "The policy change had serious financial repercussions for small businesses.",
+                aiPool: [
+                    "A single unpatched vulnerability in the open-source library could have severe security repercussions for our entire ecosystem.",
+                    "Before refactoring the legacy authentication logic, the team must analyze any potential repercussions on the mobile API.",
+                    "Failing to comply with the new data privacy regulations will entail major legal and financial repercussions for the startup."
+                ]
+            },
+            {
+                word: "scrutinize",
+                phonetic: "/ˈskruːtənaɪz/",
+                meaning: "綿密に調べる、徹底的に吟味する、精査する",
+                definition: "To examine something very closely and carefully.",
+                example: "Auditors will scrutinize all expense reports for accuracy.",
+                aiPool: [
+                    "Before merging the pull request, senior engineers will thoroughly scrutinize the code for potential security flaws.",
+                    "The legal team needs to scrutinize every clause in the vendor contract to minimize any prospective repercussions.",
+                    "Security analysts routinely scrutinize server access logs to detect and prevent unauthorized data acquisition."
+                ]
+            },
+            {
+                word: "underscore",
+                phonetic: "/ˌʌndərˈskɔːr/",
+                meaning: "強調する、明確に示す、浮き彫りにする",
+                definition: "To emphasize or highlight the importance of something.",
+                example: "The CEO’s remarks underscored the need for innovation.",
+                aiPool: [
+                    "The recent surge in unauthorized access attempts underscores the critical need to scrutinize our firewall logs.",
+                    "The feedback from our latest usability test underscores the importance of creating a seamless frontend experience.",
+                    "A sudden spike in traffic during the product launch underscored the value of maintaining a highly scalable architecture."
+                ]
+            },
+            {
+                word: "array",
+                phonetic: "/əˈreɪ/",
+                meaning: "見事な配列、多数、一連のデータ",
+                definition: "A large and impressive group or collection of things, often arranged systematically.",
+                example: "The new smartphone comes with an array of innovative features designed for professionals on the go.",
+                aiPool: [
+                    "The modern cloud architecture provides developers with a powerful array of threat prevention and automated backup tools.",
+                    "We can pass the list of verified user identifiers into a single JSON array for more efficient API request processing.",
+                    "The analytics dashboard displays an impressive array of performance metrics to help the team gauge user engagement."
+                ]
+            },
+            {
+                word: "assembly",
+                phonetic: "/əˈsembli/",
+                meaning: "組み立て、集会、集合、アセンブリ（言語）",
+                definition: "A group of people gathered together for a common purpose; or the act of putting components together.",
+                example: "The manager addressed the entire assembly during the quarterly company meeting.",
+                aiPool: [
+                    "In our automated CI/CD pipeline, the final artifact assembly step ensures that all frontend assets are correctly packed.",
+                    "Before the final hardware assembly, the quality assurance team must scrutinize every sensor component for defects.",
+                    "Understanding how high-level code compiles down to assembly instructions can drastically help in optimizing performance-critical applications."
+                ]
+            },
+            {
+                word: "commence",
+                phonetic: "/kəˈmens/",
+                meaning: "開始する、始まる、着手する",
+                definition: "To begin or start.",
+                example: "The seminar will commence promptly at 10 a.m., following the keynote address.",
+                aiPool: [
+                    "Once the consensus-building phase is complete, the development team will officially commence the sprint.",
+                    "The automated system migration script is scheduled to commence at midnight to minimize active user disruption.",
+                    "We are ready to commence the comprehensive security audit as soon as the legal team reviews the vendor contract."
+                ]
+            },
+            {
+                word: "condemn",
+                phonetic: "/kənˈdem/",
+                meaning: "強く非難する、とがめる、有罪と宣告する",
+                definition: "To strongly disapprove or criticize, especially for moral reasons.",
+                example: "The board publicly condemned the unethical practices exposed in the audit report.",
+                aiPool: [
+                    "Major tech organizations were quick to condemn the cyberattack that targeted essential public infrastructure.",
+                    "The committee issued a statement to condemn the unauthorized use of personal data in the experimental AI model.",
+                    "Experts condemn the lack of transparency in the company's algorithm, calling for more equitable decision-making processes."
+                ]
+            },
+            {
+                word: "conjunction",
+                phonetic: "/kənˈdʒʌŋkʃn/",
+                meaning: "結合、連携、同時発生、（出来事の）重なり",
+                definition: "The act of joining or combining; a combination of events or circumstances.",
+                example: "The product launch was successful due to the conjunction of effective marketing and strong customer interest.",
+                aiPool: [
+                    "The app's massive success was achieved through the conjunction of an intuitive Apple-like UI and a highly responsive backend architecture.",
+                    "The security breach occurred in conjunction with a misconfigured cloud platform and an unpatched software vulnerability.",
+                    "To effectively gauge market demand, our research team uses quantitative data in conjunction with qualitative user feedback."
+                ]
+            },
+            {
+                word: "contingency",
+                phonetic: "/kənˈtɪndʒənsi/",
+                meaning: "不測の事態、偶発的な出来事、緊急への備え",
+                definition: "A future event or circumstance that may occur but is not guaranteed.",
+                example: "The company has set aside funds for any contingency that may arise during the merger.",
+                aiPool: [
+                    "A robust infrastructure design must include a contingency plan to maintain system viability in the event of a total cloud outage.",
+                    "When estimating the sprint timeline, the project manager always allocates a small buffer for unexpected technical contingencies.",
+                    "We need to outline every security contingency that could occur in conjunction with the third-party API integration."
+                ]
+            },
+            {
+                word: "expertise",
+                phonetic: "/ˌekspɜːrˈtiːz/",
+                meaning: "専門知識、専門的技術、熟練",
+                definition: "Specialized knowledge or skill in a particular field.",
+                example: "Her expertise in international trade negotiations made her a valuable asset to the firm.",
+                aiPool: [
+                    "Developing a secure and intuitive user interface requires a unique conjunction of aesthetic sense and technical expertise in frontend frameworks.",
+                    "To effectively scrutinize the system for vulnerabilities, the security analyst must leverage their expertise in threat prevention and logic circuit analysis.",
+                    "The project's success underscores the importance of combining academic expertise in computer science with practical software development skills."
+                ]
+            },
+            {
+                word: "flaw",
+                phonetic: "/flɔː/",
+                meaning: "欠陥、弱点、不具合",
+                definition: "A fault or weakness in a system, design, or product.",
+                example: "The engineer identified a flaw in the prototype that could affect performance under stress.",
+                aiPool: [
+                    "A minor design flaw in the logic circuit can result in cache memory inefficiency and significantly degrade overall processing speed.",
+                    "Security analysts must thoroughly scrutinize the source code to identify and patch any latent flaws before the platform launch.",
+                    "The recent system outage underscored the fact that even a tiny software flaw can entail serious financial repercussions for the company."
+                ]
+            },
+            {
+                word: "foster",
+                phonetic: "/ˈfɔːstər/",
+                meaning: "促進する、育成する、養う",
+                definition: "To encourage or promote the development of something.",
+                example: "The company aims to foster a culture of continuous improvement and innovation.",
+                aiPool: [
+                    "Regular code reviews and collaborative design sessions help to foster technical expertise and shared ownership within the engineering team.",
+                    "To foster a more inclusive user experience, we must prioritize accessibility guidelines in conjunction with modern UI frameworks.",
+                    "The university program is designed to foster critical thinking and strategic planning skills through practical real-world projects."
+                ]
+            },
+            {
+                word: "helm",
+                phonetic: "/helm/",
+                meaning: "支配的地位、指導的立場、舵取り",
+                definition: "A position of leadership or control; literally, the steering apparatus of a ship.",
+                example: "After years in middle management, she is now at the helm of the marketing division.",
+                aiPool: [
+                    "With a visionary product manager at the helm, the design team successfully refactored the legacy application into an Apple-like UI.",
+                    "As the new CISO takes the helm of our cybersecurity unit, we expect to see a comprehensive restructuring of our threat prevention protocols.",
+                    "To successfully navigate market contingencies, an organization needs experienced leaders at the helm of its core strategic divisions."
+                ]
+            },
+            {
+                word: "implication",
+                phonetic: "/ˌɪmplɪˈkeɪʃn/",
+                meaning: "影響、含み、示唆、論理的帰結",
+                definition: "A possible consequence or effect of an action or decision.",
+                example: "The implication of the new tax policy could significantly impact small business operations.",
+                aiPool: [
+                    "Before integrating the experimental AI feature, the engineering team must thoroughly analyze its legal and ethical implications.",
+                    "The recent policy update regarding data privacy has direct implications for how we store and structure our JSON arrays.",
+                    "When security analysts discover a design flaw, they immediately evaluate its implications for the stability of the entire network architecture."
+                ]
+            },
+            {
+                word: "indignation",
+                phonetic: "/ˌɪndɪɡˈneɪʃn/",
+                meaning: "憤り、憤慨、義憤",
+                definition: "Anger or annoyance provoked by what is perceived as unfair treatment.",
+                example: "The employee voiced his indignation over being excluded from the promotion process.",
+                aiPool: [
+                    "The company's sudden, opaque change to its data privacy policy sparked widespread indignation among its user base.",
+                    "Developers expressed their collective indignation when the open-source project was unexpectedly monetized without prior consensus.",
+                    "The report on biased algorithmic evaluations provoked public indignation, underscoring the urgent need for more equitable design frameworks."
+                ]
+            },
+            {
+                word: "obligation",
+                phonetic: "/ˌɑːblɪˈɡeɪʃn/",
+                meaning: "義務、責務、確約",
+                definition: "A duty or commitment, legally or morally required.",
+                example: "Employees have an obligation to comply with safety regulations at all times.",
+                aiPool: [
+                    "Under the new compliance guidelines, tech firms have a strict legal obligation to secure sensitive user data from unauthorized access.",
+                    "We must carefully scrutinize the vendor service level agreement to understand our operational obligations in a system outage contingency.",
+                    "Even when not legally bound, modern software developers often feel a moral obligation to foster digital accessibility for all users."
+                ]
+            },
+            {
+                word: "tendency",
+                phonetic: "/ˈtendənsi/",
+                meaning: "傾向、風潮、なりがちな性質",
+                definition: "An inclination toward a particular characteristic or type of behavior.",
+                example: "There is a growing tendency among consumers to prioritize sustainability over brand loyalty.",
+                aiPool: [
+                    "Analyzing match metrics reveals a fascinating tendency where a small win streak can temporarily distort a user's perception of probability.",
+                    "When deadlines approach under stress, development teams often show a tendency to overlook minor latent flaws in frontend design.",
+                    "The heat maps from user testing underscore a clear tendency for users to look at the top-left corner of the interface first."
+                ]
+            },
+            {
+                word: "warranty",
+                phonetic: "/ˈwɔːrənti/",
+                meaning: "保証、品質保証書、保証規定",
+                definition: "A written guarantee promising to repair or replace an item within a specified period.",
+                example: "The printer is covered by a two-year warranty, which includes all parts and labor.",
+                aiPool: [
+                    "Please note that utilizing non-standard components during hardware assembly may void the manufacturer's original warranty.",
+                    "We need to carefully scrutinize the vendor's warranty terms to ensure that the server's cache memory modules are fully covered.",
+                    "If a critical design flaw causes the equipment to fail repeatedly, consumers can invoke the warranty for a complete replacement."
+                ]
+            },
+            {
+                word: "adjacent",
+                phonetic: "/əˈdʒeɪsnt/",
+                meaning: "隣接した、近隣の、すぐ近くの",
+                definition: "Next to or near something.",
+                example: "The hotel is adjacent to the conference center, which is very convenient.",
+                aiPool: [
+                    "Placing the primary action button adjacent to the text field significantly enhances the overall fluidity of the user experience.",
+                    "In modern hardware architectures, optimizing data locality means ensuring that frequently accessed blocks are stored in adjacent memory addresses.",
+                    "The cybersecurity incident response team was strategically relocated to an office adjacent to the infrastructure squad to foster better communication."
+                ]
+            },
+            {
+                word: "confiscate",
+                phonetic: "/ˈkɑːnfɪskeɪt/",
+                meaning: "没収する、差し押さえる、公売に付す",
+                definition: "To take something away, usually by legal or official authority.",
+                example: "Customs officers have the right to confiscate prohibited items at the border.",
+                aiPool: [
+                    "According to the updated security policy, network administrators have the authority to temporarily confiscate unauthorized hardware detected within the data center.",
+                    "Under strict compliance guidelines, the legal team can invoke the right to confiscate any corporate data stored on an employee's unapproved adjacent device.",
+                    "To enforce data sovereignty laws, government agencies may officially confiscate local servers that fail to comply with security regulations."
+                ]
+            },
+            {
+                word: "eligible",
+                phonetic: "/ˈelɪdʒəbl/",
+                meaning: "資格のある、適格な、選ばれるにふさわしい",
+                definition: "Qualified to participate or be chosen based on certain criteria.",
+                example: "Only employees with over a year of service are eligible for the bonus.",
+                aiPool: [
+                    "Students who fulfill all the core academic milestones within their strategic plan will be eligible for the advanced honors program.",
+                    "Under the strict zero-trust model, only devices that pass the complete security compliance check are eligible to access the company's internal array.",
+                    "To foster innovation, our startup incubator ensures that any engineering team with a unique design prototype is eligible to apply for the grant."
+                ]
+            },
+            {
+                word: "factual",
+                phonetic: "/ˈfæktʃuəl/",
+                meaning: "事実に基づく、事実の、客観的な",
+                definition: "Based on or relating to facts.",
+                example: "The report was praised for its factual accuracy and clarity.",
+                aiPool: [
+                    "When engineering an AI-driven tool, we must implement verification logic to ensure that its responses are entirely factual and free from hallucinations.",
+                    "To construct a persuasive academic essay, the student must support their arguments with factual data rather than subjective speculation.",
+                    "The security audit team focuses solely on factual evidence collected from system logs to gauge the true extent of the vulnerability."
+                ]
+            },
+            {
+                word: "inclination",
+                phonetic: "/ˌɪnklɪˈneɪʃn/",
+                meaning: "（気質的な）傾向、好み、心の傾き、愛好",
+                definition: "A tendency or preference toward a particular behavior or opinion.",
+                example: "She has a natural inclination toward creative problem-solving.",
+                aiPool: [
+                    "A designer with a natural inclination toward minimalist aesthetics will instinctively excel at creating Apple-like user interfaces.",
+                    "When examining the psychology of altruism, researchers often discuss whether humans possess an inherent inclination to aid others.",
+                    "Despite statistical variations, the algorithm's data processing logic shows a distinct inclination toward optimizing cache memory allocation."
+                ]
+            },
+            {
+                word: "indebted",
+                phonetic: "/ɪnˈdetɪd/",
+                meaning: "（〜に）恩義がある、深く感謝している、負債がある",
+                definition: "Owing gratitude or money to someone.",
+                example: "I’m deeply indebted to my mentor for guiding me through the early years of my career.",
+                aiPool: [
+                    "The project leader stated they were deeply indebted to the core engineering team for their exceptional technical expertise during the system overhaul.",
+                    "As a software developer building modern applications, one is constantly indebted to the open-source community for fostering robust design frameworks.",
+                    "In my strategic academic planning, I am highly indebted to the senior advisors whose rigorous insights helped shape my graduation trajectory."
+                ]
+            },
+            {
+                word: "integral",
+                phonetic: "/ˈɪntɪɡrəl/",
+                meaning: "不可欠な、組み込まれた、全体を構成する一部の",
+                definition: "Essential or necessary for completeness.",
+                example: "Communication is an integral part of effective teamwork.",
+                aiPool: [
+                    "A seamless, user-centric interface design is an integral component of crafting an Apple-like software experience.",
+                    "In modern network architectures, robust threat prevention protocols must be treated as an integral layer rather than an afterthought.",
+                    "Developing a detailed, multi-faceted milestone chart is integral to ensuring the successful execution of our strategic graduation plan."
+                ]
+            },
+            {
+                word: "irrelevant",
+                phonetic: "/ɪˈreləvənt/",
+                meaning: "無関係な、不適切な、的を外れた",
+                definition: "Not related or important to the matter at hand.",
+                example: "The applicant included irrelevant personal details in the job application.",
+                aiPool: [
+                    "To maximize cache memory efficiency, the retrieval logic must quickly discard irrelevant data and focus only on highly localized blocks.",
+                    "When constructing a rigorous academic argument on altruism, one must filter out irrelevant personal biases to maintain factual objectivity.",
+                    "The newly designed UI helps users stay focused by subduing or removing irrelevant peripheral metrics from the primary dashboard."
+                ]
+            },
+            {
+                word: "loathe",
+                phonetic: "/ləʊð/",
+                meaning: "極度に嫌う、大嫌いである、～に激しい嫌悪感を抱く",
+                definition: "To feel intense dislike or disgust for something or someone.",
+                example: "Many professionals loathe micromanagement and prefer autonomy in their work.",
+                aiPool: [
+                    "Experienced frontend engineers loathe utilizing poorly structured, rigid CSS frameworks that limit UI design autonomy.",
+                    "Security-conscious systems analysts loathe opaque legacy systems because they often harbor hidden security flaws.",
+                    "Users naturally loathe convoluted navigation architectures that force them to sort through irrelevant data just to find a basic setting."
+                ]
+            },
+            {
+                word: "perish",
+                phonetic: "/ˈperɪʃ/",
+                meaning: "消滅する、崩壊する、死ぬ、朽ちる",
+                definition: "To die or be destroyed, especially in a sudden or untimely way.",
+                example: "Thousands of crops perished during the drought.",
+                aiPool: [
+                    "Without a robust contingency backup, all volatile cache data will instantly perish the moment the server encounters a critical power outage.",
+                    "In the fast-evolving digital landscape, tech companies that loathe adapting to modern design frameworks are bound to perish.",
+                    "If the master encryption key is lost, any files stored within the secure array will effectively perish, as they become permanently unrecoverable."
+                ]
+            },
+            {
+                word: "prolific",
+                phonetic: "/prəˈlɪfɪk/",
+                meaning: "多作の、極めて生産性の高い、実り豊かな",
+                definition: "Producing a large amount or many works; highly productive.",
+                example: "She is a prolific writer, having published over 20 novels in a decade.",
+                aiPool: [
+                    "Authors celebrated for their rhythmic prose style are often incredibly prolific, consistently generating multiple masterpieces within a short span.",
+                    "Integrating AI-driven frameworks into the design pipeline allows even a small team to become prolific in generating unique UI prototypes.",
+                    "The top-tier gamer demonstrated a prolific capacity for high-score streaks, maintaining a remarkable win rate that baffled opponents."
+                ]
+            },
+            {
+                word: "reluctant",
+                phonetic: "/rɪˈlʌktənt/",
+                meaning: "気が進まない、躊躇している、不本意な",
+                definition: "Unwilling or hesitant.",
+                example: "Many employees were reluctant to accept the new remote work policy at first.",
+                aiPool: [
+                    "If a mobile application's interface feels cluttered, users will be highly reluctant to input their sensitive credit card information.",
+                    "When examining human psychology, we find people are often reluctant to accept pure altruism, instinctively searching for a hidden motive.",
+                    "The infrastructure engineering lead was understandably reluctant to deploy the update before the adjacent memory issue was fully resolved."
+                ]
+            },
+            {
+                word: "retention",
+                phonetic: "/rɪˈtenʃn/",
+                meaning: "保持、維持、定着（率）、保存",
+                definition: "The continued possession or control of something; ability to keep employees.",
+                example: "Improving employee retention is a key goal for our HR department.",
+                aiPool: [
+                    "Crafting a seamless, Apple-like user interface is one of the most effective strategies to boost long-term user retention.",
+                    "Under the strict new governance framework, the security team updated the data retention policy to keep all access logs for five years.",
+                    "To optimize overall architecture performance, the engine relies on intelligent logic to balance data retention and cache clearing."
+                ]
+            },
+            {
+                word: "strive",
+                phonetic: "/straɪv/",
+                meaning: "懸命に努力する、励む、邁進する",
+                definition: "To make great efforts to achieve something.",
+                example: "The company continues to strive for excellence in customer service.",
+                aiPool: [
+                    "In our product development pipeline, we constantly strive to replicate the minimalist beauty and fluidity found in Apple's design guidelines.",
+                    "To execute a successful graduation strategy, students must strive to balance academic rigor with economic and professional milestones.",
+                    "As threat landscapes evolve, cybersecurity administrators strive to maintain a flawless infrastructure through proactive risk mitigation."
+                ]
+            },
+            {
+                word: "synonymous",
+                phonetic: "/sɪˈnɑːnɪməs/",
+                meaning: "同義の、類義の、（～の）代名詞である",
+                definition: "Having the same or nearly the same meaning as another word.",
+                example: "In this context, “efficient” is almost synonymous with “productive.”",
+                aiPool: [
+                    "Over the years, the Tech giant's sleek product lineup has become entirely synonymous with premium user interface design.",
+                    "In modern hardware engineering, optimizing adjacent data layout is practically synonymous with achieving high cache efficiency.",
+                    "For an enterprise managing financial records, a loose data retention policy is synonymous with a critical security vulnerability."
+                ]
+            },
+            {
+                word: "abide",
+                phonetic: "/əˈbaɪd/",
+                meaning: "従う、を遵守する",
+                definition: "To follow or obey a rule, decision, or instruction.",
+                example: "All employees must abide by the company's code of conduct.",
+                aiPool: [
+                    "By creating an account on our platform, users explicitly agree to abide by our community guidelines and terms of service.",
+                    "Both organizations have agreed to abide by the final decision made by the independent arbitration committee.",
+                    "If a contractor refuses to abide by our internal security protocols, their access to the codebase will be suspended immediately."
+                ]
+            },
+            {
+                word: "appraisal",
+                phonetic: "/əˈpreɪzl/",
+                meaning: "評価、査定、鑑定、見積もり",
+                definition: "An evaluation or assessment of value or performance.",
+                example: "The annual performance appraisal will determine staff bonuses.",
+                aiPool: [
+                    "The management team is conducting a rigorous financial appraisal of the new cloud infrastructure project to justify the budget.",
+                    "During my mid-year appraisal, my supervisor highlighted my contributions to the core database redesign.",
+                    "We need an objective technical appraisal of our legacy code to estimate the exact time required for the migration."
+                ]
+            },
+            {
+                word: "apprentice",
+                phonetic: "/əˈprentɪs/",
+                meaning: "見習い、実習生、徒弟",
+                definition: "A person learning a trade or skill from a skilled employer.",
+                example: "The apprentice worked under a master technician for two years.",
+                aiPool: [
+                    "Our engineering department launched a new apprentice program to help self-taught developers gain hands-on production experience.",
+                    "As an apprentice backend developer, he spends half his day writing code and the other half shadowing senior architects.",
+                    "The senior designer is looking for an enthusiastic apprentice to assist with user interface wireframing and prototyping."
+                ]
+            },
+            {
+                word: "assertion",
+                phonetic: "/əˈsɜːrʃn/",
+                meaning: "主張、断言、表明",
+                definition: "A confident and forceful statement of fact or belief.",
+                example: "His assertion that the data was incorrect was backed by thorough analysis.",
+                aiPool: [
+                    "We added several security assertions to the authentication pipeline to ensure no unverified tokens can pass through.",
+                    "The marketing team's assertion that user engagement would double was met with skepticism by the financial directors.",
+                    "Before making any final architecture changes, we need empirical evidence to validate your assertion about database latency."
+                ]
+            },
+            {
+                word: "breach",
+                phonetic: "/briːtʃ/",
+                meaning: "違反、侵害、突破、不履行",
+                definition: "A violation or break in a law, agreement, or duty.",
+                example: "The company was fined for a breach of contract.",
+                aiPool: [
+                    "The security team detected a major data breach that exposed the personal information of thousands of customers.",
+                    "Sharing these confidential source codes with a competitor constitutes a serious breach of our non-disclosure agreement.",
+                    "The vendor was given a 30-day notice to fix the system errors before being declared in breach of the service level agreement."
+                ]
+            },
+            {
+                word: "brokerage",
+                phonetic: "/ˈbroʊkərɪdʒ/",
+                meaning: "仲介、仲介業務、仲介手数料、証券会社",
+                definition: "A business that arranges transactions between buyers and sellers.",
+                example: "She opened a trading account with a reputable brokerage firm.",
+                aiPool: [
+                    "Our fintech startup is building an API layer that connects retail users directly to traditional brokerage houses.",
+                    "The real estate platform charges a standard three percent brokerage fee for every successful property transaction.",
+                    "To expand our asset management services, we are seeking regulatory approval to operate a digital brokerage business."
+                ]
+            },
+            {
+                word: "cater",
+                phonetic: "/ˈkeɪtər/",
+                meaning: "提供する、賄う、応じる",
+                definition: "To provide food or services for events or groups.",
+                example: "The hotel can cater business luncheons and conferences on-site.",
+                aiPool: [
+                    "To maximize user acquisition, our new mobile application must cater to both tech-savvy users and beginners.",
+                    "We decided to hire a local business to cater the upcoming quarterly hackathon and wrap-up party.",
+                    "The web development framework was explicitly designed to cater to the needs of highly scalable enterprise systems."
+                ]
+            },
+            {
+                word: "clause",
+                phonetic: "/klɔːz/",
+                meaning: "条項、項目、節",
+                definition: "A specific section of a legal document.",
+                example: "The non-compete clause prevents former employees from joining rivals for one year.",
+                aiPool: [
+                    "Please review the liability exemption clause in the terms of service before deploying the application to production.",
+                    "We need to add a specific confidentiality clause to the vendor contract to protect our intellectual property and source code.",
+                    "Under the termination clause, either party can dissolve the agreement by providing a written notice 30 days in advance."
+                ]
+            },
+            {
+                word: "disclosure",
+                phonetic: "/dɪsˈkloʊʒər/",
+                meaning: "開示、公表、発覚、明かされた事実",
+                definition: "The action of making information known or public.",
+                example: "Full disclosure of financial risks is required before investment.",
+                aiPool: [
+                    "The company is bound by a non-disclosure agreement, meaning any unauthorized disclosure of the source code will lead to legal action.",
+                    "Following the security incident, management promised a full public disclosure of how the breach occurred and what data was affected.",
+                    "According to financial regulations, timely disclosure of any material changes in revenue is mandatory for public companies."
+                ]
+            },
+            {
+                word: "embargo",
+                phonetic: "/ɪmˈbɑːrɡoʊ/",
+                meaning: "通商禁止、輸出入の禁止、公表制限・解禁日時",
+                definition: "A government order restricting trade or movement of goods.",
+                example: "The U.S. imposed an embargo on all luxury exports to the country.",
+                aiPool: [
+                    "The tech company shared the beta version of its new AI chip with journalists under a strict media embargo until next Tuesday.",
+                    "Due to the strict trade embargo, logistics teams had to re-route all component shipments to avoid regional compliance penalties.",
+                    "We cannot publish the research paper or discuss the source code optimization publicly before the institutional embargo lifts."
+                ]
+            },
+            {
+                word: "franchise",
+                phonetic: "/ˈfræntʃaɪz/",
+                meaning: "独占販売権、加盟店方式、人気シリーズ作品",
+                definition: "A license granted to operate a branch of a business.",
+                example: "He purchased a franchise of a popular fast-food chain.",
+                aiPool: [
+                    "The startup developed a SaaS platform designed specifically to streamline inventory management for large franchise networks.",
+                    "Nintendo's Splatoon has quickly become one of the company's most successful and highly profitable multi-media franchises.",
+                    "To legally open a new franchise branch, the operator must strictly abide by the standardized operational protocols."
+                ]
+            },
+            {
+                word: "inventory",
+                phonetic: "/ˈɪnvəntɔːri/",
+                meaning: "在庫、商品目録、棚卸し、資産一覧",
+                definition: "A list or stock of goods held by a business.",
+                example: "The warehouse manager conducted a full inventory before the end of the fiscal year.",
+                aiPool: [
+                    "We are optimizing our database architecture to sync global inventory levels across all e-commerce channels in real time.",
+                    "The automated system immediately alerts the procurement team when inventory drops below the safety threshold.",
+                    "Before migrating to the new cloud infrastructure, we need to create a complete inventory of our active servers and software licenses."
+                ]
+            },
+            {
+                word: "logistics",
+                phonetic: "/ləˈdʒɪstɪks/",
+                meaning: "物流、兵站、実行管理・手配",
+                definition: "The planning and coordination of complex operations, often involving transport.",
+                example: "Logistics for the international shipment were handled by a third-party provider.",
+                aiPool: [
+                    "The logistics of migrating our legacy database to the cloud required continuous synchronization across three different engineering teams.",
+                    "By integrating a third-party logistics API, our e-commerce platform can now offer users real-time shipping tracking and delivery updates.",
+                    "The project manager is handling the logistics for the upcoming product launch event, including vendor coordination and equipment setup."
+                ]
+            },
+            {
+                word: "premises",
+                phonetic: "/ˈpremɪsɪz/",
+                meaning: "敷地、構内、店舗、施設",
+                definition: "The land and buildings owned or used by a business.",
+                example: "Smoking is not permitted anywhere on the company’s premises.",
+                aiPool: [
+                    "For security reasons, only authorized engineers with specialized biometric badges are allowed to enter the data center premises.",
+                    "While many startups prefer cloud solutions, certain financial institutions still maintain physical servers on their own premises.",
+                    "The security audit requires us to document all network hardware installed both on the company's premises and in the remote office."
+                ]
+            },
+            {
+                word: "quota",
+                phonetic: "/ˈkwoʊtə/",
+                meaning: "割り当て、定数、取り分、ノルマ、利用制限枠",
+                definition: "A fixed or limited amount or target that must be met.",
+                example: "Each sales representative must meet a monthly quota of 50 units.",
+                aiPool: [
+                    "The external API returned an error because our application exceeded the daily request quota specified in our subscription plan.",
+                    "To ensure fair distribution of server resources, the system administrator set a strict storage quota for each user directory.",
+                    "The sales department implemented a new incentive program for any team member who surpasses their quarterly revenue quota."
+                ]
+            },
+            {
+                word: "amendment",
+                phonetic: "/əˈmendment/",
+                meaning: "改正、修正、修正条項、追加案",
+                definition: "A change or addition to a document or law.",
+                example: "The contract included an amendment to extend the delivery deadline by two weeks.",
+                aiPool: [
+                    "The legal team drafted an amendment to the privacy policy to comply with the new user data protection regulations.",
+                    "We need to submit a formal contract amendment because the client requested major changes to the application's user interface design.",
+                    "Any subsequent amendment to the terms of service must be signed and approved by both organizations before taking effect."
+                ]
+            },
+            {
+                word: "contractor",
+                phonetic: "/ˈkɑːntræktər/",
+                meaning: "請負業者、契約社員、外部委託業者",
+                definition: "A person or company hired to perform specific work.",
+                example: "We hired an independent contractor to renovate the office space.",
+                aiPool: [
+                    "The startup hired an independent contractor to design the user interface and build the interactive Figma prototypes.",
+                    "To scale our software engineering team quickly, we onboarded three external contractors for the backend migration project.",
+                    "The security protocol requires all remote contractors to access the source code repositories through a secure VPN."
+                ]
+            },
+            {
+                word: "courier",
+                phonetic: "/ˈkʊriər/",
+                meaning: "急送便、国際宅配便、配達人",
+                definition: "A person or service that delivers packages or documents.",
+                example: "The documents were sent via express courier to ensure same-day delivery.",
+                aiPool: [
+                    "The signed partnership contract was dispatched via an international courier to our office in Tokyo.",
+                    "We are integrating an on-demand courier service API to provide users with local, identical-day hardware delivery.",
+                    "To safeguard our intellectual property, the physical prototype must be transported only by a certified security courier."
+                ]
+            },
+            {
+                word: "deductible",
+                phonetic: "/dɪˈdʌktəbl/",
+                meaning: "（保険の）自己負担金、免責金額",
+                definition: "The amount paid out of pocket before insurance covers the rest.",
+                example: "The policy includes a $500 deductible for each claim.",
+                aiPool: [
+                    "Choosing a higher deductible reduced the company's monthly insurance premiums for the office fleet significantly.",
+                    "The corporate health insurance plan covers all medical expenses once the employee meets their annual deductible.",
+                    "If a company laptop is lost or damaged, the department must cover the initial deductible before the insurance policy kicks in."
+                ]
+            },
+            {
+                word: "dilution",
+                phonetic: "/daɪˈluːʃn/",
+                meaning: "希薄化、希釈、低下、減少",
+                definition: "The reduction in value, power, or quality of something.",
+                example: "Issuing more shares led to a dilution of the company’s stock value.",
+                aiPool: [
+                    "The founders carefully structured the seed-round funding to prevent excessive equity dilution before the Series A.",
+                    "Expanding our service too quickly into unrelated markets could cause a major dilution of our core brand identity.",
+                    "Adding too many features to the application at once might lead to a dilution of the core user experience."
+                ]
+            },
+            {
+                word: "dispatch",
+                phonetic: "/dɪˈspætʃ/",
+                meaning: "発送する、派遣する、急報",
+                definition: "To send someone or something off quickly; the act of sending.",
+                example: "The warehouse will dispatch the goods within 24 hours.",
+                aiPool: [
+                    "The state-management library uses an event broker to dispatch user actions directly to the appropriate UI components.",
+                    "To resolve the critical server room issue, the operations manager decided to dispatch a senior hardware engineer to the site.",
+                    "Once payment confirmation is verified via the API, the system automatically triggers the warehouse to dispatch the package."
+                ]
+            },
+            {
+                word: "forfeiture",
+                phonetic: "/ˈfɔːrfətʃər/",
+                meaning: "（権利・財産などの）喪失、没収、剥奪",
+                definition: "The loss of rights or property as a penalty.",
+                example: "Failure to meet the contract terms resulted in the forfeiture of the deposit.",
+                aiPool: [
+                    "If a contractor terminates the agreement early, it will result in the immediate forfeiture of their unvested stock options.",
+                    "The strict confidentiality clause explicitly states that any data breach leads to the forfeiture of the vendor's security bond.",
+                    "Any direct violation of the software licensing agreement may trigger the forfeiture of the user's right to use the platform."
+                ]
+            },
+            {
+                word: "hedging",
+                phonetic: "/ˈhedʒɪŋ/",
+                meaning: "リスク回避、分散投資、保険策",
+                definition: "A financial strategy to reduce risk from price fluctuations.",
+                example: "The company engaged in hedging to protect against currency exchange losses.",
+                aiPool: [
+                    "By utilizing smart currency hedging, the international tech firm successfully insulated its quarterly profits from sudden fluctuations in the yen.",
+                    "The procurement department recommends fuel hedging to stabilize the logistics and shipping costs for the upcoming physical product launch.",
+                    "Diversifying our software vendor portfolio acts as a strategic hedging mechanism against potential system downtimes or sudden price hikes."
+                ]
+            },
+            {
+                word: "indemnity",
+                phonetic: "/ɪmˈdemnəti/",
+                meaning: "（損害に対する）補償、賠償金、免責、損害補償",
+                definition: "Protection or compensation against damage or loss.",
+                example: "The client was offered indemnity in case of service interruption.",
+                aiPool: [
+                    "The software license agreement includes an intellectual property indemnity clause to protect the client from third-party lawsuits.",
+                    "Under the terms of the service level agreement (SLA), our cloud provider guarantees indemnity for any severe database downtime.",
+                    "The vendor refused to sign the contract unless we added a cross-indemnity provision to split potential data breach liabilities."
+                ]
+            },
+            {
+                word: "litigation",
+                phonetic: "/ˌlɪtɪˈɡeɪʃn/",
+                meaning: "訴訟、告訴、法廷闘争",
+                definition: "The process of taking legal action.",
+                example: "The firm faced litigation over alleged patent infringement.",
+                aiPool: [
+                    "To avoid costly and lengthy litigation, the two major smartphone developers agreed to an out-of-court cross-licensing settlement.",
+                    "The corporate legal department is conducting a thorough compliance audit to mitigate the risk of user data privacy litigation.",
+                    "A prolonged patent litigation can severely drain a tech startup's financial resources and delay its product development timeline."
+                ]
+            },
+            {
+                word: "moratorium",
+                phonetic: "/ˌmɔːrəˈtɔːriəm/",
+                meaning: "一時停止、凍結、猶予",
+                definition: "A temporary suspension or delay of an activity.",
+                example: "The government declared a moratorium on loan repayments during the crisis.",
+                aiPool: [
+                    "The engineering director imposed a temporary deployment moratorium over the holiday season to ensure maximum database stability.",
+                    "Due to the ongoing security audit, the product management team agreed to a short moratorium on adding any new experimental features.",
+                    "The corporate board requested a financial moratorium on all major marketing expenditures until the quarterly audit is finalized."
+                ]
+            },
+            {
+                word: "rebate",
+                phonetic: "/ˈriːbeɪt/",
+                meaning: "（支払った金額の一部の）払い戻し、割戻金、キックバック",
+                definition: "A partial refund or discount given after purchase.",
+                example: "Customers received a $50 rebate for purchasing the software during the promotion period.",
+                aiPool: [
+                    "To incentivize high-volume users, our SaaS enterprise platform offers a volume-based quarterly rebate on cloud storage costs.",
+                    "The marketing team launched a mail-in rebate campaign to boost hardware sales before the new product line launch.",
+                    "Under the partnership agreement, the distributor is entitled to a 5% cash rebate if they surpass their annual sales quota."
+                ]
+            },
+            {
+                word: "stipulate",
+                phonetic: "/ˈstɪpjuleɪt/",
+                meaning: "明確に規定する、明記する、条件として要求する",
+                definition: "To specify a condition or requirement clearly.",
+                example: "The lease agreement stipulates that no pets are allowed on the premises.",
+                aiPool: [
+                    "The software architecture documentation explicitly stipulates that all communication between microservices must be encrypted via HTTPS.",
+                    "To ensure high availability, the new contract stipulates that the cloud service provider must maintain a 99.9% uptime SLA.",
+                    "The updated user data protection guidelines stipulate that consent must be obtained before any personal information is tracked."
+                ]
+            },
+            {
+                word: "testimonial",
+                phonetic: "/ˌtestɪˈmoʊniəl/",
+                meaning: "推薦の声、感謝の言葉、推奨文、レビュー",
+                definition: "A formal written or spoken statement of endorsement or praise.",
+                example: "The website displays customer testimonials to build trust.",
+                aiPool: [
+                    "Featuring a video testimonial from a well-known tech startup on our landing page significantly increased our conversion rate.",
+                    "The design team created a dedicated grid layout on the main page to highlight positive user testimonials and case studies.",
+                    "Before upgrading to the enterprise tier, the potential client requested a testimonial from one of our current active users."
+                ]
+            },
+            {
+                word: "windfall",
+                phonetic: "/ˈwɪndfɔːl/",
+                meaning: "棚ぼた、不意の授かり物、予期せぬ幸運",
+                definition: "An unexpected gain, often financial.",
+                example: "The company received a windfall from a sudden spike in stock prices.",
+                aiPool: [
+                    "The startup used the financial windfall from the government research grant to accelerate the launch of their AI tool.",
+                    "A sudden viral trend on social media brought a major traffic windfall to the application's premium subscription page.",
+                    "Instead of spending the entire Q2 budget windfall, the corporate board decided to allocate the extra funds to infrastructure security."
+                ]
+            },
+            {
+                word: "amicable",
+                phonetic: "/ˈæmɪkəbl/",
+                meaning: "円満な、友好的な、平和的な",
+                definition: "Friendly and peaceful, especially in resolving conflict.",
+                example: "The negotiations ended in an amicable agreement that satisfied both parties.",
+                aiPool: [
+                    "To prevent prolonged litigation, the two development agencies reached an amicable settlement regarding the source code ownership.",
+                    "The vendor contract was terminated on amicable terms, allowing both organizations to collaborate again on future design systems.",
+                    "The project managers maintained an amicable relationship while debating the scope changes to ensure the product deadline was met."
+                ]
+            },
+            {
+                word: "annuity",
+                phonetic: "/əˈnuːəti/",
+                meaning: "年金、定期金、年金保険",
+                definition: "A fixed sum of money paid yearly, often from an investment or pension.",
+                example: "She receives a monthly annuity from her retirement fund.",
+                aiPool: [
+                    "The human resources department updated the corporate retirement package to include a stable, lifetime annuity option for senior executives.",
+                    "From a corporate finance perspective, the structured lawsuit settlement was paid out as an annuity rather than a lump sum.",
+                    "The venture capital firm models its long-term infrastructure investments to generate a predictable, annuity-like revenue stream."
+                ]
+            },
+            {
+                word: "collateral",
+                phonetic: "/kəˈlætərəl/",
+                meaning: "担保（資産）、見返り、付随的な",
+                definition: "Property or assets pledged as security for a loan.",
+                example: "The bank required the building as collateral for the business loan.",
+                aiPool: [
+                    "The software startup used its intellectual property and active patent portfolio as collateral to secure an expansion loan.",
+                    "If the borrower defaults on the debt structure, the lending institution has the legal right to seize the designated collateral.",
+                    "The design team is preparing a new set of marketing collateral, including PDF case studies and product feature sheets, for the launch."
+                ]
+            },
+            {
+                word: "considerable",
+                phonetic: "/kənˈsɪdərəbl/",
+                meaning: "（数量・程度・重要性が）かなりの、相当な、無視できない",
+                definition: "Large in size, amount, or degree.",
+                example: "The company invested a considerable amount in upgrading its IT systems.",
+                aiPool: [
+                    "Optimizing our backend database caching architecture resulted in a considerable reduction in API server latency.",
+                    "The startup faced considerable operational challenges before implementing a structured project management workflow.",
+                    "Updating the application interface based on user testimonials generated considerable engagement from our active customer base."
+                ]
+            },
+            {
+                word: "contention",
+                phonetic: "/kənˈtenʃn/",
+                meaning: "論争、争点、対立、激しい競争、（リソースの）競合",
+                definition: "Disagreement or dispute.",
+                example: "The main point of contention was the distribution of profits.",
+                aiPool: [
+                    "The proprietary licensing clause remained a key point of contention throughout the contract negotiations between the two parties.",
+                    "When multiple concurrent requests attempt to modify the same database row, it causes severe resource contention and latency spikes.",
+                    "The design system's layout hierarchy sparked some contention between the product managers and the frontend engineering team."
+                ]
+            },
+            {
+                word: "disparity",
+                phonetic: "/dɪˈspærəti/",
+                meaning: "（不公平な）格差、不一致、著しい相違、ギャップ",
+                definition: "A significant difference or inequality.",
+                example: "There is a growing disparity between executive and employee wages.",
+                aiPool: [
+                    "The data analysis revealed a stark disparity between our high mobile conversion rates and our desktop performance.",
+                    "We need to redesign the typography system to eliminate the visual disparity between the legacy platform and the new product dashboard.",
+                    "The compliance team is auditing our pricing model to fix any revenue disparity across different regional branch offices."
+                ]
+            },
+            {
+                word: "frugally",
+                phonetic: "/ˈfruːɡəli/",
+                meaning: "倹約して、慎ましく、効率的に、コストを抑えて",
+                definition: "In a way that avoids waste or overspending.",
+                example: "Even after his promotion, he continued to live frugally and save money.",
+                aiPool: [
+                    "To maximize our runway, the software startup operated frugally, allocating capital only to product development and database security.",
+                    "The devops engineering team managed the cloud infrastructure budget frugally by automatically turning off idle staging servers.",
+                    "By utilizing open-source libraries and clear design systems, the lean team built the application frugally without losing visual quality."
+                ]
+            },
+            {
+                word: "infrastructure",
+                phonetic: "/ˈɪnfrəstrʌktʃər/",
+                meaning: "基盤、インフラ、下部構造、基幹施設",
+                definition: "The basic systems and services needed for a society or business to function.",
+                example: "The government is investing in transportation infrastructure to stimulate the economy.",
+                aiPool: [
+                    "Migrating our legacy infrastructure to a scalable cloud platform eliminated the sudden database downtime we experienced during peak hours.",
+                    "The software security audit revealed several critical vulnerabilities in our core networking infrastructure that required immediate patches.",
+                    "Establishing a shared design infrastructure in Figma allows the product design and frontend teams to maintain full visual consistency."
+                ]
+            },
+            {
+                word: "intervene",
+                phonetic: "/ˌɪntərˈviːn/",
+                meaning: "介入する、仲裁に入る、口を挟む",
+                definition: "To become involved in a situation to improve or change the outcome.",
+                example: "HR had to intervene to resolve the dispute between the two departments.",
+                aiPool: [
+                    "The system operations team had to manually intervene when the cloud infrastructure failed to scale automatically during the traffic spike.",
+                    "To prevent users from dropping off, the design team decided to intervene and simplify the overly complex multi-step checkout process.",
+                    "The senior product manager had to intervene when the technical contention between the backend and frontend teams stalled progress."
+                ]
+            },
+            {
+                word: "leverage",
+                phonetic: "/ˈlevərɪdʒ/",
+                meaning: "（名）影響力、手段 / （動）〜を最大限に活用する、利用する",
+                definition: "The use of influence or borrowed resources to gain an advantage.",
+                example: "The firm used its market position to leverage better contract terms.",
+                aiPool: [
+                    "The design team decided to leverage existing modern UI frameworks to accelerate the prototyping phase of the new product dashboard.",
+                    "By integrating AI capabilities into our software tools, we can leverage historical data to predict and prevent infrastructure vulnerabilities.",
+                    "The startup managed to leverage its unique intellectual property as collateral to gain more substantial funding from the venture capital firm."
+                ]
+            },
+            {
+                word: "mandatory",
+                phonetic: "/ˈmændətɔːri/",
+                meaning: "義務的な、強制的な、必須の",
+                definition: "Required or obligatory.",
+                example: "Attending the annual compliance seminar is mandatory for all employees.",
+                aiPool: [
+                    "To protect user accounts from unauthorized access, the security team made two-factor authentication a mandatory requirement.",
+                    "The frontend developers implemented a strict form validation system to ensure all mandatory design fields are filled before submission.",
+                    "Under the newly updated privacy guidelines, it is mandatory to obtain explicit user consent before tracking analytical data."
+                ]
+            },
+            {
+                word: "reconvene",
+                phonetic: "/ˌriːkənˈviːn/",
+                meaning: "再開する、再び召集する、再集合する",
+                definition: "To gather again after a break or pause.",
+                example: "The committee will reconvene next week to finalize the report.",
+                aiPool: [
+                    "After gathering feedback on the initial Figma wireframes, the design and product teams agreed to reconvene the following morning.",
+                    "The negotiation team decided to take a brief recess and reconvene once the financial data disparity was fully resolved.",
+                    "Since the core infrastructure metrics required deeper analysis, the security board will reconvene to approve the final patch."
+                ]
+            },
+            {
+                word: "safeguard",
+                phonetic: "/ˈseɪfɡɑːrd/",
+                meaning: "（動）〜を保護する、守る / （名）安全対策、保護条項、安全装置",
+                definition: "To protect something from harm; a measure taken to ensure safety.",
+                example: "The company implemented new protocols to safeguard customer data.",
+                aiPool: [
+                    "Implementing modern multi-factor authentication is an essential safeguard to protect active user accounts from unauthorized access.",
+                    "The security engineering team deployed advanced threat prevention tools to safeguard the core cloud infrastructure from data leaks.",
+                    "When designing software tools integrated with AI, we must establish strict guidelines to safeguard user privacy and sensitive data."
+                ]
+            },
+            {
+                word: "utterly",
+                phonetic: "/ˈʌtərli/",
+                meaning: "完全に、徹底的に、全く、すっかり",
+                definition: "Completely or absolutely.",
+                example: "The plan was utterly unrealistic given the current budget constraints.",
+                aiPool: [
+                    "Without a centralized design system in Figma, the product UI became utterly inconsistent across different screen layouts.",
+                    "The legacy database architecture was utterly incapable of handling the considerable traffic windfall from the viral campaign.",
+                    "The project timeline became utterly unmanageable after the engineering team encountered severe resource contention."
+                ]
+            },
+            {
+                word: "vicinity",
+                phonetic: "/vəˈsɪnəti/",
+                meaning: "近辺、周辺、近郊、〜の付近",
+                definition: "The area near or surrounding a particular place.",
+                example: "There are several restaurants in the vicinity of the conference center.",
+                aiPool: [
+                    "The mobile application leverages real-time location data to display interactive maps and security alerts within the user's immediate vicinity.",
+                    "When designing the navigation layout, ensure that critical action buttons are placed in the close vicinity of the main content area.",
+                    "The project estimation for the cloud infrastructure upgrade is in the vicinity of fifty thousand dollars, depending on storage needs."
+                ]
+            },
+            {
+                word: "accrual",
+                phonetic: "/əˈkruːəl/",
+                meaning: "発生、累積、蓄積（額）",
+                definition: "The accumulation or increase of something over time, especially financial items.",
+                example: "The accrual of unpaid interest was recorded at the end of the fiscal year.",
+                aiPool: [
+                    "Under the corporate accounting policy, the firm records revenue on an accrual basis rather than when cash is actually received.",
+                    "The HR management platform automatically calculates the monthly accrual of paid time off for all active employees.",
+                    "To safeguard the budget from sudden deficits, the financial team closely monitors the continuous accrual of operational liabilities."
+                ]
+            },
+            {
+                word: "adjudicate",
+                phonetic: "/əˈdʒuːdɪkeɪt/",
+                meaning: "判決を下す、裁定する、〜を解決する",
+                definition: "To make a formal judgment or decision about a problem or dispute.",
+                example: "The labor dispute was adjudicated by an independent arbitration panel.",
+                aiPool: [
+                    "A neutral third-party compliance board was brought in to adjudicate the patent infringement claim and settle the ongoing dispute.",
+                    "The automated moderation tool flagged the post, but human administrators had to intervene to adjudicate the complex content policy violation.",
+                    "To ensure fair play, the tournament organizers appointed a professional panel to adjudicate any technical complaints."
+                ]
+            },
+            {
+                word: "annex",
+                phonetic: "/əˈneks/ (v.), /ˈæneks/ (n.)",
+                meaning: "（動）〜を追加する、併合する / （名）別館、増築部分、添付書類、別紙",
+                definition: "To add or attach (especially territory); an added part of a building or document.",
+                example: "The company plans to annex the adjacent lot to expand its headquarters.",
+                aiPool: [
+                    "The complete technical layout and database schema were included in the third annex of the main software maintenance contract.",
+                    "To accommodate the expanding development team, the tech company signed a lease to annex the entire fourth floor of the neighboring building.",
+                    "The project manager decided to annex the user feedback summary to the final audit report before sending it to the board members."
+                ]
+            },
+            {
+                word: "arrears",
+                phonetic: "/əˈrɪəz/",
+                meaning: "滞納金、未払金、遅れ",
+                definition: "Money owed that should have been paid earlier.",
+                example: "The tenant was evicted due to being three months in arrears on rent payments.",
+                aiPool: [
+                    "The software subscription was temporarily suspended because the enterprise account was three months in arrears.",
+                    "The compliance auditor warned that the persistent arrears in vendor payments could negatively affect the company's credit rating.",
+                    "The finance department managed to recover the outstanding arrears by offering a structured installment payment plan."
+                ]
+            },
+            {
+                word: "blueprint",
+                phonetic: "/ˈbluːprɪnt/",
+                meaning: "設計図、青写真、詳細な計画・計画案、基本方針",
+                definition: "A detailed plan or outline.",
+                example: "The product development team presented a blueprint for the next-generation device.",
+                aiPool: [
+                    "The system architects created a detailed technical blueprint to migrate our legacy database infrastructure to a scalable cloud environment.",
+                    "Before writing any code, the product designer drafted a layout blueprint in Figma to ensure full visual consistency across all screens.",
+                    "This strategic framework serves as a comprehensive blueprint for integrating modern AI tools safely into our software development workflow."
+                ]
+            },
+            {
+                word: "conglomerate",
+                phonetic: "/kənˈɡlɒmərət/",
+                meaning: "複合企業、コングロマリット、大企業グループ",
+                definition: "A large corporation made up of diverse companies.",
+                example: "The media conglomerate owns several television networks and newspapers.",
+                aiPool: [
+                    "The global tech conglomerate acquired three promising startups to leverage their AI tools and expand into the cloud infrastructure market.",
+                    "After decades of expansion, the massive conglomerate consolidated its diverse subsidiaries into a single, unified brand identity.",
+                    "To satisfy the strict compliance guidelines of the financial conglomerate, the engineering team had to deploy mandatory security safeguards."
+                ]
+            },
+            {
+                word: "docket",
+                phonetic: "/ˈdɑːkɪt/",
+                meaning: "（名）訴訟事件一覧表、審理案件リスト、議事日程・タスク一覧",
+                definition: "A list of cases to be heard or items to be discussed.",
+                example: "The court’s docket includes several high-profile corporate lawsuits this month.",
+                aiPool: [
+                    "The corporate legal team reviewed the monthly court docket to prepare defense strategies for the upcoming intellectual property disputes.",
+                    "With multiple server incidents occurring during the system migration, our infrastructure operations team has a full docket of high-priority patches to deploy.",
+                    "The board meeting has a crowded docket today, ranging from approving the annual budget accrual to restructuring the engineering department."
+                ]
+            },
+            {
+                word: "fiscal",
+                phonetic: "/ˈfɪskl/",
+                meaning: "会計の、財務の、財政上の",
+                definition: "Related to government or company financial matters, especially budgeting.",
+                example: "The fiscal report shows a significant increase in quarterly revenue.",
+                aiPool: [
+                    "The board of directors approved the new fiscal policy to ensure long-term stability and precise budget allocation across all engineering departments.",
+                    "To comply with corporate governance standards, the finance team prepared a comprehensive audit report ahead of the fiscal year-end.",
+                    "The startup managed its resources frugally, allowing it to complete the cloud infrastructure migration without exceeding its fiscal budget."
+                ]
+            },
+            {
+                word: "forgery",
+                phonetic: "/ˈfɔːrdʒəri/",
+                meaning: "（名）偽造、偽造行為、偽造された文書",
+                definition: "The act of faking a document, signature, or item with intent to deceive.",
+                example: "He was arrested for forgery after submitting a fake check.",
+                aiPool: [
+                    "To prevent forgery and ensure data integrity, the system developers implemented advanced cryptographic digital signatures.",
+                    "The authentication app leverages biometric features to safeguard user accounts against sophisticated identity theft and credential forgery.",
+                    "The security team deployed an AI-driven tool to automatically detect the forgery of electronic documents and contracts."
+                ]
+            },
+            {
+                word: "grievance",
+                phonetic: "/ˈɡriːvəns/",
+                meaning: "不平、不満、苦情、苦情申し立て",
+                definition: "A complaint or concern, especially over unfair treatment.",
+                example: "Employees can file a formal grievance with HR if they feel mistreated.",
+                aiPool: [
+                    "The HR department established a confidential channel to ensure employees can safely submit a grievance regarding unfair team practices.",
+                    "We need to redesign the user dashboard to simplify the workflow for submitting a customer service grievance or technical feedback.",
+                    "To safeguard workplace culture, the committee reconvened to address the outstanding compliance grievances filed during the last audit."
+                ]
+            },
+            {
+                word: "impound",
+                phonetic: "/ɪmˈpaʊnd/",
+                meaning: "〜を押収する、差し押さえる、没収して一時保管する",
+                definition: "To seize and take legal custody of property.",
+                example: "Authorities have the right to impound vehicles that are illegally parked.",
+                aiPool: [
+                    "In cases of severe intellectual property infringement, the court may order law enforcement to impound all hardware containing the pirated code.",
+                    "Under the revised terms of service, the administration reserves the right to impound and freeze digital assets linked to fraudulent accounts.",
+                    "To safeguard the integrity of the investigation, the security audit team had to impound the compromised local database drive."
+                ]
+            },
+            {
+                word: "intestate",
+                phonetic: "/ɪnˈtesteɪt/",
+                meaning: "遺言を残さずに死亡した",
+                definition: "Dying without a valid legal will.",
+                example: "The estate was distributed according to state law, as he died intestate.",
+                aiPool: [
+                    "If a platform user passes away intestate, the distribution of their accumulated digital assets is governed strictly by default legal statutes.",
+                    "The estate planning platform helps clients structure their wealth to ensure they do not die intestate, avoiding complex asset disputes.",
+                    "The legal department had to intervene to resolve the ownership of the corporate shares after the majority owner died intestate."
+                ]
+            },
+            {
+                word: "litigious",
+                phonetic: "/lɪˈtɪdʒəs/",
+                meaning: "訴訟好きな、好訴的な、すぐに訴訟を起こす、訴訟になりやすい",
+                definition: "Prone to engaging in lawsuits or legal disputes.",
+                example: "The company has a litigious reputation and frequently sues competitors.",
+                aiPool: [
+                    "Operating in a highly litigious market requires our product development team to strictly follow every safety guideline and industry standard.",
+                    "To protect our software architecture from litigious competitors, we must secure comprehensive patent safeguards early in the design phase.",
+                    "The startup managed to navigate the litigious environment of the tech industry by resolving disputes through independent arbitration before they reached court."
+                ]
+            },
+            {
+                word: "memorandum",
+                phonetic: "/ˌmeməˈrændəm/",
+                meaning: "（名）覚書、社内連絡、メモ、通知",
+                definition: "A written message in business or diplomacy; an informal note.",
+                example: "A memorandum was sent to all departments outlining the updated work-from-home policy.",
+                aiPool: [
+                    "Before finalizing the formal contract, both tech conglomerates signed a memorandum of understanding (MoU) to stipulate their shared goals.",
+                    "The project manager drafted a concise technical memorandum detailing the layout changes required for the new UI/UX components.",
+                    "The compliance board issued an urgent memorandum to remind all employees about the mandatory digital signature protocols to prevent forgery."
+                ]
+            },
+            {
+                word: "probate",
+                phonetic: "/ˈproʊbeɪt/",
+                meaning: "（名）遺言の検認、遺言執行",
+                definition: "The legal process of verifying and executing a will.",
+                example: "The inheritance cannot be released until the will goes through probate.",
+                aiPool: [
+                    "To avoid the lengthy and expensive probate process, many families establish a living trust to manage and distribute their assets.",
+                    "The court appointed a legal administrator to oversee the probate of the estate and ensure that all outstanding debts were settled.",
+                    "Our estate planning platform simplifies the complex steps of probate by organizing all mandatory financial documents in a secure cloud database."
+                ]
+            }
+        ];
